@@ -1,4 +1,4 @@
-# Závěrečná práce na téma importu a exportu 3D modelů to webovské aplikace
+# Závěrečná práce na téma importu a exportu 3D modelů do webovské aplikace
 
 ## O práci <a name = "prace"></a>
 
