@@ -25,3 +25,5 @@ Hlavní cíl je fungující webovská aplikace
 ### - HTML
 ### - JAVASCRIPT
 ### - CSS
+
+## Zdroje
