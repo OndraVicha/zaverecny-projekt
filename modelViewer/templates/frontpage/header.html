@@ -1,0 +1,20 @@
+{% load static %}
+<style>
+.header {
+    background-image: url("{% static 'img/header.png' %}");
+    background-size: cover; /* Nastavuje, aby se obrázek automaticky přizpůsobil velikosti headeru */
+    background-position: center; /* Nastavuje, aby byl obrázek zarovnán na střed headeru */
+    height: auto
+; /* Nastavuje výšku headeru podle vašich požadavků */
+
+
+    color: white; /* Nastavuje barvu textu, aby byl viditelný na pozadí */
+    text-align: left; /* Zarovnání textu na střed headeru */
+     /* Odsazení obsahu uvnitř headeru pro lepší čitelnost */
+}
+</style>
+<header class="header">
+    <div class="container">
+        <h1 class="centered-text">Modely</h1>
+    </div>
+</header>

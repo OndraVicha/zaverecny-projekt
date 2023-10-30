@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+  justify-content: flex-start; /* Text bude zarovnán doleva */
+  align-items: center; /* Text bude zarovnán na střed vertikálně */
+  height: 50vh; /* Nastavte výšku kontejneru podle potřeby */
+
+}
+.centered-text {
+  margin: 0; /* Odstraní výchozí okraje odstavce */
+    font-weight: bold; /* Tučné písmo */
+     text-shadow: 2px 2px 4px #000; /* Horizontální a vertikální stín, rozmazání a barva stínu */
+}
