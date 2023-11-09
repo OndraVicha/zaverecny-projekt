@@ -1,12 +1,74 @@
+.header{
+    text-shadow: 0 3px 20px red;
+    text-align: left;
+}
+
 .container {
     display: flex;
-  justify-content: flex-start; /* Text bude zarovnán doleva */
-  align-items: center; /* Text bude zarovnán na střed vertikálně */
-  height: 50vh; /* Nastavte výšku kontejneru podle potřeby */
+    justify-content: flex-start; /* Text bude zarovnán doleva */
+    align-items: center; /* Text bude zarovnán na střed vertikálně */
+    height: 105vh; /* Nastavte výšku kontejneru podle potřeby */
+}
 
-}
 .centered-text {
-  margin: 0; /* Odstraní výchozí okraje odstavce */
     font-weight: bold; /* Tučné písmo */
-     text-shadow: 2px 2px 4px #000; /* Horizontální a vertikální stín, rozmazání a barva stínu */
+    text-shadow: 0 0 8px #adfaff; /* Horizontální a vertikální stín, rozmazání a barva stínu */
+    margin-bottom: 250px;
 }
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%; /* Position in the center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    width: 5px; /* Set the width of the line */
+    height: 100%; /* Extend from top to bottom */
+    background: rgba(94, 255, 233, 0.79); /* Color of the line */
+    box-shadow: 0 0 5px rgba(152, 229, 255, 0.6), 0 0 15px rgba(188, 237, 253, 0.6), 0 0 25px rgba(236, 250, 253, 0.6), 0 0 40px rgba(255, 255, 255, 0.24); /* Neon-like box-shadow */
+}
+
+@keyframes fadeRight {
+    from {
+        opacity: 0; /* Start with opacity 0 to make it invisible */
+        transform: translateX(100%); /* Start outside the viewport on the right */
+    }
+    to {
+        opacity: 1; /* End with opacity 1 to make it visible */
+        transform: translateX(0); /* End at its normal position */
+    }
+}
+
+.fade-in-element {
+    opacity: 0; /* Start with the element hidden */
+    animation: fadeIn 1s ease-in 1s forwards; /* Add an animation with a 1-second delay */
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1; /* When the animation completes, set opacity to 1 */
+    }
+}
+
+.fade-in-left {
+    opacity: 0; /* Start with the element hidden */
+    animation: fadeLeft 1s ease-in 1.5s forwards; /* Add an animation with a 1-second delay */
+    font-weight: bold;
+    padding-top: 100px;
+    margin-bottom: 150px;
+    margin-left: -100px;
+}
+
+@keyframes fadeLeft {
+    from {
+        opacity: 0; /* Start with opacity 0 to make it invisible */
+        transform: translateX(-100%); /* Start outside the viewport on the right */
+    }
+    to {
+        opacity: 1; /* End with opacity 1 to make it visible */
+        transform: translateX(0); /* End at its normal position */
+    }
+}
+
+
+

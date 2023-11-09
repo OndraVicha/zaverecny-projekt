@@ -2,17 +2,23 @@
 <style>
 .header {
     background-image: url("{% static 'img/header.png' %}");
+    background-position: center;
     background-size: cover;
-    background-position: bottom;
-    height: auto;
-    color: white;
-    text-align: left;
-    background-attachment: fixed;
-
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    color: #FFFFFF;
+    opacity: 1;
+    animation: fadeRight 1s forwards;
+    position: relative;
+    z-index: 1;
 }
 </style>
+
 <header class="header">
     <div class="container">
-        <h1 class="centered-text">Modely</h1>
+        <h1 class="centered-text fade-in-element">3D Modely</h1>
+        <p>
+            <h2 class="fade-in-left">Zdarma ke stažení</h2>
+        </p>
     </div>
 </header>

@@ -12,3 +12,4 @@ class Model3D(models.Model):
 
     def __str__(self):
         return self.title
+
