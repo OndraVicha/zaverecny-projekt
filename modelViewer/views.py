@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import UserCreationForm, LoginForm
@@ -15,7 +14,6 @@ def user_signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'user/signup.html', {'form': form})
-
 # login page
 def user_login(request):
     if request.method == 'POST':
@@ -30,7 +28,6 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'user/login.html', {'form': form})
-
 # logout page
 def user_logout(request):
     logout(request)

@@ -1,18 +1,29 @@
-.header{
+
+.header {
+    background-image: url("../img/background2.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    color: #F05941;
+    opacity: 1;
+    animation: fadeRight 1s forwards;
+    position: relative;
+    z-index: 1;
     text-shadow: 0 3px 20px red, 0 0 3px #ffffff;
     text-align: left;
 }
 
 .container {
     display: flex;
-    justify-content: flex-start; /* Text bude zarovnán doleva */
-    align-items: center; /* Text bude zarovnán na střed vertikálně */
-    height: 105vh; /* Nastavte výšku kontejneru podle potřeby */
+    justify-content: flex-start;
+    align-items: center;
+    height: 105vh;
 }
 
 .centered-text {
-    font-weight: bold; /* Tučné písmo */
-    text-shadow: 2px 3px 20px red,0 0 3px #ffffff; /* Horizontální a vertikální stín, rozmazání a barva stínu */
+    font-weight: bold;
+    text-shadow: 2px 3px 20px red, 0 0 3px #ffffff;
     margin-bottom: 250px;
 }
 
@@ -20,39 +31,28 @@
     content: '';
     position: absolute;
     top: 0;
-    left: 50%; /* Position in the center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
-    width: 5px; /* Set the width of the line */
-    height: 100%; /* Extend from top to bottom */
-    background: rgb(162, 0, 0); /* Color of the line */
-    box-shadow: 0 0 5px rgb(182, 29, 29), 0 0 15px rgb(243, 2, 2), 0 0 25px rgb(243, 56, 56), 0 0 40px rgb(245, 98, 98); /* Neon-like box-shadow */
-}
-
-@keyframes fadeRight {
-    from {
-        opacity: 0; /* Start with opacity 0 to make it invisible */
-        transform: translateX(100%); /* Start outside the viewport on the right */
-    }
-    to {
-        opacity: 1; /* End with opacity 1 to make it visible */
-        transform: translateX(0); /* End at its normal position */
-    }
-}
-
-.fade-in-element {
-    opacity: 0; /* Start with the element hidden */
-    animation: fadeIn 1s ease-in 1s forwards; /* Add an animation with a 1-second delay */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 100%;
+    background: rgb(162, 0, 0);
+    box-shadow: 0 0 5px rgb(182, 29, 29), 0 0 15px rgb(243, 2, 2), 0 0 25px rgb(243, 56, 56), 0 0 40px rgb(245, 98, 98);
 }
 
 @keyframes fadeIn {
     to {
-        opacity: 1; /* When the animation completes, set opacity to 1 */
+        opacity: 1;
     }
 }
 
+.fade-in-element {
+    opacity: 0;
+    animation: fadeIn 1s ease-in 1s forwards;
+}
+
 .fade-in-left {
-    opacity: 0; /* Start with the element hidden */
-    animation: fadeLeft 1s ease-in 1.5s forwards; /* Add an animation with a 1-second delay */
+    opacity: 0;
+    animation: fadeLeft 1s ease-in 1.5s forwards;
     font-weight: bold;
     margin-top: 100px;
     margin-bottom: 150px;
@@ -61,14 +61,22 @@
 
 @keyframes fadeLeft {
     from {
-        opacity: 0; /* Start with opacity 0 to make it invisible */
-        transform: translateX(-100%); /* Start outside the viewport on the right */
+        opacity: 0;
+        transform: translateX(-100%);
     }
     to {
-        opacity: 1; /* End with opacity 1 to make it visible */
-        transform: translateX(0); /* End at its normal position */
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
-
-
+@keyframes fadeRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
