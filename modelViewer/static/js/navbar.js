@@ -13,8 +13,11 @@ window.addEventListener('scroll', function () {
 
   if (offset > 0) {
     menuWrapper.classList.add('fixed');
+    document.getElementById('menu').style.background = 'rgba(5, 3, 3, 0.7)';
   } else {
     menuWrapper.classList.remove('fixed');
+    document.getElementById('menu').style.background = 'rgba(5, 3, 3, 0.95)';
+
   }
 });
 

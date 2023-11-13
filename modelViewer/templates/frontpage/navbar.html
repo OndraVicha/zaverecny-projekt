@@ -4,12 +4,12 @@
         <nav id='menu'>
           <ul>
               <li>
-               <a class="navbar-brand" href="">
+               <a class="navbar-brand no-hover">
                     <img class="logo" src="{% static 'img/logo-background.png' %}" alt="Logo" height="60px" width="60px">
                </a>
               </li>
-            <li><a href=''>Úvodní stránka</a></li>
-            <li><a class='dropdown-arrow' href=''>Modely</a>
+            <li style="width: 9.5%;"><a href=''>Úvodní stránka</a></li>
+            <li style="width: 6%;"><a class='dropdown-arrow' href=''>Modely</a>
               <ul class='sub-menus'>
                 <li><a href=''>Téma 1</a></li>
                 <li><a href=''>Téma 2</a></li>
@@ -17,16 +17,16 @@
                 <li><a href=''>Téma 4</a></li>
               </ul>
             </li>
-            <li><a href=''>Uživatelé</a></li>
-            <li><a class='dropdown-arrow' href=''>Něco</a>
+            <li style="width: 6%;"><a href=''>Uživatelé</a></li>
+            <li style="width: 5%;"><a class='dropdown-arrow' href=''>Něco</a>
               <ul class='sub-menus'>
                 <li><a href=''>Něco 1</a></li>
                 <li><a href=''>Něco 2</a></li>
                 <li><a href=''>Něco 3</a></li>
               </ul>
             </li>
-            <li><a href=''>O nás</a></li>
-            <li id="register-link"> {% include 'user/register.html' %}</li>
+            <li style="width: 5%;"><a href=''>O nás</a></li>
+            <li style="float:right; width: 5%;" id="register-link"> {% include 'user/register.html' %}</li>
           </ul>
         </nav>
     </div>

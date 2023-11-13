@@ -1,5 +1,5 @@
 .header{
-    text-shadow: 0 3px 20px red;
+    text-shadow: 0 3px 20px red, 0 0 3px #ffffff;
     text-align: left;
 }
 
@@ -12,7 +12,7 @@
 
 .centered-text {
     font-weight: bold; /* Tučné písmo */
-    text-shadow: 0 0 8px #adfaff; /* Horizontální a vertikální stín, rozmazání a barva stínu */
+    text-shadow: 2px 3px 20px red,0 0 3px #ffffff; /* Horizontální a vertikální stín, rozmazání a barva stínu */
     margin-bottom: 250px;
 }
 
@@ -24,8 +24,8 @@
     transform: translateX(-50%); /* Center horizontally */
     width: 5px; /* Set the width of the line */
     height: 100%; /* Extend from top to bottom */
-    background: rgba(94, 255, 233, 0.79); /* Color of the line */
-    box-shadow: 0 0 5px rgba(152, 229, 255, 0.6), 0 0 15px rgba(188, 237, 253, 0.6), 0 0 25px rgba(236, 250, 253, 0.6), 0 0 40px rgba(255, 255, 255, 0.24); /* Neon-like box-shadow */
+    background: rgb(162, 0, 0); /* Color of the line */
+    box-shadow: 0 0 5px rgb(182, 29, 29), 0 0 15px rgb(243, 2, 2), 0 0 25px rgb(243, 56, 56), 0 0 40px rgb(245, 98, 98); /* Neon-like box-shadow */
 }
 
 @keyframes fadeRight {
@@ -54,7 +54,7 @@
     opacity: 0; /* Start with the element hidden */
     animation: fadeLeft 1s ease-in 1.5s forwards; /* Add an animation with a 1-second delay */
     font-weight: bold;
-    padding-top: 100px;
+    margin-top: 100px;
     margin-bottom: 150px;
     margin-left: -100px;
 }

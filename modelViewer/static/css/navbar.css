@@ -1,7 +1,6 @@
 #menu {
-  background: rgba(5, 3, 3, 0.64);
-  height: 69px;
-  line-height: 67px;
+  background: rgba(5, 3, 3, 0.95);
+  height: auto;
   padding: 0;
   margin: 0; /* Remove margin to stretch the navbar */
   text-decoration: none;
@@ -24,7 +23,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.5);
   transition: background 1s;
   z-index: 998;
 }
@@ -42,6 +41,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  text-align: center;
 }
 
 #menu ul {
@@ -52,6 +52,7 @@
   float: left;
   display: inline;
   position: relative;
+  font-size: 100%;
 }
 
 #menu a {
@@ -62,6 +63,7 @@
   color: #FFFFFF;
   font-size: 19px;
   text-transform: uppercase;
+  transition: color 0.7s, background 0.7s;
 }
 
 #menu a.dropdown-arrow:after {
@@ -69,9 +71,12 @@
   margin-left: 5px;
 }
 
-#menu li a:hover {
+#menu li a:not(.no-hover):hover {
   color: #ffffff;
-  background: rgba(196, 189, 189, 0.5);
+  background: rgba(129, 13, 13, 0.8);
+  font-size: 125%;
+  transition: font-size 0.5s;
+
 }
 
 #menu input {
@@ -99,32 +104,36 @@
 }
 
 #menu ul.sub-menus {
-  height: auto;
   overflow: hidden;
   width: 170px;
-  background: #aaf2fc;
+  background: rgba(5, 3, 3, 0.5);
   position: absolute;
   z-index: 1;
-  display: none;
+  max-height: 0; /* Set the initial max-height to 0 */
+  display: block; /* Change to 'block' so the initial state is displayed */
+  transition: max-height 0.3s ease; /* Add this line for smooth transition */
 }
 
 #menu ul.sub-menus li {
   display: block;
   width: 100%;
+
 }
 
 #menu ul.sub-menus a {
-  color: #050303;
+  color: #ffffff;
   font-size: 16px;
 }
 
 #menu li:hover ul.sub-menus {
   display: block;
+  max-height: 300px; /* Set the desired maximum height */
 }
 
 #menu ul.sub-menus a:hover {
-  background: #F2F2F2;
-  color: #444444;
+  background: #4b0f0f;
+  color: #ffffff;
+   max-height: 300px; /* Set the desired maximum height */
 }
 
 .fade-in-from-top {
