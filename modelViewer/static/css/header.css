@@ -19,6 +19,7 @@
     justify-content: flex-start;
     align-items: center;
     height: 105vh;
+    padding-left: 200px;
 }
 
 .centered-text {

@@ -1,7 +1,17 @@
-<h1>Login</h1>
-<form method="POST">
+{% extends 'home.html' %}
+  
+{% block nazev %}Login{% endblock %}
+  
+{% block user %}
+  <h2>Login</h2> {{ msg }}
+    <div class="container">
+  <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
-    <a href="{% url 'signup' %}">Dont have Account Create</a>
-</form>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <a href="/signup">Dont have account? Sign up</a>
+  </form>
+
+    </div>
+{% endblock %}

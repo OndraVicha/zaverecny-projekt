@@ -1,7 +1,19 @@
-<h1>Signup</h1>
-<form method="POST">
+{% extends 'home.html' %}
+  
+{% block user %}
+  <h2>Sign up</h2>
+  <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Signup</button>
-    <a href="{% url 'login' %}">Already have account?</a>
-</form>
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Sign up</button>
+    <a href="/signin">Already have an account? Sign in</a>
+  </form>
+{% endblock %}
