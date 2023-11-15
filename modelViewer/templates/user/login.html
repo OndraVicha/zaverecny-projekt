@@ -3,15 +3,15 @@
 {% block nazev %}Login{% endblock %}
   
 {% block user %}
-  <h2>Login</h2> {{ msg }}
     <div class="container">
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <button type="submit" class="btn btn-primary">Login</button>
-    <a href="/signup">Dont have account? Sign up</a>
-  </form>
-
+      <h2>Login</h2> {{ msg }}
+        <div class="container">
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="/signup">Dont have account? Sign up</a>
+          </form>
+        </div>
     </div>
 {% endblock %}

@@ -46,7 +46,7 @@ def signin(request):
 
 
 def profile(request):
-    return render(request, 'user/register.html')
+    return render(request, 'user/profile.html')
 
 
 def signout(request):
