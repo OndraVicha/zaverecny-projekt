@@ -25,10 +25,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("modelViewer/", include("modelViewer.urls")),
     path('', RedirectView.as_view(url='modelViewer/')),
-    path('signin/',views.signin, name='signin'),
-    path('signout/',views.signout, name='signout'),
-    path('signup/',views.signup, name='signup'),
-    path('profile/',views.profile, name='profile'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

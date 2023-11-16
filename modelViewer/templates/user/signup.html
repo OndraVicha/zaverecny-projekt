@@ -1,9 +1,10 @@
 {% extends 'home.html' %}
-{% block nazev %}Sign Up{% endblock %}
-{% block user %}
+{% block nazev %}Sign up{% endblock %}
+{% block h1 %}<h1 class="h1">Sign up</h1>{% endblock %}
 
-  <div class="container">
-  <h2>Sign up</h2>
+
+{% block user %}
+  <div class="center text-white">
      <div class="container">
           <form method="post">
             {% csrf_token %}
@@ -16,8 +17,9 @@
                 {% endfor %}
               </p>
             {% endfor %}
+          <br>
             <button type="submit" class="btn btn-success">Sign up</button>
-            <a href="/signin">Already have an account? Sign in</a>
+            <a href="/modelViewer/signin">Already have an account? Sign in</a>
           </form>
      </div>
   </div>

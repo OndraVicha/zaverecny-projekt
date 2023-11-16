@@ -1,17 +1,24 @@
 {% extends 'home.html' %}
-  
 {% block nazev %}Login{% endblock %}
-  
+{% block h1 %}<h1 class="h1">Login</h1>{% endblock %}
+
 {% block user %}
+<div class="center">
     <div class="container">
-      <h2>Login</h2> {{ msg }}
-        <div class="container">
-          <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Login</button>
-            <a href="/signup">Dont have account? Sign up</a>
-          </form>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
         </div>
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            {{ form.password }}
+        </div>
+          <hr>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a href="/modelViewer/signup">Don't have an account? Sign up</a>
+      </form>
     </div>
+</div>
 {% endblock %}

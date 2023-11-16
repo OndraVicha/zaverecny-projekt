@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+
+{% block nazev %}Model Delete{% endblock %}
+{% block h1 %}<h1 class="h1">Model Delete</h1>{% endblock %}
+
+{% block content %}
+    <div class="center text-white">
+        <div class="container">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete the model "{{ model.title }}"?</p>
+          <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+          </form>
+        </div>
+    </div>
+{% endblock %}
+
+<div class="center">
+    <div class="container">
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to delete the model "{{ model.title }}"?</p>
+      <form method="post" action="">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+</div>

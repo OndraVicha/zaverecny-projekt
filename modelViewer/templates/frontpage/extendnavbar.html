@@ -1,10 +1,10 @@
 {% load static %}
    {% if user.is_authenticated %}
 
-           <a href='/profile'>{{ user.username }}</a>
+           <a href='/modelViewer/profile'>{{ user.username }}</a>
           <ul class='sub-menus'>
-              <li><a href='/profile' class="no-hover">Profil</a></li>
-              <li><a href="/signout" class="btn-danger no-hover">Odhlásit se</a></li>
+              <li><a href='/modelViewer/profile' class="no-hover">Profil</a></li>
+              <li><a href="/modelViewer/signout" class="btn-danger no-hover">Odhlásit se</a></li>
           </ul>
 
         <li style="float:right !important;">
@@ -13,5 +13,5 @@
            </a>
         </li>
     {% else %}
-      <a href="/signin"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+      <a href="/modelViewer/signin"><span class="glyphicon glyphicon-log-in"></span>Login</a>
     {% endif %}

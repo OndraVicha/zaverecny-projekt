@@ -1,15 +1,43 @@
 {% extends 'home.html' %}
-
-{% block nazev %}Profile{% endblock %}
+{% include 'user/user.html' %}
+{% block nazev %}Profil{% endblock %}
+{% block h1 %}<h1 class="h1">Welcome {{ user.username }}!</h1>{% endblock %}
 
 {% block user %}
-   <h2>Welcome!</h2>
-   {% if user.is_authenticated %}
-      Hi {{ user.username }}!
-       <hr>
-      <a style="float:right" href="/signout" class="btn btn-danger">Logout</a>
+
+    {% if user.is_authenticated %}
+        <h2 class="text-white">Uploaded models:</h2>
+        {% if user_uploaded_models %}
+            <div class="w3-container text-white">
+                <div class="row">
+                    {% for model in user_uploaded_models %}
+                        <div class="col-md-4 mb-4">
+                            <div class="w3-card-4 border border-danger bg-secondary" style="height: 100%;">
+                                <img src="{{ model.image.url }}" alt="{{ model.title }}" style="width:100%; height:500px; object-fit: cover;" class="img-fluid">
+                                <h2 class="text-center">{{ model.title }} - {{ model.upload_date }}</h2>
+                                <div class="w3-container w3-center">
+                                    <div class="container">
+                                        <p>{{ model.description }}</p>
+                                    </div>
+                                </div>
+                                <!-- Delete Button -->
+                                <button class="btn btn-danger delete-btn" data-toggle="modal" data-target="#deleteModelModal{{ model.id }}">
+                                    <a class="text-white text-decoration-none"href="{% url 'delete_model' model.id %}">Delete Model</a>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+             <hr>
+            <p class="text-white">No models uploaded yet.</p>
+        {% endif %}
+<br>
+        <a style="float:left" href="/modelViewer/upload_3d_model" class="btn btn-success">Upload Model</a>
+        <a style="float:right" href="/modelViewer/signout" class="btn btn-danger">Logout</a>
     {% else %}
-      <a href="/signin" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span>Login</a>
-      <a href="/signup" class="btn btn-success">Signup</a>
+        <a href="/modelViewer/signin" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+        <a href="/modelViewer/signup" class="btn btn-success">Signup</a>
     {% endif %}
 {% endblock %}
