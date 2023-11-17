@@ -1,0 +1,17 @@
+{% extends 'home.html' %}
+ {% block nazev %}Edit{% endblock %}
+{% block h1 %}<h1 class="h1">Edit 3D Model</h1>{% endblock %}
+
+{% block content %}
+<div class="center text-white">
+    <div class="row mx-0 justify-content-center">
+            <div style="width: 50%">
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Save changes</button>
+                  </form>
+            </div>
+    </div>
+</div>
+{% endblock %}

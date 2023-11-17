@@ -3,8 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from .forms import ThreeDModelForm,StyledAuthenticationForm
-from .models import ThreeDModel
+from .models import ThreeDModel,Category
 from django.contrib import messages
+from django.db import models
 
 def index(request):
 	return render(request, 'index.html')
@@ -85,3 +86,17 @@ def delete_model(request, model_id):
         return redirect('/modelViewer/profile')  # Redirect to the profile view
 
     return render(request, 'models/delete_model_confirm.html', {'model': model})
+
+def edit_3d_model(request, model_id):
+    instance = get_object_or_404(ThreeDModel, id=model_id)
+
+    if request.method == 'POST':
+        form = ThreeDModelForm(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+            # Upraveno úspěšně, můžete přidat zprávu nebo přesměrování
+            return redirect('/modelViewer/profile', model_id=model_id)
+    else:
+        form = ThreeDModelForm(instance=instance)
+
+    return render(request, 'models/edit_3d_model.html', {'form': form, 'instance': instance})

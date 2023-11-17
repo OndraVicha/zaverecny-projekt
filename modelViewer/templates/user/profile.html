@@ -1,32 +1,60 @@
 {% extends 'home.html' %}
 {% include 'user/user.html' %}
+
 {% block nazev %}Profil{% endblock %}
+
 {% block h1 %}<h1 class="h1">Welcome {{ user.username }}!</h1>{% endblock %}
 
-{% block user %}
+{% block add %}
+    <div class="container mb-2">
+        <div class="float-left">
+            <a href="/modelViewer/upload_3d_model" class="btn btn-success">Upload Model</a>
+        </div>
+        <div class="float-right">
+            <a href="/modelViewer/signout" class="btn btn-danger">Logout</a>
+        </div>
+        <div style="clear: both;"></div> <!-- Toto zajistí, aby další obsah byl pod tlačítky -->
+    </div>
+ {% endblock %}
 
+{% block user %}
     {% if user.is_authenticated %}
-        <h2 class="text-white">Uploaded models:</h2>
-        {% if user_uploaded_models %}
-            <div class="w3-container text-white">
-                <div class="row">
-                    {% for model in user_uploaded_models %}
-                        <div class="col-md-4 mb-4">
-                            <div class="w3-card-4 border border-danger bg-secondary" style="height: 100%;">
-                                <img src="{{ model.image.url }}" alt="{{ model.title }}" style="width:100%; height:500px; object-fit: cover;" class="img-fluid">
-                                <h2 class="text-center">{{ model.title }} - {{ model.upload_date }}</h2>
-                                <div class="w3-container w3-center">
-                                    <div class="container">
-                                        <p>{{ model.description }}</p>
+        <div class="container">
+            <h2 class="text-white">Uploaded models:</h2>
+            {% if user_uploaded_models %}
+                <div class="w3-container text-white">
+                    <div class="row">
+                        {% for model in user_uploaded_models %}
+                            <div class="col-md-4 mb-4">
+                                <div class="w3-card-4 border border-danger bg-secondary" style="height: 100%;">
+                                    <img src="{{ model.image.url }}" alt="{{ model.title }}" style="width:100%; height:500px; object-fit: cover;" class="img-fluid">
+                                    <h2 class="text-center">{{ model.title }}</h2>
+                                    <div class="w3-container w3-center">
+                                        <div class="container">
+                                            <p>{{ model.description }}</p>
+                                        </div>
+
+                                        <div class="container">
+                                            {% for category in model.categories.all %}
+                                                {{ category.name }},
+                                            {% endfor %}
+                                        </div>
+                                    <br>
+                                        <div class="container">
+                                            <p>{{ model.upload_date }}</p>
+                                        </div>
                                     </div>
+                                    <!-- Delete Button -->
+                                    <button class="btn btn-danger delete-btn">
+                                        <a class="text-white text-decoration-none" href="{% url 'delete_model' model.id %}">Delete Model</a>
+                                    </button>
+                                    <button class="btn btn-primary delete-btn float-right">
+                                        <a class="text-white text-decoration-none" href="{% url 'edit_3d_model' model.id %}">Edit Model</a>
+                                    </button>
                                 </div>
-                                <!-- Delete Button -->
-                                <button class="btn btn-danger delete-btn" data-toggle="modal" data-target="#deleteModelModal{{ model.id }}">
-                                    <a class="text-white text-decoration-none"href="{% url 'delete_model' model.id %}">Delete Model</a>
-                                </button>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         {% else %}
@@ -34,8 +62,6 @@
             <p class="text-white">No models uploaded yet.</p>
         {% endif %}
 <br>
-        <a style="float:left" href="/modelViewer/upload_3d_model" class="btn btn-success">Upload Model</a>
-        <a style="float:right" href="/modelViewer/signout" class="btn btn-danger">Logout</a>
     {% else %}
         <a href="/modelViewer/signin" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span>Login</a>
         <a href="/modelViewer/signup" class="btn btn-success">Signup</a>

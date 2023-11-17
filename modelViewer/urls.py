@@ -10,4 +10,5 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('upload_3d_model/', views.upload_3d_model, name='upload_3d_model'),
     path('delete_model/<int:model_id>/', views.delete_model, name='delete_model'),
+    path('edit_3d_model/<int:model_id>/', views.edit_3d_model, name='edit_3d_model'),
 ]
