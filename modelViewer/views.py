@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404,render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
@@ -68,6 +69,7 @@ def upload_3d_model(request):
             three_d_model = form.save(commit=False)
             three_d_model.user = request.user
             three_d_model.save()
+            form.save_m2m()
             messages.success(request, '3D model uploaded successfully.')
             return redirect('/modelViewer/profile')  # Přesměrování na domovskou stránku nebo kamkoliv jinam
         else:
@@ -100,3 +102,11 @@ def edit_3d_model(request, model_id):
         form = ThreeDModelForm(instance=instance)
 
     return render(request, 'models/edit_3d_model.html', {'form': form, 'instance': instance})
+
+def model(request, model_id):
+    user_uploaded_models = ThreeDModel.objects.filter(user=request.user)
+    return render(request, 'models/view_3dmodel.html', {'user_uploaded_models': user_uploaded_models})
+
+def file(request , model_id):
+    file = get_object_or_404(ThreeDModel, id=model_id)
+    return render(request, 'models/view_3dmodel.html', {'file':file})
