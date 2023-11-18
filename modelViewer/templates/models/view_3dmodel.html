@@ -1,17 +1,64 @@
 {% extends 'home.html' %}
+<script src="https://unpkg.com/aframe-model-scaler/dist/aframe-model-scaler.min.js"></script>
 {% block nazev %}Model{% endblock %}
 {% block h1 %}<h1 class="h1">Model</h1>{% endblock %}
 
 {% block user %}
     <div class="center">
-           <a-scene class="aframebox" embedded>
-                <a-assets>
-                    <a-asset-item id="model" src="{{ model.file.name }}"></a-asset-item>
-                </a-assets>
-                <a-entity gltf-model="#model" position="0 0 -5"></a-entity>
-                <a-camera position="0 1.6 0">
-                    <a-cursor></a-cursor>
-                </a-camera>
+        <a-scene class="aframebox" embedded scale="0.1 0.1 0.1">
+            <a-assets>
+              <a-asset-item id="model" src="{{ model.file.url }}"></a-asset-item>
+            </a-assets>
+
+            <!-- Add Ambient Light -->
+            <a-light type="ambient" position="1 1 1" intensity="1"></a-light>
+
+            <a-entity gltf-model="#model" position="1 1 1" rotation="0 0 0" />
+
+            <a-camera
+              id="camera"
+              position="0 1.5 2"
+              rotation="0 0 0"
+              wasd-controls
+              keyboard-controls="fly: true; acceleration: 100"
+            >
+              <a-cursor></a-cursor>
+            </a-camera>
+
+            <script>
+              var camera = document.querySelector('#camera');
+              var moveDirection = 0; // 0 for no movement, 1 for up, -1 for down
+
+              document.addEventListener('keydown', function (event) {
+                 if (event.key === 'Shift') {
+                    moveDirection = -1; // Move down
+                 } else if (event.key === ' ') {
+                    moveDirection = 1; // Move up
+                 }
+              });
+
+              document.addEventListener('keyup', function (event) {
+                 if (event.key === 'Shift' || event.key === ' ') {
+                    moveDirection = 0; // Stop movement
+                 }
+              });
+
+              function moveCamera() {
+                 var currentPosition = camera.getAttribute('position');
+                 var deltaY = moveDirection * 0.1; // Adjust the step size as needed
+
+                 camera.setAttribute('position', {
+                    x: currentPosition.x,
+                    y: currentPosition.y + deltaY,
+                    z: currentPosition.z,
+                 });
+
+                 requestAnimationFrame(moveCamera);
+              }
+
+              // Start the movement loop
+              moveCamera();
+            </script>
             </a-scene>
-</div>
+    </div>
 {% endblock %}

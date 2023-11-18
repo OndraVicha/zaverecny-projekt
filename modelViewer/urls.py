@@ -12,5 +12,4 @@ urlpatterns = [
     path('delete_model/<int:model_id>/', views.delete_model, name='delete_model'),
     path('edit_3d_model/<int:model_id>/', views.edit_3d_model, name='edit_3d_model'),
     path('model/<int:model_id>/', views.model, name='model'),
-    path('file/<int:model_id>/', views.file, name='file'),
 ]

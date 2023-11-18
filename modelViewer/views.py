@@ -104,9 +104,10 @@ def edit_3d_model(request, model_id):
     return render(request, 'models/edit_3d_model.html', {'form': form, 'instance': instance})
 
 def model(request, model_id):
-    user_uploaded_models = ThreeDModel.objects.filter(user=request.user)
-    return render(request, 'models/view_3dmodel.html', {'user_uploaded_models': user_uploaded_models})
 
-def file(request , model_id):
-    file = get_object_or_404(ThreeDModel, id=model_id)
-    return render(request, 'models/view_3dmodel.html', {'file':file})
+    model = get_object_or_404(ThreeDModel, pk=model_id, user=request.user)
+    context = {
+        'model': model,
+    }
+
+    return render(request, 'models/view_3dmodel.html', context)
