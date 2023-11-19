@@ -4,61 +4,148 @@
 {% block h1 %}<h1 class="h1">Model</h1>{% endblock %}
 
 {% block user %}
-    <div class="center">
-        <a-scene class="aframebox" embedded scale="0.1 0.1 0.1">
-            <a-assets>
-              <a-asset-item id="model" src="{{ model.file.url }}"></a-asset-item>
-            </a-assets>
+    <div class="container">
+        <div class="center">
+            <a-scene class="aframebox" embedded>
+                <a-assets>
+                  <a-asset-item id="model" src="{{ model.file.url }}"></a-asset-item>
+                </a-assets>
 
-            <!-- Add Ambient Light -->
-            <a-light type="ambient" position="1 1 1" intensity="1"></a-light>
+                <!-- Add Ambient Light -->
+                <a-light type="ambient" position="1 1 1" intensity="1"></a-light>
 
-            <a-entity gltf-model="#model" position="1 1 1" rotation="0 0 0" />
+                <a-entity gltf-model="#model" max-dimensions  position="0 0 0" rotation="0 0 0" />
 
-            <a-camera
-              id="camera"
-              position="0 1.5 2"
-              rotation="0 0 0"
-              wasd-controls
-              keyboard-controls="fly: true; acceleration: 100"
-            >
-              <a-cursor></a-cursor>
-            </a-camera>
+                <a-camera
+                  id="camera"
+                  position="5 1.5 5"
+                  rotation="0 0 0"
+                  wasd-controls
+                >
+                  <a-cursor></a-cursor>
+                </a-camera>
 
-            <script>
-              var camera = document.querySelector('#camera');
-              var moveDirection = 0; // 0 for no movement, 1 for up, -1 for down
+               <script>
+                   AFRAME.registerComponent('max-dimensions', {
+                      init: function () {
+                        // Nastavení maximálních rozměrů modelu
+                        var maxDimensions = { x: 1, y: 1, z: 1 };
 
-              document.addEventListener('keydown', function (event) {
-                 if (event.key === 'Shift') {
-                    moveDirection = -1; // Move down
-                 } else if (event.key === ' ') {
-                    moveDirection = 1; // Move up
-                 }
-              });
+                        this.el.addEventListener('model-loaded', function () {
+                          // Získání aktuálních rozměrů modelu
+                          var modelDimensions = this.getObject3D('mesh').geometry.boundingBox.getSize();
 
-              document.addEventListener('keyup', function (event) {
-                 if (event.key === 'Shift' || event.key === ' ') {
-                    moveDirection = 0; // Stop movement
-                 }
-              });
+                          // Nastavení maximálních rozměrů modelu na základě aktuálních rozměrů
+                          var scaleFactor = Math.min(
+                            maxDimensions.x / modelDimensions.x,
+                            maxDimensions.y / modelDimensions.y,
+                            maxDimensions.z / modelDimensions.z
+                          );
 
-              function moveCamera() {
-                 var currentPosition = camera.getAttribute('position');
-                 var deltaY = moveDirection * 0.1; // Adjust the step size as needed
+                          this.setAttribute('scale', scaleFactor + ' ' + scaleFactor + ' ' + scaleFactor);
+                        });
+                      }
+                    });
 
-                 camera.setAttribute('position', {
-                    x: currentPosition.x,
-                    y: currentPosition.y + deltaY,
-                    z: currentPosition.z,
-                 });
+                    var camera = document.querySelector('#camera');
+                    var moveDirection = 0; // 0 for no movement, 1 for up, -1 for down
 
-                 requestAnimationFrame(moveCamera);
-              }
+                    document.addEventListener('keydown', function (event) {
+                        if (event.key === 'Shift') {
+                            moveDirection = -1; // Move down
+                        } else if (event.key === ' ') {
+                            moveDirection = 1; // Move up
+                        } else if (event.key === 'r') {
+                            resetCamera(); // Call the resetCamera function on 'r' key press
+                        } else if (event.key === 'x') {
+                            resetCameraX(); // Call the resetCamera function on 'r' key press
+                        }else if (event.key === 'y') {
+                            resetCameraY(); // Call the resetCamera function on 'r' key press
+                        }else if (event.key === 'z') {
+                            resetCameraZ(); // Call the resetCamera function on 'r' key press
+                        }
+                    });
 
-              // Start the movement loop
-              moveCamera();
-            </script>
-            </a-scene>
+                    document.addEventListener('keyup', function (event) {
+                        if (event.key === 'Shift' || event.key === ' ') {
+                            moveDirection = 0; // Stop movement
+                        }
+                    });
+
+                    function moveCamera() {
+                        var currentPosition = camera.getAttribute('position');
+                        var deltaY = moveDirection * 0.1; // Adjust the step size as needed
+
+                        camera.setAttribute('position', {
+                            x: currentPosition.x,
+                            y: currentPosition.y + deltaY,
+                            z: currentPosition.z,
+                        });
+
+                        requestAnimationFrame(moveCamera);
+                    }
+
+                    function resetCamera() {
+                        // Set the position of the camera
+                        camera.setAttribute('position', { x: 0, y: 0, z: 5 });
+
+                        // Get the current position of the camera
+                        var currentPosition = camera.getAttribute('position');
+
+                        // Calculate the rotation needed to look at the specified point
+                        var rotation = calculateLookAtRotation(currentPosition, { x: 0, y: 0, z: 0 });
+
+                        // Set the rotation of the camera using the Euler order YXZ
+                        camera.setAttribute('rotation', { x: rotation.x, y: rotation.y, z: 0 });
+                    }
+
+                    // Function to calculate the rotation needed to look at a specific point
+                    function calculateLookAtRotation(currentPosition, targetPosition) {
+                        var deltaX = targetPosition.x - currentPosition.x;
+                        var deltaY = targetPosition.y - currentPosition.y;
+                        var deltaZ = targetPosition.z - currentPosition.z;
+
+                        // Calculate the yaw (y-axis rotation)
+                        var yaw = Math.atan2(deltaX, deltaZ);
+
+                        // Calculate the pitch (x-axis rotation)
+                        var distanceXZ = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
+                        var pitch = -Math.atan2(deltaY, distanceXZ);
+
+                        // Return the rotation as an object
+                        return { x: pitch * (180 / Math.PI), y: yaw * (180 / Math.PI), z: 0 };
+                    }
+
+                    function resetCameraX() {
+                        camera.setAttribute('position', { x: 0, y: 0, z: 5 });
+                        camera.setAttribute('rotation', { x: 0, y: 0, z: 0 });
+                    }
+
+                    function resetCameraY() {
+                        camera.setAttribute('position', { x: 5, y: 0, z: 0 });
+                        camera.setAttribute('rotation', { x: 0, y: 90, z: 0 });
+                    }
+
+                    function resetCameraZ() {
+                        camera.setAttribute('position', { x: 0, y: 5, z: 0 });
+                        camera.setAttribute('rotation', { x: -90, y: 0, z: 0 });
+                    }
+
+                    // Start the movement loop
+                    moveCamera();
+                </script>
+                </a-scene>
+        </div>
+        <div class="text-white center">
+            <p>Pohyb do stran WASD</p>
+            <p>Pohyb nahoru a dolů SPACEBAR a SHIFT</p>
+            <p>Otočení pohledu kliknutí a posunutí myši</p>
+        </div>
+        <div class="d-flex justify-content-center">
+
+            <button class="btn btn-success delete-btn center">
+                <a class="text-white text-decoration-none" href='/modelViewer/profile'>Return</a>
+            </button>
+        </div>
     </div>
 {% endblock %}
