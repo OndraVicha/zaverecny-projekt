@@ -1,8 +1,8 @@
 {% extends 'home.html' %}
+{% block nazev %}Search model{% endblock %}
+{% block h1 %}<h1 class="h1">Models</h1>{% endblock %}
 
 {% block search %}
-  <h2>Model List</h2>
-
     <form method="get" action="{% url 'model_list' %}">
         <div class="text-white">
             <label for="model_name">Search by Model Name:</label>
