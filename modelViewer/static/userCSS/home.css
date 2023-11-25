@@ -1,11 +1,5 @@
 
-body{
-    background-image: url("../img/background2.png");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-}
+
 .h1{
     padding-top: 100px;
     text-align: center;

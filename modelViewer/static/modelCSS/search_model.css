@@ -1,0 +1,29 @@
+.model-details {
+    display: none;
+    z-index: 1;
+}
+
+.page-details{
+    position: static;
+}
+.image-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.text-white {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    flex: 1 0 calc(50% - 20px); /* 2 columns with margin included */
+
+}

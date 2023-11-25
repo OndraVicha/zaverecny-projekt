@@ -14,10 +14,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
             <script src="{% static 'js/navbar.js' %}"></script>
     </head>
+    {% include 'frontpage/navbar.html' %}
     <body class="body">
-        {% include 'frontpage/navbar.html' %}
+        {% include 'frontpage/header.html' %}
         <main>
-            {% include 'frontpage/header.html' %}
+
             {% block content %} {% endblock %}
         </main>
         {% include 'frontpage/footer.html' %}

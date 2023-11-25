@@ -1,6 +1,12 @@
 body {
-    background: #111111;
-    text-shadow: 0 0 1px #f7ff01;
+
     color: white;
     z-index: 1;
+    background-image: url("../img/background2.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Toto udrží pozadí pevné na jednom místě */
+    position: relative; /* Může být potřeba změnit na 'relative' v závislosti na struktuře stránky */
+    text-align: left;
 }

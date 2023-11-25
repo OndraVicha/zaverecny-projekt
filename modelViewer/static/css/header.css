@@ -1,14 +1,12 @@
 
 .header {
-    background-image: url("../img/background2.png");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
+     display: flex;
+    justify-content: center;
+    align-items: center;
     color: #F05941;
     opacity: 1;
     animation: fadeRight 1s forwards;
-    position: relative;
+    position: absolute;
     z-index: 1;
     text-shadow: 0 3px 20px red, 0 0 3px #ffffff;
     text-align: left;
@@ -31,9 +29,9 @@
 .header::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     width: 5px;
     height: 100%;
     background: rgb(162, 0, 0);

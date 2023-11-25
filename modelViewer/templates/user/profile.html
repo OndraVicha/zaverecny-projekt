@@ -29,7 +29,7 @@
                                 <div class="w3-card-4 border border-danger bg-secondary" style="height: 100%;">
                                     <img src="{{ model.image.url }}" alt="{{ model.title }}" style="width:100%; height:500px; object-fit: cover;" class="img-fluid">
                                     <button class="btn btn-info delete-btn mt-2 w-100">
-                                            <a class="text-white text-decoration-none" href="{% url 'model' model.id %}">View Model</a>
+                                            <a class="text-white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
                                     </button>
                                     <div style="clear: both;"></div>
                                     <h2 class="text-center">{{ model.title }}</h2>
