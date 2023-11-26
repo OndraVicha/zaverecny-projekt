@@ -1,5 +1,4 @@
 body {
-
     color: white;
     z-index: 1;
     background-image: url("../img/background2.png");
@@ -7,6 +6,6 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed; /* Toto udrží pozadí pevné na jednom místě */
-    position: relative; /* Může být potřeba změnit na 'relative' v závislosti na struktuře stránky */
+
     text-align: left;
 }

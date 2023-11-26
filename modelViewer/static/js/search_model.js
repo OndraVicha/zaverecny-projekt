@@ -4,12 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
     modelCards.forEach(function(card) {
         card.addEventListener('mouseover', function() {
             var details = card.querySelector('.model-details');
+            var pageDetails = document.querySelector('.page-details');
             details.style.display = 'block';
+            pageDetails.classList.add('active');
         });
 
         card.addEventListener('mouseout', function() {
             var details = card.querySelector('.model-details');
+            var pageDetails = document.querySelector('.page-details');
             details.style.display = 'none';
+            pageDetails.classList.remove('active');
         });
     });
 });

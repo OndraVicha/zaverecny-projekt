@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{% static 'modelCSS/search_model.css' %}">
         <link rel="stylesheet" href="{% static 'css/body.css' %}">
      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
         <script src="{% static 'js/navbar.js' %}"></script>
         <script src="{% static 'js/rating.js' %}"></script>
     <script src="{% static 'js/search_model.js' %}"></script>
@@ -35,6 +36,6 @@
             {% block search %} {% endblock %}
         </div>
     </main>
-
+    {% include 'frontpage/footer.html' %}
 </body>
 </html>

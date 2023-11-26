@@ -1,0 +1,35 @@
+.model-details {
+    display: none;
+    z-index: 2;
+    position: absolute;
+}
+
+.page-details{
+    position: relative;
+    min-width: 370px;
+
+}
+.image-container img {
+    object-fit: cover;
+    width: 300px;
+    height: 250px;
+    min-width: 300px;
+    min-height: 250px;
+}
+
+.text-white {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    flex: 1 0 calc(50% - 20px); /* 2 columns with margin included */
+
+
+}

@@ -4,72 +4,73 @@
 {% block h1 %}<h1 class="h1">Models</h1>{% endblock %}
 
 {% block filter %}
-    <div class="row justify-content-center">
-        <div class="text-white d-flex flex-wrap justify-content-center">
-            <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
-                <label for="model_name">Search by Model Name:
-                    <input type="text" name="model_name">
-                </label>
+    <form method="get" action="{% url 'model_list' %}">
+        <div class="row justify-content-center">
+            <div class="text-white d-flex flex-wrap justify-content-center">
+                <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
+                    <label for="model_name">Search by Model Name:
+                        <input type="text" name="model_name">
+                    </label>
+                </div>
+                <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
+                    <label for="upload_date">Filter by Upload Date:
+                        <input type="date" name="upload_date">
+                    </label>
+                </div>
+                <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
+                    <label for="category">Filter by Category:
+                        <select name="category">
+                            <option value="" selected>All Categories</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+                <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
+                    <label for="sort_by">Sort by:
+                        <select name="sort_by">
+                            <option value="" selected>None</option>
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                        </select>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-info delete-btn mt-2 w-100">
+                    <a class="text-white text-decoration-none">Apply Filters</a>
+                </button>
             </div>
-            <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
-                <label for="upload_date">Filter by Upload Date:
-                    <input type="date" name="upload_date">
-                </label>
-            </div>
-            <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
-                <label for="category">Filter by Category:
-                    <select name="category">
-                        <option value="" selected>All Categories</option>
-                        {% for category in categories %}
-                            <option value="{{ category.id }}">{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
-                </label>
-            </div>
-            <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
-                <label for="sort_by">Sort by:
-                    <select name="sort_by">
-                        <option value="" selected>None</option>
-                        <option value="newest">Newest</option>
-                        <option value="oldest">Oldest</option>
-                    </select>
-                </label>
-            </div>
-            <button type="submit" class="btn btn-info delete-btn mt-2 w-100">
-                <a class="text-white text-decoration-none">Apply Filters</a>
-            </button>
-
         </div>
-    </div>
+    </form>
 {% endblock %}
 
 {% block search %}
+
     <div class="text-white">
         <div class="row">
-            {% for model in models %}
-                <div class="col-md-4 mb-4 page-details">
-                    <div class="w3-card-3 border border-danger bg-secondary box" style="height: 100%;">
-                        <div class="image-container">
-                            <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
-                        </div>
-                        <button class="btn btn-info delete-btn mt-2 w-100">
-                            <a class="text-white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
-                        </button>
-                        <h2 class="text-center">{{ model.title }}</h2>
-                        <div class="w3-container w3-center ml-2 model-details">
-                            <strong>{{ model.title }}</strong> by {{ model.user.username }}<br>
-                            Description: {{ model.description }}<br>
-                            Upload Date: {{ model.upload_date }}<br>
-                            Categories:
-                            {% for category in model.categories.all %}
-                                {{ category.name }}
-                            {% endfor %}
-                            <br>
-                            <div class="rating-container">
-                                <p>Rating: {{ model.rating_average|default:"Not rated" }}</p>
-                                <div class="rating" data-model-id="{{ model.id }}">
-                                    <!-- Zde zobrazte hvězdičky podle hodnocení modelu -->
-                                </div>
+            {% for model in  %}
+            <div class="col-md-4 mb-4 page-details">
+                <div class="w3-card-3 border border-danger bg-secondary box" style="height: 100%;">
+                    <div class="image-container">
+                        <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
+                    </div>
+                    <button class="btn btn-info delete-btn mt-2 w-100">
+                        <a class="text-white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
+                    </button>
+                    <h2 class="text-center">{{ model.title }}</h2>
+                    <div class="w3-container w3-center ml-2 model-details border border-success bg-secondary box">
+                        <strong>{{ model.title }}</strong> by {{ model.user.username }}<br>
+                        Description: {{ model.description }}<br>
+                        Upload Date: {{ model.upload_date }}<br>
+                        Categories:
+                        {% for category in model.categories.all %}
+                        {{ category.name }}
+                        {% endfor %}
+                        <br>
+                        <div class="rating-container">
+                            <p>Rating: {{ model.rating_average|default:"Not rated" }}</p>
+                            <div class="rating" data-model-id="{{ model.id }}">
+                                <!-- Zde zobrazte hvězdičky podle hodnocení modelu -->
                             </div>
                         </div>
                         <div class="mt-2">
@@ -82,6 +83,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>

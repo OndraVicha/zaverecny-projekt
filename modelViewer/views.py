@@ -59,7 +59,32 @@ def user_uploaded_models(request):
 def profile(request):
 
     user_uploaded_models = ThreeDModel.objects.filter(user=request.user)
-    return render(request, 'user/profile.html', {'user_uploaded_models': user_uploaded_models})
+    categories = Category.objects.all()
+
+    # Získání hodnot z formuláře
+    category_id = request.GET.get('category')
+    upload_date = request.GET.get('upload_date')
+    model_name = request.GET.get('model_name')
+    sort_by = request.GET.get('sort_by')
+
+    # Filtrujeme podle kategorie
+    if category_id:
+        user_uploaded_models = user_uploaded_models.filter(categories__id=category_id)
+
+    # Filtrujeme podle data uploadu
+    if upload_date:
+        user_uploaded_models = user_uploaded_models.filter(upload_date=upload_date)
+
+    # Filtrujeme podle jména modelu (necitlivě na diakritiku)
+    if model_name:
+        user_uploaded_models = user_uploaded_models.filter(Q(title__icontains=model_name))
+
+    # Třídíme podle nejnovějších nebo nejstarších
+    if sort_by == 'newest':
+        user_uploaded_models = user_uploaded_models.order_by('-upload_date')
+    elif sort_by == 'oldest':
+        user_uploaded_models = user_uploaded_models.order_by('upload_date')
+    return render(request, 'user/profile.html', {'user_uploaded_models': user_uploaded_models,'categories': categories})
 
 def signout(request):
     logout(request)
@@ -107,7 +132,7 @@ def edit_3d_model(request, model_id):
     return render(request, 'models/edit_3d_model.html', {'form': form, 'instance': instance})
 
 def model(request, model_id):
-    model = get_object_or_404(ThreeDModel, pk=model_id, user=request.user)
+    model = get_object_or_404(ThreeDModel, pk=model_id)
     context = {
         'model': model,
     }
