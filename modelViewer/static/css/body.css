@@ -15,3 +15,7 @@ body {
     object-fit: cover;
     z-index: -1;
 }
+
+#myVideo.flip-horizontal {
+    transform: scaleX(-1);
+}
