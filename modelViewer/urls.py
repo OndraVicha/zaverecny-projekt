@@ -13,5 +13,5 @@ urlpatterns = [
     path('edit_3d_model/<int:model_id>/', views.edit_3d_model, name='edit_3d_model'),
     path('model/<int:model_id>/', views.model, name='model'),
     path('model_list/', views.model_list, name='model_list'),
-    path('rate_model/<int:model_id>/', views.rate_model, name='rate_model'),
+    path('rate_model/<int:model_id>/<int:rating>/', views.rate_model, name='rate_model'),
 ]

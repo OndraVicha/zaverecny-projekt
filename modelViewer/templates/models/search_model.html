@@ -45,10 +45,29 @@
 {% endblock %}
 
 {% block search %}
+    <style>
+        .rating-list li {
+          float: right;
+          color: #ddd;
+          padding: 10px 5px;
+        }
 
+        .rating-list li:hover,
+        .rating-list li:hover ~ li {
+          color: orange;
+        }
+
+        .rating-list {
+          display: inline-block;
+          list-style: none;
+        }
+        .checked {
+            color: orange;
+        }
+    </style>
     <div class="text-white">
         <div class="row">
-            {% for model in  %}
+            {% for model in models %}
             <div class="col-md-4 mb-4 page-details">
                 <div class="w3-card-3 border border-danger bg-secondary box" style="height: 100%;">
                     <div class="image-container">
@@ -58,6 +77,14 @@
                         <a class="text-white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
                     </button>
                     <h2 class="text-center">{{ model.title }}</h2>
+                    <h5 class="card-title">Avg rating:
+                        <span class="fa fa-star {% if post.average_rating > 0 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if post.average_rating > 1 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if post.average_rating > 2 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if post.average_rating > 3 %} checked {% endif %}" ></span>
+                        <span class="fa fa-star {% if post.average_rating > 4 %} checked {% endif %}"></span>
+                    </h5>
+
                     <div class="w3-container w3-center ml-2 model-details border border-success bg-secondary box">
                         <strong>{{ model.title }}</strong> by {{ model.user.username }}<br>
                         Description: {{ model.description }}<br>
@@ -65,14 +92,26 @@
                         Categories:
                         {% for category in model.categories.all %}
                         {{ category.name }}
-                        {% endfor %}
+                        {% endfor %}<br>
+                        <ul class="btn btn-light list-inline rating-list" style="list-style: none; padding: 0;">
+                            <li style="display: inline-block;" onclick="rate(5, {{ post.id }})">
+                                <i class="fa fa-star {% if post.user_rating > 4 %} checked {% endif %}" title="Rate 5"></i>
+                            </li>
+                            <li style="display: inline-block;" onclick="rate(4, {{ post.id }})">
+                                <i class="fa fa-star {% if post.user_rating > 3 %} checked {% endif %}" title="Rate 4"></i>
+                            </li>
+                            <li style="display: inline-block;" onclick="rate(3, {{ post.id }})">
+                                <i class="fa fa-star {% if post.user_rating > 2 %} checked {% endif %}" title="Rate 3"></i>
+                            </li>
+                            <li style="display: inline-block;" onclick="rate(2, {{ post.id }})">
+                                <i class="fa fa-star {% if post.user_rating > 1 %} checked {% endif %}" title="Rate 2"></i>
+                            </li>
+                            <li style="display: inline-block;" onclick="rate(1, {{ post.id }})">
+                                <i class="fa fa-star {% if post.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i>
+                            </li>
+                        </ul>
+
                         <br>
-                        <div class="rating-container">
-                            <p>Rating: {{ model.rating_average|default:"Not rated" }}</p>
-                            <div class="rating" data-model-id="{{ model.id }}">
-                                <!-- Zde zobrazte hvězdičky podle hodnocení modelu -->
-                            </div>
-                        </div>
                         <div class="mt-2">
                             <button class="btn btn-success delete-btn float-left">
                                 <a class="text-white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>

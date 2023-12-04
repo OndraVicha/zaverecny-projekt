@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404,render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
@@ -57,34 +57,33 @@ def user_uploaded_models(request):
     return render(request, 'user/user.html', {'user_uploaded_models': user_uploaded_models})
 
 def profile(request):
-
     user_uploaded_models = ThreeDModel.objects.filter(user=request.user)
     categories = Category.objects.all()
+    posts = ThreeDModel.objects.all()
+    for model in posts:
+        rating = Rating.objects.filter(model=model, user=request.user).first()
+        model.user_rating = rating.rating if rating else 0
 
     # Získání hodnot z formuláře
     category_id = request.GET.get('category')
     upload_date = request.GET.get('upload_date')
     model_name = request.GET.get('model_name')
     sort_by = request.GET.get('sort_by')
-
     # Filtrujeme podle kategorie
     if category_id:
         user_uploaded_models = user_uploaded_models.filter(categories__id=category_id)
-
     # Filtrujeme podle data uploadu
     if upload_date:
         user_uploaded_models = user_uploaded_models.filter(upload_date=upload_date)
-
     # Filtrujeme podle jména modelu (necitlivě na diakritiku)
     if model_name:
         user_uploaded_models = user_uploaded_models.filter(Q(title__icontains=model_name))
-
     # Třídíme podle nejnovějších nebo nejstarších
     if sort_by == 'newest':
         user_uploaded_models = user_uploaded_models.order_by('-upload_date')
     elif sort_by == 'oldest':
         user_uploaded_models = user_uploaded_models.order_by('upload_date')
-    return render(request, 'user/profile.html', {'user_uploaded_models': user_uploaded_models,'categories': categories})
+    return render(request, 'user/profile.html', {'user_uploaded_models': user_uploaded_models,'categories': categories,'posts': posts})
 
 def signout(request):
     logout(request)
@@ -169,26 +168,8 @@ def model_list(request):
     return render(request, 'models/search_model.html', {'models': models, 'categories': categories})
 
 
-def rate_model(request, model_id):
-    rating = request.POST.get('rating', None)
-    try:
-        rating = int(rating)
-        if rating < 1 or rating > 5:
-            raise ValueError("Invalid rating value")
-    except (ValueError, TypeError):
-        return JsonResponse({'error': 'Invalid rating value'}, status=400)
-
-    model = ThreeDModel.objects.get(pk=model_id)
-
-    # Zkontrolujte, zda uživatel již hodnotil tento model
-    if Rating.objects.filter(user=request.user, model=model).exists():
-        return JsonResponse({'error': 'You have already rated this model'}, status=400)
-
-    # Uložte hodnocení do databáze
-    Rating.objects.create(user=request.user, model=model, rating=rating)
-
-    # Aktualizujte průměrné hodnocení v modelu (pokud je to relevantní)
-    model.rating_average = (model.rating_average + rating) / 2
-    model.save()
-
-    return JsonResponse({'rating': model.rating_average}, status=200)
+def rate_model(request: HttpRequest, model_id: int, rating: int) -> HttpResponse:
+    model = ThreeDModel.objects.get(id=model_id)
+    Rating.objects.filter(model=model, user=request.user).delete()
+    model.rating_set.create(user=request.user, rating=rating)
+    return index(request)

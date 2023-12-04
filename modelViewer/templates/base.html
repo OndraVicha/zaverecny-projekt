@@ -16,11 +16,21 @@
     </head>
     {% include 'frontpage/navbar.html' %}
     <body class="body">
+        <video autoplay muted loop id="myVideo">
+          <source src="{% static 'img/darkpurple2.mp4' %}" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
         {% include 'frontpage/header.html' %}
         <main>
 
 
         </main>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var myVideo = document.getElementById('myVideo');
+                myVideo.playbackRate = 0.5; // Změňte hodnotu podle potřeby (0.5 zpomalí na poloviční rychlost)
+            });
+        </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

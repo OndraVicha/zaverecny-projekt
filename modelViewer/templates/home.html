@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         {% load static %}
             <link rel="icon" href="{% static '/img/logo-background.png' %}" type="image/png">
         <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
@@ -13,6 +14,7 @@
         <link rel="stylesheet" href="{% static 'userCSS/aframe.css' %}">
         <link rel="stylesheet" href="{% static 'modelCSS/search_model.css' %}">
         <link rel="stylesheet" href="{% static 'css/body.css' %}">
+
      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
         <script src="{% static 'js/navbar.js' %}"></script>
@@ -22,6 +24,10 @@
     </head>
 {% include 'frontpage/navbar.html' %}
 <body class="body">
+    <video autoplay muted loop id="myVideo">
+      <source src="{% static 'img/darkpurple2.mp4' %}" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
     <header class="header">
       {% block h1 %}<h1 class="h1">Django Mysql User Authentication - Login, register and Logout</h1>{% endblock %}
         {% block filter %} {% endblock %}
@@ -37,5 +43,11 @@
         </div>
     </main>
     {% include 'frontpage/footer.html' %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var myVideo = document.getElementById('myVideo');
+            myVideo.playbackRate = 0.5; // Změňte hodnotu podle potřeby (0.5 zpomalí na poloviční rychlost)
+        });
+    </script>
 </body>
 </html>
