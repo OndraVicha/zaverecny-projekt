@@ -59,6 +59,26 @@
 {% endblock %}
 
 {% block user %}
+    <style>
+        .rating-list li {
+          float: right;
+          color: #ddd;
+          padding: 10px 5px;
+        }
+
+        .rating-list li:hover,
+        .rating-list li:hover ~ li {
+          color: orange;
+        }
+
+        .rating-list {
+          display: inline-block;
+          list-style: none;
+        }
+        .checked {
+            color: orange;
+        }
+    </style>
     {% if user.is_authenticated %}
         <div class="container">
             <h2 class="text-white">Uploaded models:</h2>
@@ -76,20 +96,21 @@
                                 </button>
                                 <h2 class="text-center">{{ model.title }}</h2>
                                 <h5 class="card-title">Avg rating:
-                                    <span class="fa fa-star {% if post.average_rating > 0 %} checked {% endif %}"></span>
-                                    <span class="fa fa-star {% if post.average_rating > 1 %} checked {% endif %}"></span>
-                                    <span class="fa fa-star {% if post.average_rating > 2 %} checked {% endif %}"></span>
-                                    <span class="fa fa-star {% if post.average_rating > 3 %} checked {% endif %}" ></span>
-                                    <span class="fa fa-star {% if post.average_rating > 4 %} checked {% endif %}"></span>
+                                    <span class="fa fa-star {% if model.average_rating > 0 %} checked {% endif %}"></span>
+                                    <span class="fa fa-star {% if model.average_rating > 1 %} checked {% endif %}"></span>
+                                    <span class="fa fa-star {% if model.average_rating > 2 %} checked {% endif %}"></span>
+                                    <span class="fa fa-star {% if model.average_rating > 3 %} checked {% endif %}" ></span>
+                                    <span class="fa fa-star {% if model.average_rating > 4 %} checked {% endif %}"></span>
+                                    {{ model.average_rating }}
                                 </h5>
                                 <div class="w3-container w3-center ml-2 model-details border border-success bg-secondary box">
                                     <strong>{{ model.title }}</strong><br>
-                                    Upload Date: {{ model.upload_date }}<br>
                                     Categories:
                                     {% for category in model.categories.all %}
                                     {{ category.name }}
                                     {% endfor %}
                                     <br>
+                                    Upload Date: {{ model.upload_date }}<br>
                                     <div class="mt-2">
                                         <button class="btn btn-danger delete-btn float-left">
                                             <a class="text-white text-decoration-none" href="{% url 'delete_model' model.id %}">Delete Model</a>

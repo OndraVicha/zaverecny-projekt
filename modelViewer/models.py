@@ -25,11 +25,11 @@ class ThreeDModel(models.Model):
     file = models.FileField(upload_to='3dmodels/', help_text='Please use only .glb or .gltf file', validators=[validate_gltf_file])
     categories = models.ManyToManyField(Category)
 
-    def rating_average(self) -> float:
-        return Rating.objects.filter(post=self).aggregate(Avg("rating"))["rating_avg"] or 0
+    def average_rating(self):
+        return Rating.objects.filter(model=self).aggregate(Avg("rating"))["rating__avg"] or 0
 
     def __str__(self):
-        return f"{self.title}: {self.rating_average()}"
+        return f"{self.title}: {self.average_rating()}"
 
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

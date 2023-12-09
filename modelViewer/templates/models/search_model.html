@@ -77,12 +77,13 @@
                         <a class="text-white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
                     </button>
                     <h2 class="text-center">{{ model.title }}</h2>
-                    <h5 class="card-title">Avg rating:
-                        <span class="fa fa-star {% if post.average_rating > 0 %} checked {% endif %}"></span>
-                        <span class="fa fa-star {% if post.average_rating > 1 %} checked {% endif %}"></span>
-                        <span class="fa fa-star {% if post.average_rating > 2 %} checked {% endif %}"></span>
-                        <span class="fa fa-star {% if post.average_rating > 3 %} checked {% endif %}" ></span>
-                        <span class="fa fa-star {% if post.average_rating > 4 %} checked {% endif %}"></span>
+                    <h5 class="card-title">Rating:
+                        <span class="fa fa-star {% if model.average_rating > 0 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if model.average_rating > 1 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if model.average_rating > 2 %} checked {% endif %}"></span>
+                        <span class="fa fa-star {% if model.average_rating > 3 %} checked {% endif %}" ></span>
+                        <span class="fa fa-star {% if model.average_rating > 4 %} checked {% endif %}"></span>
+                        {{ model.average_rating }}
                     </h5>
 
                     <div class="w3-container w3-center ml-2 model-details border border-success bg-secondary box">
@@ -93,22 +94,17 @@
                         {% for category in model.categories.all %}
                         {{ category.name }}
                         {% endfor %}<br>
-                        <ul class="btn btn-light list-inline rating-list" style="list-style: none; padding: 0;">
-                            <li style="display: inline-block;" onclick="rate(5, {{ post.id }})">
-                                <i class="fa fa-star {% if post.user_rating > 4 %} checked {% endif %}" title="Rate 5"></i>
-                            </li>
-                            <li style="display: inline-block;" onclick="rate(4, {{ post.id }})">
-                                <i class="fa fa-star {% if post.user_rating > 3 %} checked {% endif %}" title="Rate 4"></i>
-                            </li>
-                            <li style="display: inline-block;" onclick="rate(3, {{ post.id }})">
-                                <i class="fa fa-star {% if post.user_rating > 2 %} checked {% endif %}" title="Rate 3"></i>
-                            </li>
-                            <li style="display: inline-block;" onclick="rate(2, {{ post.id }})">
-                                <i class="fa fa-star {% if post.user_rating > 1 %} checked {% endif %}" title="Rate 2"></i>
-                            </li>
-                            <li style="display: inline-block;" onclick="rate(1, {{ post.id }})">
-                                <i class="fa fa-star {% if post.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i>
-                            </li>
+                         <ul class="btn btn-light list-inline rating-list">
+                          <li onclick="rate(5, {{ model.id }})">
+                              <i class="fa fa-star {% if model.user_rating > 4 %} checked {% endif %}" title="Rate 5"></i></li>
+                          <li onclick="rate(4, {{ model.id }})">
+                              <i class="fa fa-star {% if model.user_rating > 3 %} checked {% endif %}" title="Rate 4"></i></li>
+                          <li onclick="rate(3, {{ model.id }})">
+                              <i class="fa fa-star {% if model.user_rating > 2 %} checked {% endif %}" title="Rate 3"></i></li>
+                          <li onclick="rate(2, {{ model.id }})">
+                              <i class="fa fa-star {% if model.user_rating > 1 %} checked {% endif %}" title="Rate 2"></i></li>
+                          <li onclick="rate(1, {{ model.id }})">
+                              <i class="fa fa-star {% if model.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i></li>
                         </ul>
 
                         <br>
@@ -126,4 +122,16 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        const rate = (rating, models) => {
+            fetch(`rate/${models}/${rating}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                window.location.reload();
+            })
+        }
+    </script>
 {% endblock %}

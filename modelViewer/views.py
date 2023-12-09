@@ -1,15 +1,19 @@
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404,render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from .forms import ThreeDModelForm,StyledAuthenticationForm
+from .forms import ThreeDModelForm,StyledAuthenticationForm,ChangePasswordForm,UserProfileForm
 from .models import ThreeDModel,Category,Rating
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models import Avg
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
 def index(request):
 	return render(request, 'index.html')
@@ -59,10 +63,6 @@ def user_uploaded_models(request):
 def profile(request):
     user_uploaded_models = ThreeDModel.objects.filter(user=request.user)
     categories = Category.objects.all()
-    posts = ThreeDModel.objects.all()
-    for model in posts:
-        rating = Rating.objects.filter(model=model, user=request.user).first()
-        model.user_rating = rating.rating if rating else 0
 
     # Získání hodnot z formuláře
     category_id = request.GET.get('category')
@@ -83,7 +83,7 @@ def profile(request):
         user_uploaded_models = user_uploaded_models.order_by('-upload_date')
     elif sort_by == 'oldest':
         user_uploaded_models = user_uploaded_models.order_by('upload_date')
-    return render(request, 'user/profile.html', {'user_uploaded_models': user_uploaded_models,'categories': categories,'posts': posts})
+    return render(request, 'user/profile.html', {'user_uploaded_models': user_uploaded_models,'categories': categories})
 
 def signout(request):
     logout(request)
@@ -165,11 +165,45 @@ def model_list(request):
     elif sort_by == 'oldest':
         models = models.order_by('upload_date')
 
+    for model in models:
+        rating = Rating.objects.filter(model=model, user=request.user).first()
+        model.user_rating = rating.rating if rating else 0
+
     return render(request, 'models/search_model.html', {'models': models, 'categories': categories})
 
-
-def rate_model(request: HttpRequest, model_id: int, rating: int) -> HttpResponse:
-    model = ThreeDModel.objects.get(id=model_id)
+def rate(request: HttpRequest, model_id: int, rating: int) -> HttpResponse:
+    model = get_object_or_404(ThreeDModel, id=model_id)
+    if request.user == model.user:
+        return JsonResponse({'error': 'You cannot rate your own model.'}, status=400)
     Rating.objects.filter(model=model, user=request.user).delete()
     model.rating_set.create(user=request.user, rating=rating)
-    return index(request)
+    return model_list(request)
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Aktualizuje hash v session, aby uživatel nebyl odhlášen
+            messages.success(request, 'Heslo bylo úspěšně změněno.')
+            return redirect('/modelViewer/profile')  # Přesměrování na profilovou stránku
+        else:
+            messages.error(request, 'Omlouváme se, došlo k chybě při změně hesla. Zkontrolujte formulář.')
+    else:
+        form = ChangePasswordForm(request.user)
+    return render(request, 'user/change_password.html', {'form': form})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profil byl úspěšně aktualizován.')
+            return redirect('/modelViewer/profile')  # Přesměrování na profilovou stránku
+        else:
+            messages.error(request, 'Omlouváme se, došlo k chybě při aktualizaci profilu. Zkontrolujte formulář.')
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, 'user/update_password.html', {'form': form})

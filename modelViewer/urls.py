@@ -1,17 +1,20 @@
 from django.urls import path
-from . import views
-from .views import upload_3d_model,user_uploaded_models
+from django.contrib.auth.views import PasswordChangeView
+from .views import index,profile,signin,signout,signup,upload_3d_model,delete_model,edit_3d_model,model,model_list,rate,change_password,edit_profile
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path('profile/', views.profile, name='profile'),
-    path('signin/', views.signin, name='signin'),
-    path('signout/', views.signout, name='signout'),
-    path('signup/', views.signup, name='signup'),
-    path('upload_3d_model/', views.upload_3d_model, name='upload_3d_model'),
-    path('delete_model/<int:model_id>/', views.delete_model, name='delete_model'),
-    path('edit_3d_model/<int:model_id>/', views.edit_3d_model, name='edit_3d_model'),
-    path('model/<int:model_id>/', views.model, name='model'),
-    path('model_list/', views.model_list, name='model_list'),
-    path('rate_model/<int:model_id>/<int:rating>/', views.rate_model, name='rate_model'),
+    path("", index, name="index"),
+    path('profile/', profile, name='profile'),
+    path('signin/', signin, name='signin'),
+    path('signout/', signout, name='signout'),
+    path('signup/', signup, name='signup'),
+    path('upload_3d_model/', upload_3d_model, name='upload_3d_model'),
+    path('delete_model/<int:model_id>/', delete_model, name='delete_model'),
+    path('edit_3d_model/<int:model_id>/', edit_3d_model, name='edit_3d_model'),
+    path('model/<int:model_id>/', model, name='model'),
+    path('model_list/', model_list, name='model_list'),
+    path('model_list/rate/<int:model_id>/<int:rating>/', rate, name='rate'),
+    path('edit_profile/', edit_profile, name='edit_profile'),
+    path('edit_profile/change_password/', PasswordChangeView.as_view(), name='password_change'),
+    path('edit_profile/change_password/', change_password, name='change_password'),
 ]
