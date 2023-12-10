@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404,render, redirect
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
+from django.urls import reverse
+
 from .forms import ThreeDModelForm,StyledAuthenticationForm,ChangePasswordForm,UserProfileForm
 from .models import ThreeDModel,Category,Rating
 from django.contrib import messages
@@ -166,7 +168,7 @@ def model_list(request):
         models = models.order_by('upload_date')
 
     for model in models:
-        rating = Rating.objects.filter(model=model, user=request.user).first()
+        rating = Rating.objects.filter(model=model).first()
         model.user_rating = rating.rating if rating else 0
 
     return render(request, 'models/search_model.html', {'models': models, 'categories': categories})
@@ -206,4 +208,5 @@ def edit_profile(request):
             messages.error(request, 'Omlouváme se, došlo k chybě při aktualizaci profilu. Zkontrolujte formulář.')
     else:
         form = UserProfileForm(instance=request.user)
-    return render(request, 'user/update_password.html', {'form': form})
+
+    return render(request, 'user/edit_profile.html', {'form': form})

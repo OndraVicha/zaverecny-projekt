@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{% static 'userCSS/aframe.css' %}">
         <link rel="stylesheet" href="{% static 'modelCSS/search_model.css' %}">
         <link rel="stylesheet" href="{% static 'css/body.css' %}">
+        <link rel="stylesheet" href="{% static 'userCSS/change_password.css' %}">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Hedvig+Serif:wght@400;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap" rel="stylesheet">
@@ -27,6 +28,15 @@
     </head>
 {% include 'frontpage/navbar.html' %}
 <body class="body">
+    <style>
+        footer {
+          text-align: center;
+          padding: 10px;
+          position: absolute; /* or position: absolute; */
+
+          width: 100%;
+        }
+    </style>
     <video autoplay muted loop id="myVideo">
       <source src="{% static 'img/darkpurple2.mp4' %}" type="video/mp4">
       Your browser does not support HTML5 video.

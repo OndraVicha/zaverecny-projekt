@@ -15,6 +15,5 @@ urlpatterns = [
     path('model_list/', model_list, name='model_list'),
     path('model_list/rate/<int:model_id>/<int:rating>/', rate, name='rate'),
     path('edit_profile/', edit_profile, name='edit_profile'),
-    path('edit_profile/change_password/', PasswordChangeView.as_view(), name='password_change'),
     path('edit_profile/change_password/', change_password, name='change_password'),
 ]

@@ -34,7 +34,7 @@ class ChangePasswordForm(PasswordChangeForm):
 
 class UserProfileForm(UserChangeForm):
     bio = forms.CharField(max_length=500, required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
-    pronouns = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    pronouns = forms.CharField(max_length=10, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User

@@ -7,9 +7,9 @@
 }
 .center{
      margin: auto;
-  width: 60%;
-  border: 3px solid #910000;
+  width: 60%;background-color: rgba(206, 60, 252, 0.3);
   padding: 10px;
+    border-radius: 2em;
 }
 .upload{
     margin: auto;

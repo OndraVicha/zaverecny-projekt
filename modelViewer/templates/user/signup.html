@@ -5,7 +5,6 @@
 
 {% block user %}
   <div class="center text-white">
-     <div class="container">
           <form method="post">
             {% csrf_token %}
             {% for field in form %}
@@ -21,6 +20,5 @@
             <button type="submit" class="btn btn-success">Sign up</button>
             <a href="/modelViewer/signin">Already have an account? Sign in</a>
           </form>
-     </div>
   </div>
 {% endblock %}
