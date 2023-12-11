@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404,render, redirect
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
@@ -210,3 +211,37 @@ def edit_profile(request):
         form = UserProfileForm(instance=request.user)
 
     return render(request, 'user/edit_profile.html', {'form': form})
+
+def user_list(request):
+    users = User.objects.all()
+    categories = Category.objects.all()
+
+    # Získání hodnot z formuláře
+    category_id = request.GET.get('category')
+    upload_date = request.GET.get('upload_date')
+    user_name = request.GET.get('user_name')
+    sort_by = request.GET.get('sort_by')
+
+    # Filtrujeme podle kategorie
+    if category_id:
+        users = users.filter(categories__id=category_id)
+
+    # Filtrujeme podle data uploadu
+    if upload_date:
+        users = users.filter(upload_date=upload_date)
+
+    # Filtrujeme podle jména modelu (necitlivě na diakritiku)
+    if user_name:
+        users = users.filter(Q(title__icontains=user_name))
+
+    # Třídíme podle nejnovějších nebo nejstarších
+    if sort_by == 'newest':
+        users = users.order_by('-upload_date')
+    elif sort_by == 'oldest':
+        users = users.order_by('upload_date')
+
+    for user in users:
+        rating = Rating.objects.filter(model=model).first()
+        model.user_rating = rating.rating if rating else 0
+
+    return render(request, 'user/search_profile.html', {'users': users, 'categories': categories})
