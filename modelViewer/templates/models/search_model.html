@@ -6,7 +6,7 @@
 {% block filter %}
     <form method="get" action="{% url 'model_list' %}">
         <div class="row justify-content-center">
-            <div class="text-white d-flex flex-wrap justify-content-center">
+            <div class="text_white d-flex flex-wrap justify-content-center">
                 <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
                     <label for="model_name">Search by Model Name:
                         <input type="text" name="model_name">
@@ -37,7 +37,7 @@
                     </label>
                 </div>
                 <button type="submit" class="btn btn-info delete-btn mt-2 w-100">
-                    <a class="text-white text-decoration-none">Apply Filters</a>
+                    <a class="text_white text-decoration-none">Apply Filters</a>
                 </button>
             </div>
         </div>
@@ -65,7 +65,7 @@
             color: orange;
         }
     </style>
-    <div class="text-white">
+    <div class="text_white">
         <div class="row">
             {% for model in models %}
             <div class="col-md-4 mb-4 page-details">
@@ -74,7 +74,7 @@
                         <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
                     </div>
                     <button class="btn btn-info delete-btn mt-2 w-100">
-                        <a class="text-white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
+                        <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
                     </button>
                     <h2 class="text-center">{{ model.title }}</h2>
                     <h5 class="card-title">Rating:
@@ -112,10 +112,10 @@
                         {% endif %}
                         <div class="mt-2">
                             <button class="btn btn-success delete-btn float-left">
-                                <a class="text-white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
+                                <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
                             </button>
                             <button class="btn btn-primary delete-btn float-right">
-                                <a class="text-white text-decoration-none" href="{{ model.file.url }}" target="_blank">Download Model</a>
+                                <a class="text_white text-decoration-none" href="{{ model.file.url }}" target="_blank">Download Model</a>
                             </button>
                         </div>
                     </div>

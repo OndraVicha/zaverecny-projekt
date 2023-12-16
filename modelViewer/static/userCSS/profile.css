@@ -17,10 +17,11 @@
     min-height: 250px;
 }
 
-.text-white {
+.text_white {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    color: #fff;
 }
 
 .box {
@@ -30,6 +31,4 @@
     transition: background-color 0.3s ease;
     border-radius: 10px;
     flex: 1 0 calc(50% - 20px); /* 2 columns with margin included */
-
-
 }

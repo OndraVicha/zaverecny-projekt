@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins',sans-serif;
+}
+
+section {
+    position: relative;
+    max-width: 400px;
+    background-color: transparent;
+    border: 2px solid rgba(255,255,255,05);
+    border-radius: 20px;
+    backdrop-filter: blur(55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+}
+
+.section {
+    position: relative;
+    max-width: 700px;
+    background-color: transparent;
+    border: 2px solid rgba(255,255,255,05);
+    border-radius: 20px;
+    backdrop-filter: blur(55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+}
+
+.inputbox{
+    position: relative;
+    margin: 30px 0;
+    max-width: 700px;
+    border-bottom: 2px solid #fff;
+}
+
+.inputbox2{
+    position: relative;
+    margin: 30px 0;
+    max-width: 500px;
+    border-bottom: 2px solid #fff;
+}
+
+.inputbox label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.5s ease-in-out;
+    border: none;
+}
+
+.helptext{
+    user-select: none;
+}
+input:focus ~ label, input:valid ~ label{
+    top: -5px;
+}
+
+input:hover{
+    background: transparent;
+}
+
+.inputbox input{
+    width: 100%;
+    height: 60px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 35px 0 5px;
+    color: #fff;
+}
+
+.inputbox input:hover {
+    background: transparent;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    outline: none;
+}
+
+.inputbox input:not(:hover) {
+    background: transparent;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    outline: none;
+}
+
+.inputbox ion-icon{
+    position: absolute;
+    right: 8px;
+    color: #fff;
+    font-size: 1.2rem;
+    top: 20px;
+}
+
+.tlacitko {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background-color: rgba(255,255,255,1);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.4s ease;
+    color: black;
+}
+
+button:hover {
+    background-color: rgba(255,255,255,05);
+}
+
+.register {
+    font-size: 0.9rem;
+    color: #fff;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.register p a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+}
+
+.register p a:hover {
+    text-decoration: underline;
+}
+
+.form-control {
+    background: transparent;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #fff;
+    text-align: center;
+}
+
+.stred {
+    width: 40%;
+    margin-top: 5%;
+}
+
+.stredchp {
+    width: 60%;
+    margin-top: 5%;
+}

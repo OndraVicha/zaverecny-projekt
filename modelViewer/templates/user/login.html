@@ -1,24 +1,29 @@
 {% extends 'home.html' %}
 {% block nazev %}Login{% endblock %}
-{% block h1 %}<h1 class="h1">Login</h1>{% endblock %}
+
 
 {% block user %}
-<div class="center">
-    <div class="container">
-      <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="{{ form.username.id_for_label }}">Username:</label>
-            {{ form.username }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.password.id_for_label }}">Password:</label>
-            {{ form.password }}
-        </div>
-          <hr>
-        <button type="submit" class="btn btn-primary">Login</button>
-        <a href="/modelViewer/signup">Don't have an account? Sign up</a>
-      </form>
-    </div>
+<div class="container stred">
+    <section>
+        <form method="post">
+            <h1> Login </h1>
+            {% csrf_token %}
+            <div class="inputbox form-group">
+                <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+                <ion-icon name="mail-outline"></ion-icon>
+                <label for="{{ form.username.id_for_label }}">Username: </label>
+
+            </div>
+            <div class="inputbox form-group">
+                <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <label for="{{ form.password.id_for_label }}">Password: </label>
+            </div>
+            <button type="submit" class="tlacitko btn-primary">Log in</button>
+            <div class="register">
+                <p>Don't have an account? <a href="/modelViewer/signup"> Sign up</a></p>
+            </div>
+        </form>
+    </section>
 </div>
 {% endblock %}
