@@ -4,10 +4,11 @@ from django.shortcuts import get_object_or_404,render, redirect
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.urls import reverse
-
 from .forms import ThreeDModelForm,StyledAuthenticationForm,ChangePasswordForm,UserProfileForm
-from .models import ThreeDModel,Category,Rating
+from .models import ThreeDModel,Category,Rating, UserProfile
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models import Avg
@@ -44,6 +45,7 @@ def signin(request):
         return render(request, 'user/profile.html')
     if request.method == 'POST':
         username = request.POST['username']
+
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
@@ -197,20 +199,49 @@ def change_password(request):
         form = ChangePasswordForm(request.user)
     return render(request, 'user/change_password.html', {'form': form})
 
+
 @login_required
 def edit_profile(request):
+    user_profile = request.user.userprofile
+
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Profil byl úspěšně aktualizován.')
-            return redirect('/modelViewer/profile')  # Přesměrování na profilovou stránku
-        else:
-            messages.error(request, 'Omlouváme se, došlo k chybě při aktualizaci profilu. Zkontrolujte formulář.')
+            new_username = form.cleaned_data.get('username')
+
+            # Kontrola, zda existuje již uživatelské jméno
+            if User.objects.exclude(pk=request.user.pk).filter(username=new_username).exists():
+                messages.error(request, 'Toto uživatelské jméno je již obsazeno.')
+            else:
+                form.save()
+                messages.success(request, 'Profil byl úspěšně aktualizován.')
+                return redirect('/modelViewer/edit_profile/')  # Nahraďte 'profile' názvem URL vašeho profilu
     else:
-        form = UserProfileForm(instance=request.user)
+        form = UserProfileForm(instance=user_profile)
 
     return render(request, 'user/edit_profile.html', {'form': form})
+
+@login_required
+def clear_profile_fields(request):
+    user_profile = request.user.userprofile
+    # Clear the specified fields
+    user_profile.first_name = ''
+    user_profile.last_name = ''
+    user_profile.email = ''
+    user_profile.pronouns = ''
+    user_profile.bio = ''
+    user_profile.objects = ''
+    user_profile.save()
+    messages.success(request, 'Profile fields have been cleared.')
+    return redirect('/modelViewer/edit_profile/')
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()
 
 def user_list(request):
     users = User.objects.all()

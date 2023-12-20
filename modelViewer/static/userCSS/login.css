@@ -36,6 +36,7 @@ section {
     margin: 30px 0;
     max-width: 700px;
     border-bottom: 2px solid #fff;
+    flex-direction: row;
 }
 
 .inputbox2{
@@ -65,6 +66,10 @@ input:focus ~ label, input:valid ~ label{
 }
 
 input:hover{
+    background: transparent;
+}
+
+textarea:hover{
     background: transparent;
 }
 
@@ -138,10 +143,17 @@ button:hover {
     text-decoration: underline;
 }
 
-.form-control {
+.bio {
+    background: transparent;
+    color: #239afc;
+    font-weight: 600;
+}
+.bio:hover, .bio:focus {
     background: transparent;
 }
-
+.bio:not(:hover){
+    background: transparent;
+}
 h1 {
     font-size: 2rem;
     color: #fff;
@@ -157,3 +169,12 @@ h1 {
     width: 60%;
     margin-top: 5%;
 }
+
+.input-width {
+    width: 100%; /* Nebo nastavte konkrétní šířku podle potřeby */
+}
+
+.right{
+
+}
+

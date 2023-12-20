@@ -16,6 +16,18 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=30, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
+    pronouns = models.CharField(max_length=50, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True, help_text='Upload an image')
+
+    def __str__(self):
+        return self.user.username
+
 class ThreeDModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=User)
     title = models.CharField(max_length=255, unique=False, verbose_name="Title")
@@ -40,4 +52,3 @@ class Rating(models.Model):
 
     def __str__(self):
         return f"{self.model.title}: {self.rating}"
-

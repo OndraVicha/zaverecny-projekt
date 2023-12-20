@@ -1,6 +1,6 @@
 from django import forms
 from django.shortcuts import render
-from .models import ThreeDModel, Category
+from .models import ThreeDModel, Category, UserProfile
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,UserChangeForm
 from django.contrib.auth.models import User
 
@@ -32,15 +32,16 @@ class ChangePasswordForm(PasswordChangeForm):
         for field_name in self.fields:
             self.fields[field_name].widget.attrs['class'] = 'form-control'
 
-class UserProfileForm(UserChangeForm):
-    bio = forms.CharField(max_length=500, required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
-    pronouns = forms.CharField(max_length=10, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-
+class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'bio', 'pronouns')
+        model = UserProfile
+        fields = ['first_name', 'last_name', 'email', 'bio', 'pronouns','profile_picture']
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs['class'] = 'form-control'
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(),
+            'pronouns':  forms.TextInput(attrs={'class': 'form-control'}),
+            'profile_picture': forms.FileInput(attrs={'class': 'form-control'}),
+        }

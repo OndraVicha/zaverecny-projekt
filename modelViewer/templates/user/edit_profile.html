@@ -1,78 +1,61 @@
 {% extends 'home.html' %}
 {% block nazev %}Profil{% endblock %}
-{% block h1 %}<h1 class="h1">Profil uživate {{ user.username }}</h1>{% endblock %}
-{% block user %}
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class=" transparent-bg">
-          <div class="card-header">
-            <h2 class="text-center h2">Úprava profilu</h2>
-          </div>
-          <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div class="form-group">
-                <label for="{{ form.first_name.id_for_label }}">Jméno:</label>
-                <input type="text" name="first_name" maxlength="150" class="form-control" id="id_first_name">
-              </div>
-              <div class="form-group">
-                <label for="{{ form.last_name.id_for_label }}">Příjmení:</label>
-                <input type="text" name="last_name" maxlength="150" class="form-control" id="id_last_name">
-              </div>
-              <div class="form-group">
-                <label for="{{ form.bio.id_for_label }}">Biografie:</label>
-                <textarea name="bio" cols="40" rows="10" class="form-control" maxlength="500" id="id_bio"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="{{ form.pronouns.id_for_label }}">Pronouns:</label>
-                <input type="text" name="pronouns" class="form-control" maxlength="10" id="id_pronouns">
-              </div>
-            <button type="submit" class="btn btn-primary mt-3">Uložit změny</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
-{% block content %}
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-          <div class="col-md-8">
-            <div class="transparent-bg">
-              <div class="card-header">
-                <h2 class="text-center h2">Přihlašování</h2>
-              </div>
-              <div class="card-body">
-                <form method="post" enctype="multipart/form-data">
-                  {% csrf_token %}
-                    <div class="form-group ">
-                        <label for="{{ form.username.id_for_label }}">Uživatelské jméno:</label>
-                        <input type="text" name="username" value="Admin" maxlength="150" class="form-control" required="" id="id_username">
-                    </div>
-                  <div class="form-group">
-                    <label for="{{ form.password.id_for_label }}">Heslo:</label>
-                    <div class="form-control" disabled="" id="id_password">
+{% block h1 %}<h1 class="h1"></h1>{% endblock %}
+
+{% block add %}
+<div class="container stredchp">
+    <section class="section">
+        <form method="post" enctype="multipart/form-data">
+            <h1> Úprava profilu uživatele <strong>{{ user.username }}</strong> </h1>
+            {% csrf_token %}
+            <div class="inputbox2">
+                <div class="inputbox form-group">
+                    <input type="text" name="first_name" maxlength="50" required="" id="id_first_name" class="input-width">
+                    <label for="{{ form.first_name.id_for_label }}">Jméno: <strong>{{ form.first_name.value|default:'' }}</strong></label>
+                </div>
+
+                <div class="inputbox form-group">
+                    <input type="text" name="last_name" maxlength="150" required="" id="id_last_name">
+                    <label for="{{ form.last_name.id_for_label }}">Příjmení:<strong>{{ form.last_name.value|default:'' }}</strong> </label>
+                </div>
+                <div class="inputbox form-group">
+                    <input type="text" name="email"  maxlength="150" required="" id="id_email">
+                    <label for="{{ form.email.id_for_label }}">Email:<strong>{{ form.email.value|default:'' }}</strong></label>
+                </div>
+                <div class="inputbox form-group">
+                    <input type="text" name="pronouns" maxlength="150" required="" id="id_pronouns">
+                    <label for="{{ form.pronouns.id_for_label }}">Pronouns: <strong>{{ form.pronouns.value|default:'' }}</strong></label>
+                </div>
+                <div class="inputbox form-group pt-3">
+                    <input type="file" name="profile_picture" accept="image/*" id="id_profile_picture">
+                    <label  for="{{ form.profile_picture.id_for_label }}">Profile Picture:</label>
+                </div>
+
+                <div class="form-group mt-2" style="display: flex; flex-direction: column;">
+                    <label for="{{ form.bio.id_for_label }}">Biografie:</label>
+                    <textarea name="bio" cols="40" rows="10" class="bio" id="id_bio"></textarea>
+                </div>
+                <div class="inputbox form-group right">
+                    <div class="" disabled="" id="id_password">
                         <strong>
-                            <p class="text-muted">
+                            <p class="text-white">
                                 Pro změnu hesla
                                 <a href="{% url 'change_password' %}">Klikněte zde</a>.
                             </p>
                         </strong>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="{{ form.email.id_for_label }}">E-mail:</label>
-                    <input type="email" name="email" maxlength="254" class="form-control" id="id_email">
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-primary mt-3">Uložit změny</button>
-                  </div>
-                </form>
-              </div>
+                </div>
+                <button type="submit" class="tlacitko btn-success">Uložit změny</button>
+                <div class="register">
+                    <p><a id="clearProfileLink" href="{% url 'clear_profile_fields' %}">REMOVE ALL</a></p>
+                </div>
             </div>
-          </div>
-        </div>
-    </div>
+        </form>
+    </section>
+</div>
+<script>
+    document.getElementById('clearProfileLink').onclick = function() {
+        return confirm('Are you sure you want to remove all profile fields?');
+    };
+</script>
 {% endblock %}

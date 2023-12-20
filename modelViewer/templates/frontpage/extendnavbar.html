@@ -1,4 +1,12 @@
 {% load static %}
+<style>
+    .rounded-profile {
+        width: 50px; /* nastavte šířku dle potřeby */
+        height: 100px; /* nastavte výšku dle potřeby */
+        border-radius: 50%; /* nastavte poloměr pro vytvoření kruhu */
+        object-fit: cover; /* zajistí, že obrázek bude plně pokrývat oblast s danými rozměry */
+    }
+</style>
    {% if user.is_authenticated %}
 
            <a href='/modelViewer/profile'>{{ user.username }}</a>
@@ -10,8 +18,12 @@
 
         <li style="float:right !important;">
            <a class="navbar-brand no-hover">
-                <img class="logo" src="{% static 'img/favicon.png' %}" alt="Favicon">
-           </a>
+            {% if user.userprofile.profile_picture %}
+                <img class="logo rounded-profile" src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture">
+            {% else %}
+                <img class="logo rounded-profile" src="{% static 'img/favicon.png' %}" alt="Default Profile Picture">
+            {% endif %}
+        </a>
         </li>
     {% else %}
       <a href="/modelViewer/signin"><span class="glyphicon glyphicon-log-in"></span>Login</a>

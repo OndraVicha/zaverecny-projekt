@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import PasswordChangeView
-from .views import index,profile,signin,signout,signup,upload_3d_model,delete_model,edit_3d_model,model,model_list,rate,change_password,edit_profile
+from .views import clear_profile_fields,index,profile,signin,signout,signup,upload_3d_model,delete_model,edit_3d_model,model,model_list,rate,change_password,edit_profile
 
 urlpatterns = [
     path("", index, name="index"),
@@ -16,4 +16,5 @@ urlpatterns = [
     path('model_list/rate/<int:model_id>/<int:rating>/', rate, name='rate'),
     path('edit_profile/', edit_profile, name='edit_profile'),
     path('edit_profile/change_password/', change_password, name='change_password'),
+    path('clear_profile_fields/', clear_profile_fields, name='clear_profile_fields'),
 ]

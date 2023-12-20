@@ -9,14 +9,12 @@
             <h1> Login </h1>
             {% csrf_token %}
             <div class="inputbox form-group">
-                <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
-                <ion-icon name="mail-outline"></ion-icon>
+                <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username"
+                       maxlength="150" required="" id="id_username">
                 <label for="{{ form.username.id_for_label }}">Username: </label>
-
             </div>
             <div class="inputbox form-group">
                 <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
-                <ion-icon name="lock-closed-outline"></ion-icon>
                 <label for="{{ form.password.id_for_label }}">Password: </label>
             </div>
             <button type="submit" class="tlacitko btn-primary">Log in</button>
