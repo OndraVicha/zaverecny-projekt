@@ -1,0 +1,68 @@
+{% extends 'home.html' %}
+{% block profile %}
+ <h1>User List</h1>
+
+    <section class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center mb-5">
+                    <h1 class="display-4 font-weight-bolder">Bootstrap 4 Cards With Background Image</h1>
+                </div>
+            </div>
+            <div class="row">
+                {% for user in users %}
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card text-dark card-has-bg click-col">
+                        <div class="card-img-overlay d-flex flex-column">
+                            {% load static %}
+                            <div class="card-footer">
+                                <div class="media">
+                                    {% if user.profile_picture %}
+                                        <img class="mr-1 rounded-circle" src="{{ user.profile_picture.url }}" alt="Profile Picture" style="max-width:60px">
+                                    {% else %}
+                                        <img class="mr-1 rounded-circle" src="{% static 'img/favicon.png' %}" alt="Default Profile Picture" style="max-width:60px">
+                                    {% endif %}
+                                    <div class="media-body">
+                                        <h6 class="my-0 text-white d-block">
+                                            {% if user.first_name and user.last_name %}
+                                                <strong >{{ user.first_name }} {{ user.last_name }}</strong>
+                                                {% else %}
+                                                <strong>{{ user.user.username }}</strong>
+                                            {% endif %}
+                                           <br>
+                                            {% if user.pronouns %}
+                                        	<small>{{ user.pronouns }}</small>
+                                            {% else %}
+                                            <small>No pronouns set.</small>
+                                        {% endif %}
+                                        <br>
+                                        {% if user.email %}
+                                            <small><strong>{{ user.email}}</strong></small>
+                                            {% else %}
+                                                 <small><strong>No email set.</strong></small>
+                                        {% endif %}
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title mt-0 "> <small class="card-meta mb-2 text-white text_white">{{ user.user.username }}</small></h4>
+                                <div class="card-title mt-0 ">
+                                    <a class="text-dark">
+                                        {% if user.bio %}
+                                            <p>{{ user.bio }}</p>
+                                        {% else %}<p>No bio set.</p>
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                        <a class="press text-decoration-none" href="/modelViewer/model_list">Find Out More</a>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

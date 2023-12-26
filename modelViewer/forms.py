@@ -11,11 +11,19 @@ class StyledAuthenticationForm(AuthenticationForm):
         # Add classes to form fields
         for field_name in self.fields:
             self.fields[field_name].widget.attrs['class'] = 'form-control'
+
+
 class ThreeDModelForm(forms.ModelForm):
     categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all())
+
     class Meta:
         model = ThreeDModel
-        fields = ['title', 'file','image','description','categories']
+        fields = ['title', 'file', 'textures', 'image', 'description', 'categories']
+
+    textures = forms.FileField(
+        required=False,
+        widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+    )
 
     widgets = {
         'title': forms.TextInput(attrs={'class': 'form-control'}),

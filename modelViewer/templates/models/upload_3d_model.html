@@ -18,6 +18,11 @@
                         <label for="{{ form.file.id_for_label }}">File:</label>
                         {{ form.file }}
                           <small class="form-text text-muted">{{ form.file.help_text }}</small>
+                        </div>
+                      <div class="form-group">
+                        <label for="{{ form.textures.id_for_label }}">Textures:</label>
+                        <input type="file" name="textures" id="id_textures">
+                          <small class="form-text text-muted">{{ form.textures.help_text }}</small>
                     </div>
                       <div class="form-group">
                         <label for="{{ form.image.id_for_label }}">Image:</label>

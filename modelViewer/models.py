@@ -23,6 +23,7 @@ class UserProfile(models.Model):
     email = models.EmailField(blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     pronouns = models.CharField(max_length=50, blank=True, null=True)
+
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True, help_text='Upload an image')
 
     def __str__(self):
@@ -35,6 +36,7 @@ class ThreeDModel(models.Model):
     upload_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='3dmodel_images/', blank=True, null=True, help_text='Upload an image')
     file = models.FileField(upload_to='3dmodels/', help_text='Please use only .glb or .gltf file', validators=[validate_gltf_file])
+    textures = models.FileField(upload_to='3dtextures/', help_text='Please upload your textures here', blank=True,null=True)
     categories = models.ManyToManyField(Category)
 
     def average_rating(self):

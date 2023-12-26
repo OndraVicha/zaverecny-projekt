@@ -10,7 +10,7 @@ from django.urls import reverse
 from .forms import ThreeDModelForm,StyledAuthenticationForm,ChangePasswordForm,UserProfileForm
 from .models import ThreeDModel,Category,Rating, UserProfile
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.db.models import Avg
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -244,35 +244,19 @@ def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
 
 def user_list(request):
-    users = User.objects.all()
-    categories = Category.objects.all()
+    users = UserProfile.objects.all()
+    users_with_model_count = ThreeDModel.objects.annotate(num_models=Count(all))
 
-    # Získání hodnot z formuláře
-    category_id = request.GET.get('category')
-    upload_date = request.GET.get('upload_date')
+    # Získání parametru z URL pro filtraci (případně můžete použít formulář)
+    uploaded_model_count = request.GET.get('uploaded_model_count')
+
+    # Filtrace uživatelů podle počtu nahraných modelů, pokud je zadán parametr
+    if uploaded_model_count:
+        users_with_model_count = users_with_model_count.filter(num_models=uploaded_model_count)
     user_name = request.GET.get('user_name')
-    sort_by = request.GET.get('sort_by')
-
-    # Filtrujeme podle kategorie
-    if category_id:
-        users = users.filter(categories__id=category_id)
-
-    # Filtrujeme podle data uploadu
-    if upload_date:
-        users = users.filter(upload_date=upload_date)
 
     # Filtrujeme podle jména modelu (necitlivě na diakritiku)
     if user_name:
         users = users.filter(Q(title__icontains=user_name))
 
-    # Třídíme podle nejnovějších nebo nejstarších
-    if sort_by == 'newest':
-        users = users.order_by('-upload_date')
-    elif sort_by == 'oldest':
-        users = users.order_by('upload_date')
-
-    for user in users:
-        rating = Rating.objects.filter(model=model).first()
-        model.user_rating = rating.rating if rating else 0
-
-    return render(request, 'user/search_profile.html', {'users': users, 'categories': categories})
+    return render(request, 'user/search_user.html', {'users': users})
