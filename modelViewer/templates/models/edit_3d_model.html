@@ -1,6 +1,6 @@
 {% extends 'home.html' %}
- {% block nazev %}Edit{% endblock %}
-{% block h1 %}<h1 class="h1">Edit 3D Model</h1>{% endblock %}
+ {% block nazev %}Úprava{% endblock %}
+{% block h1 %}<h1 class="h1">Upravit 3D Model</h1>{% endblock %}
 
 {% block content %}
 <div class="center text_white">
@@ -9,7 +9,7 @@
                   <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit">Save changes</button>
+                    <button type="submit">Uložit změny</button>
                   </form>
             </div>
     </div>

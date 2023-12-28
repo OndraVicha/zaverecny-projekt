@@ -59,12 +59,6 @@ def signin(request):
         form = StyledAuthenticationForm()
         return render(request, 'user/login.html', {'form': form})
 
-def user_uploaded_models(request):
-    # Získání všech modelů ThreeDModel pro aktuálně přihlášeného uživatele
-    user_uploaded_models = ThreeDModel.objects.filter(user=request.user)
-
-    return render(request, 'user/user.html', {'user_uploaded_models': user_uploaded_models})
-
 def profile(request):
     user_uploaded_models = ThreeDModel.objects.filter(user=request.user)
     categories = Category.objects.all()
@@ -260,3 +254,10 @@ def user_list(request):
         users = users.filter(Q(title__icontains=user_name))
 
     return render(request, 'user/search_user.html', {'users': users})
+
+def user_detail(request, username):
+    user = get_object_or_404(User, username=username)
+    # Můžete také získat modely uživatele nebo další informace, pokud je to potřeba
+    models = ThreeDModel.objects.filter(user=user)
+
+    return render(request, 'user/view_user.html', {'user': user, 'models': models})

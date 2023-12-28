@@ -28,7 +28,7 @@
                 </div>
                 <div class="inputbox form-group pt-3">
                     <input type="file" name="profile_picture" accept="image/*" id="id_profile_picture">
-                    <label  for="{{ form.profile_picture.id_for_label }}">Profile Picture:</label>
+                    <label for="{{ form.profile_picture.id_for_label }}">Profilový obrázek:</label>
                 </div>
 
                 <div class="form-group mt-2" style="display: flex; flex-direction: column;">
@@ -47,7 +47,7 @@
                 </div>
                 <button type="submit" class="tlacitko btn-success">Uložit změny</button>
                 <div class="register">
-                    <p><a id="clearProfileLink" href="{% url 'clear_profile_fields' %}">REMOVE ALL</a></p>
+                    <p><a id="clearProfileLink" href="{% url 'clear_profile_fields' %}">ODSTRANIT VŠE</a></p>
                 </div>
             </div>
         </form>

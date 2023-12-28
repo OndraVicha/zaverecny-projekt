@@ -1,0 +1,108 @@
+{% extends 'home.html' %}
+{% block h1 %} <h1 class="h1">Zobrazení modelů uživatele {{ user.username }}</h1>{% endblock %}
+{% block content %}
+    <style>
+        .rating-list li {
+          float: right;
+          color: #ddd;
+          padding: 10px 5px;
+        }
+
+        .rating-list li:hover,
+        .rating-list li:hover ~ li {
+          color: orange;
+        }
+
+        .rating-list {
+          display: inline-block;
+          list-style: none;
+        }
+        .checked {
+            color: orange;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+        {% if models %}
+        {% for model in models %}
+            <div class="col-md-4 mb-4 page-details">
+                    <div class="w3-card-3 border border-danger bg-secondary box" style="height: 100%;">
+                        <div class="image-container">
+                            <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
+                        </div>
+                        <button class="btn btn-info delete-btn mt-2 w-100">
+                            <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Model</a>
+                        </button>
+                        <h2 class="text-center">{{ model.title }}</h2>
+                        <h5 class="card-title">Hodnocení:
+                            <span class="fa fa-star {% if model.average_rating > 0 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if model.average_rating > 1 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if model.average_rating > 2 %} checked {% endif %}"></span>
+                            <span class="fa fa-star {% if model.average_rating > 3 %} checked {% endif %}" ></span>
+                            <span class="fa fa-star {% if model.average_rating > 4 %} checked {% endif %}"></span>
+                            {{ model.average_rating }}
+                        </h5>
+                        <div class="model-details border border-success bg-secondary box">
+                            <strong>{{ model.title }}</strong> od {{ model.user.username }}<br>
+                            Popis: {{ model.description }}<br>
+                            Nahráno: {{ model.upload_date }}<br>
+                            Kategorie:
+                            {% for category in model.categories.all %}
+                            {{ category.name }}
+                            {% endfor %}<br>
+                            {% if user.is_authenticated %}
+                                {% if model.user == user %}
+                                {% else %}
+                                 <ul class="btn btn-light list-inline rating-list">
+                                  <li onclick="rate(5, {{ model.id }})">
+                                      <i class="fa fa-star {% if model.user_rating > 4 %} checked {% endif %}" title="Rate 5"></i></li>
+                                  <li onclick="rate(4, {{ model.id }})">
+                                      <i class="fa fa-star {% if model.user_rating > 3 %} checked {% endif %}" title="Rate 4"></i></li>
+                                  <li onclick="rate(3, {{ model.id }})">
+                                      <i class="fa fa-star {% if model.user_rating > 2 %} checked {% endif %}" title="Rate 3"></i></li>
+                                  <li onclick="rate(2, {{ model.id }})">
+                                      <i class="fa fa-star {% if model.user_rating > 1 %} checked {% endif %}" title="Rate 2"></i></li>
+                                  <li onclick="rate(1, {{ model.id }})">
+                                      <i class="fa fa-star {% if model.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i></li>
+                                </ul>
+
+                                <br>
+                                {% endif %}
+                            {% endif %}
+                            <div class="mt-2">
+                                <button class="btn btn-success delete-btn float-left">
+                                    <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Mode</a>
+                                </button>
+                                <button class="btn btn-primary delete-btn float-right">
+                                    <a class="text_white text-decoration-none" href="{{ model.file.url }}" target="_blank">Stáhnout Model</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+        {% else %}
+             <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center mb-5">
+                        <h2 class="display-4 font-weight-bolder">Zatím nebyly nahrány žádné modely.</h2>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+    <script>
+        const rate = (rating, models) => {
+            fetch(`rate/${models}/${rating}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                window.location.reload();
+            })
+        }
+    </script>
+{% endblock %}

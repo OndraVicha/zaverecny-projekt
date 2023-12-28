@@ -1,25 +1,25 @@
 {% extends 'home.html' %}
-{% block nazev %}Login{% endblock %}
+{% block nazev %}Přihlášení{% endblock %}
 
 
 {% block user %}
 <div class="container stred">
     <section class="section2">
         <form method="post">
-            <h1> Login </h1>
+            <h1> Přihlášení </h1>
             {% csrf_token %}
             <div class="inputbox form-group">
                 <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username"
                        maxlength="150" required="" id="id_username">
-                <label for="{{ form.username.id_for_label }}">Username: </label>
+                <label for="{{ form.username.id_for_label }}">Uživatelské Jméno: </label>
             </div>
             <div class="inputbox form-group">
                 <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
-                <label for="{{ form.password.id_for_label }}">Password: </label>
+                <label for="{{ form.password.id_for_label }}">Heslo: </label>
             </div>
-            <button type="submit" class="tlacitko btn-primary">Log in</button>
+            <button type="submit" class="tlacitko btn-primary">Přihlásit se</button>
             <div class="register">
-                <p>Don't have an account? <a href="/modelViewer/signup"> Sign up</a></p>
+                <p>Nemáte účet? <a href="/modelViewer/signup">Zaregistrovat se</a></p>
             </div>
         </form>
     </section>

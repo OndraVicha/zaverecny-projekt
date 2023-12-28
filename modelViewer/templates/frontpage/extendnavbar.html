@@ -8,7 +8,6 @@
     }
 </style>
    {% if user.is_authenticated %}
-
            <a href='/modelViewer/profile'>{{ user.username }}</a>
           <ul class='sub-menus'>
               <li><a href='/modelViewer/edit_profile' class="no-hover">Profil</a></li>
@@ -26,5 +25,5 @@
         </a>
         </li>
     {% else %}
-      <a href="/modelViewer/signin"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+      <a href="/modelViewer/signin"><span class="glyphicon glyphicon-log-in"></span>Přihlásit se</a>
     {% endif %}

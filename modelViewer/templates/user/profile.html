@@ -1,17 +1,16 @@
 {% extends 'home.html' %}
-{% include 'user/user.html' %}
 
 {% block nazev %}Profil{% endblock %}
 
-{% block h1 %}<h1 class="h1">Welcome {{ user.username }}!</h1>{% endblock %}
+{% block h1 %}<h1 class="h1">Vítej {{ user.username }}!</h1>{% endblock %}
 
 {% block add %}
     <div class="container mb-2 mt-2">
         <div class="float-left">
-            <a href="/modelViewer/upload_3d_model" class="btn btn-success">Upload Model</a>
+            <a href="/modelViewer/upload_3d_model" class="btn btn-success">Nahrát Model</a>
         </div>
         <div class="float-right">
-            <a href="/modelViewer/signout" class="btn btn-danger">Logout</a>
+            <a href="/modelViewer/signout" class="btn btn-danger">Odhlásit se</a>
         </div>
         <div style="clear: both;"></div> <!-- Toto zajistí, aby další obsah byl pod tlačítky -->
     </div>
@@ -22,19 +21,19 @@
         <div class="row justify-content-center">
             <div class="text_white d-flex flex-wrap justify-content-center">
                 <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
-                    <label for="model_name">Search by Model Name:
+                    <label for="model_name">Vyhledat podle názvu Modelu:
                         <input type="text" name="model_name">
                     </label>
                 </div>
                 <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
-                    <label for="upload_date">Filter by Upload Date:
+                    <label for="upload_date">Filtrovat podle data nahrání modelu:
                         <input type="date" name="upload_date">
                     </label>
                 </div>
                 <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
-                    <label for="category">Filter by Category:
+                    <label for="category">Filtrovat podle kategorie:
                         <select name="category">
-                            <option value="" selected>All Categories</option>
+                            <option value="" selected>Všechny kategorie</option>
                             {% for category in categories %}
                                 <option value="{{ category.id }}">{{ category.name }}</option>
                             {% endfor %}
@@ -45,13 +44,13 @@
                     <label for="sort_by">Sort by:
                         <select name="sort_by">
                             <option value="" selected>None</option>
-                            <option value="newest">Newest</option>
-                            <option value="oldest">Oldest</option>
+                            <option value="newest">Nejnovější</option>
+                            <option value="oldest">Nejstrarší</option>
                         </select>
                     </label>
                 </div>
                 <button type="submit" class="btn btn-info delete-btn mt-2 w-100">
-                    <a class="text_white text-decoration-none">Apply Filters</a>
+                    <a class="text_white text-decoration-none">Použít filtry</a>
                 </button>
 
             </div>
@@ -80,9 +79,10 @@
             color: orange;
         }
     </style>
+
     {% if user.is_authenticated %}
         <div class="container">
-            <h2 class="text_white">Uploaded models:</h2>
+            <h2 class="text_white">Nahrané modely:</h2>
             {% if user_uploaded_models %}
                 <div class=" text_white">
                      <div class="row">
@@ -93,31 +93,31 @@
                                     <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
                                 </div>
                                 <button class="btn btn-info delete-btn mt-2 w-100">
-                                    <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
+                                    <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Model</a>
                                 </button>
                                 <h2 class="text-center">{{ model.title }}</h2>
-                                <h5 class="card-title">Avg rating:
+                                <h6 class="card-title">Průměrné Hodnocení:
                                     <span class="fa fa-star {% if model.average_rating > 0 %} checked {% endif %}"></span>
                                     <span class="fa fa-star {% if model.average_rating > 1 %} checked {% endif %}"></span>
                                     <span class="fa fa-star {% if model.average_rating > 2 %} checked {% endif %}"></span>
                                     <span class="fa fa-star {% if model.average_rating > 3 %} checked {% endif %}" ></span>
                                     <span class="fa fa-star {% if model.average_rating > 4 %} checked {% endif %}"></span>
                                     {{ model.average_rating }}
-                                </h5>
-                                <div class="w3-container w3-center ml-2 model-details border border-success bg-secondary box">
+                                </h6>
+                                <div class="model-details border border-success bg-secondary box">
                                     <strong>{{ model.title }}</strong><br>
-                                    Categories:
+                                    Kategorie:
                                     {% for category in model.categories.all %}
                                     {{ category.name }}
                                     {% endfor %}
                                     <br>
-                                    Upload Date: {{ model.upload_date }}<br>
+                                    Nahráno: {{ model.upload_date }}<br>
                                     <div class="mt-2">
                                         <button class="btn btn-danger delete-btn float-left">
-                                            <a class="text_white text-decoration-none" href="{% url 'delete_model' model.id %}">Delete Model</a>
+                                            <a class="text_white text-decoration-none" href="{% url 'delete_model' model.id %}">Odstranit Model</a>
                                         </button>
                                         <button class="btn btn-primary delete-btn float-right">
-                                            <a class="text_white text-decoration-none" href="{% url 'edit_3d_model' model.id %}">Edit Model</a>
+                                            <a class="text_white text-decoration-none" href="{% url 'edit_3d_model' model.id %}">Upravit Model</a>
                                         </button>
                                     </div>
                                 </div>
@@ -129,44 +129,11 @@
             </div>
             {% else %}
              <hr>
-            <p class="text_white">No models uploaded yet.</p>
+            <p class="text_white">Zatím nebyly nahrány žádné modely.</p>
             {% endif %}
     <br>
     {% else %}
-        <a href="/modelViewer/signin" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span>Login</a>
-        <a href="/modelViewer/signup" class="btn btn-success">Signup</a>
+        <a href="/modelViewer/signin" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span>Přihlásit se</a>
+        <a href="/modelViewer/signup" class="btn btn-success">Odhlásit se</a>
     {% endif %}
 {% endblock %}
-
- <div class="row">
-    {% for model in models %}
-    <div class="col-md-4 mb-4 page-details">
-        <div class="w3-card-3 border border-danger bg-secondary box" style="height: 100%;">
-            <div class="image-container">
-                <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
-            </div>
-            <button class="btn btn-info delete-btn mt-2 w-100">
-                <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">View Model</a>
-            </button>
-            <h2 class="text-center">{{ model.title }}</h2>
-            <div class="w3-container w3-center ml-2 model-details border border-success bg-secondary box">
-                <strong>{{ model.title }}</strong><br>
-                Upload Date: {{ model.upload_date }}<br>
-                Categories:
-                {% for category in model.categories.all %}
-                {{ category.name }}
-                {% endfor %}
-                <br>
-                <div class="mt-2">
-                    <button class="btn btn-success delete-btn float-left">
-                        <a class="text_white text-decoration-none" href="{% url 'delete_model' model.id %}">Delete Model</a>
-                    </button>
-                    <button class="btn btn-primary delete-btn float-right">
-                        <a class="text_white text-decoration-none" href="{% url 'edit_3d_model' model.id %}">Edit Model</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>

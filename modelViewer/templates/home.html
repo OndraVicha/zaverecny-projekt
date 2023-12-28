@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="cs">
     <head>
-        <title>{% block nazev %}User{% endblock %}</title>
+        <title>{% block nazev %}Uživatel{% endblock %}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -10,7 +10,6 @@
         {% load static %}
         <link rel="icon" href="{% static '/img/logo-background.png' %}" type="image/png">
         <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-
         <link rel="stylesheet" href="{% static 'userCSS/home.css' %}">
         <link rel="stylesheet" href="{% static 'userCSS/profile.css' %}">
         <link rel="stylesheet" href="{% static 'userCSS/aframe.css' %}">
@@ -34,7 +33,6 @@
           text-align: center;
           padding: 10px;
           position: absolute; /* or position: absolute; */
-
           width: 100%;
         }
     </style>
@@ -43,23 +41,18 @@
       Your browser does not support HTML5 video.
     </video>
     <header class="header">
-      {% block h1 %}<h1 class="h1">User Authentication</h1>{% endblock %}
-
+      {% block h1 %}<h1 class="h1">Ověření uživatelů</h1>{% endblock %}
     </header>
-
     <main>
-
         <div class="container">
             {% block filter %} {% endblock %}
             {% block add %} {% endblock %}
             {% block user %} {% endblock %}
             {% block content %} {% endblock %}
-
             {% block search %} {% endblock %}
             {% block profile %} {% endblock %}
         </div>
     </main>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var myVideo = document.getElementById('myVideo');

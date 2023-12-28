@@ -1,5 +1,5 @@
 {% extends 'home.html' %}
-{% block h1 %}<h1 class="h1">Upload 3D modelu</h1>{% endblock %}
+{% block h1 %}<h1 class="h1">Nahrání 3D modelu</h1>{% endblock %}
 {% block user %}
 <div class="center ">
     <div class="row mx-0 justify-content-center">
@@ -7,25 +7,25 @@
                   <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="{{ form.title.id_for_label }}">Title:</label>
+                        <label for="{{ form.title.id_for_label }}">Název:</label>
                         {{ form.title }}
                     </div>
                     <div class="form-group">
-                        <label for="{{ form.description.id_for_label }}">Description:</label>
+                        <label for="{{ form.description.id_for_label }}">Popis:</label>
                         {{ form.description }}
                     </div>
                       <div class="form-group">
-                        <label for="{{ form.file.id_for_label }}">File:</label>
+                        <label for="{{ form.file.id_for_label }}">Soubor:</label>
                         {{ form.file }}
                           <small class="form-text text-muted">{{ form.file.help_text }}</small>
                         </div>
                       <div class="form-group">
-                        <label for="{{ form.textures.id_for_label }}">Textures:</label>
+                        <label for="{{ form.textures.id_for_label }}">Textury:</label>
                         <input type="file" name="textures" id="id_textures">
                           <small class="form-text text-muted">{{ form.textures.help_text }}</small>
                     </div>
                       <div class="form-group">
-                        <label for="{{ form.image.id_for_label }}">Image:</label>
+                        <label for="{{ form.image.id_for_label }}">Fotka:</label>
                         {{ form.image }}
                     </div>
                       <div class="form-group justify-content-center">
@@ -33,7 +33,7 @@
                         <div class="form-field">{{ form.categories }}</div>
                     </div>
                       <hr>
-                    <button type="submit" class="btn btn-success upload">Upload</button>
+                    <button type="submit" class="btn btn-success upload">Nahrát</button>
                   </form>
             </div>
     </div>
