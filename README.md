@@ -9,18 +9,18 @@ Tento repozitář obsahuje všechny důležité informace a nástroje pro import
 Hlavní cíl je fungující webovská aplikace
 
 ### Důležité
-- [ ] Implementace funkční webové aplikace s podporou importu a exportu 3D modelů.
-- [ ] Navrhnout a vytvořit základní design stránky pro přehledné zobrazení 3D modelů.
-- [ ] Porozumět a použít potřebné programovací jazyky a technologie související s importem a exportem 3D modelů.
-- [ ] Získat relevantní informace a poznatky pro úspěšnou implementaci importu a exportu 3D modelů
+- [x] Implementace funkční webové aplikace s podporou importu a exportu 3D modelů.
+- [x] Navrhnout a vytvořit základní design stránky pro přehledné zobrazení 3D modelů.
+- [x] Porozumět a použít potřebné programovací jazyky a technologie související s importem a exportem 3D modelů.
+- [x] Získat relevantní informace a poznatky pro úspěšnou implementaci importu a exportu 3D modelů
 
 ### Další plány
 - [ ] Vylepšit design webové stránky pro lepší uživatelský zážitek.
-- [ ] Implementovat funkční přihlašování pro uživatele.
+- [x] Implementovat funkční přihlašování pro uživatele.
 - [ ] Zajištění importu modelů včetně jejich textur.
 ### Finální cíle
-- [ ] Dosáhnout plně funkční webové stránky s podporou importu a exportu 3D modelů.
-- [ ] Poskytnout uživatelům zábavné a interaktivní prostředí pro práci s 3D modely.
+- [x] Dosáhnout plně funkční webové stránky s podporou importu a exportu 3D modelů.
+- [x] Poskytnout uživatelům zábavné a interaktivní prostředí pro práci s 3D modely.
 - [x] zábava :)))
 
 
@@ -29,7 +29,7 @@ Hlavní cíl je fungující webovská aplikace
 ### - HTML
 ### - JAVASCRIPT
 ### - CSS
-### - DALŠÍ *(nespecifikované)*
+### - PYTHON
 
 ## Zdroje
 
