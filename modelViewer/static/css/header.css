@@ -4,7 +4,7 @@
     animation: fadeRight 1s forwards;
     text-shadow:  0 0 3px #bf00ff;
     user-select: none;
-    font-family: 'Inconsolata', monospace;
+    font-family: 'Hedvig Serif', serif;
 }
 
 .header-content {
@@ -69,7 +69,7 @@ h2 {
     justify-content: flex-start;
     align-items: center;
     height: 105vh;
-    margin-right: 700px;
+    left: 20%;
 }
 
 .centered-text {

@@ -19,8 +19,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-def index(request):
-	return render(request, 'index.html')
+
 
 def signup(request):
     if request.user.is_authenticated:
@@ -261,3 +260,12 @@ def user_detail(request, username):
     models = ThreeDModel.objects.filter(user=user)
 
     return render(request, 'user/view_user.html', {'user': user, 'models': models})
+
+def index(request):
+    top_models = ThreeDModel.objects.all().order_by('-rating')[:3]
+
+    context = {
+        'top_models': top_models,
+    }
+
+    return render(request, 'base.html', context)

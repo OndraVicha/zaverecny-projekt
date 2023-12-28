@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
         <link rel="stylesheet" href="{% static 'css/header.css' %}">
         <link rel="stylesheet" href="{% static 'css/body.css' %}">
+        <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+        <link rel="stylesheet" href="{% static 'modelCSS/search_model.css' %}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="{% static 'js/navbar.js' %}"></script>
@@ -18,23 +20,41 @@
     {% include 'frontpage/navbar.html' %}
     <body class="body">
         <style>
-            footer {
-              text-align: center;
-              padding: 10px;
-              position: fixed; /* or position: absolute; */
-              bottom: 0;
-              width: 100%;
-            }
+
         </style>
         <video autoplay muted loop id="myVideo" class="flip-horizontal">
           <source src="{% static 'img/darkpurple2.mp4' %}" type="video/mp4">
           Your browser does not support HTML5 video.
         </video>
         {% include 'frontpage/header.html' %}
-        <main>
-
-
+        <main class="color">
+             <div class=" blur">
+                <h1 class="h1">Nejlépe hodnocené modely</h1>
+                <div class="text_white">
+                    <div class="row">
+                        {% for model in top_models %}
+                        <div class="col-md-4 mb-4 page-details">
+                            <div class="col-md-4 mb-4 page-details">
+                                <div class="w3-card-3 border border-danger bg-secondary box" style="height: 100%;">
+                                    <div class="image-container">
+                                        <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
+                                    </div>
+                                    <button class="btn btn-info delete-btn mt-2 w-100">
+                                        <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Model</a>
+                                    </button>
+                                    <h2 class="h2">{{ model.title }} od {{ model.user.username }}</h2>
+                                    <h5 class="card-title">Hodnocení:
+                                        {{ model.average_rating }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </main>
+        {% include 'frontpage/footer.html' %}
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var myVideo = document.getElementById('myVideo');
