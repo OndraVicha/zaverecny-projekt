@@ -1,6 +1,7 @@
 from django.urls import path
-from django.contrib.auth.views import PasswordChangeView
-from .views import user_detail,user_list,clear_profile_fields,index,profile,signin,signout,signup,upload_3d_model,delete_model,edit_3d_model,model,model_list,rate,change_password,edit_profile
+from .views import (user_detail,user_list,clear_profile_fields,index,profile,signin,signout,
+                    signup,upload_3d_model,delete_model,edit_3d_model,model,model_list,rate,
+                    change_password,edit_profile)
 
 urlpatterns = [
     path("", index, name="index"),

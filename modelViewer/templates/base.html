@@ -42,7 +42,8 @@
                                     <button class="btn btn-info delete-btn mt-2 w-100">
                                         <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Model</a>
                                     </button>
-                                    <h2 class="h2">{{ model.title }} od {{ model.user.username }}</h2>
+
+                                    <h2 class="h2"><strong>{{ model.title }}</strong> od <a class="text-success" href="{% url 'user_detail' model.user.username %}"><strong>{{ model.user.username }}</strong></a></h2>
                                     <h5 class="card-title">Hodnocení:
                                         {{ model.average_rating }}
                                     </h5>

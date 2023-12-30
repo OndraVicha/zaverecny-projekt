@@ -6,7 +6,7 @@ from django.db.models import Avg
 
 def validate_gltf_file(value):
     valid_extensions = ['.glb', '.gltf']
-    ext = os.path.splitext(value.name)[1]  # Get the file extension
+    ext = os.path.splitext(value.name)[1]
 
     if ext.lower() not in valid_extensions:
         raise ValidationError('Invalid file format. Please upload a .glb or .gltf file.')

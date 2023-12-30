@@ -1,21 +1,15 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import get_object_or_404,render, redirect
-from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-from django.urls import reverse
 from .forms import ThreeDModelForm,StyledAuthenticationForm,ChangePasswordForm,UserProfileForm
 from .models import ThreeDModel,Category,Rating, UserProfile
-from django.contrib import messages
 from django.db.models import Q, Count
-from django.db.models import Avg
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib import messages
 

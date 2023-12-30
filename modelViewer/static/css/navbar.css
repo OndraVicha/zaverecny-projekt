@@ -27,9 +27,9 @@
 }
 
 .logo {
-    width: 110%; /* Obrázek bude mít 100% šířky navigačního pruhu */
-    height: auto; /* Výška se automaticky přizpůsobí tak, aby se zachoval poměr stran */
-    max-height: 35px; /* Volitelně, nastavte maximální výšku podle potřeby */
+    width: 110%;
+    height: auto;
+    max-height: 35px;
 }
 
 .logo img {
@@ -108,9 +108,9 @@
   background: rgba(5, 3, 3, 0.5);
   position: absolute;
   z-index: 1;
-  max-height: 0; /* Set the initial max-height to 0 */
-  display: block; /* Change to 'block' so the initial state is displayed */
-  transition: max-height 0.3s ease; /* Add this line for smooth transition */
+  max-height: 0;
+  display: block;
+  transition: max-height 0.3s ease;
 }
 
 #menu ul.sub-menus li {
@@ -125,13 +125,13 @@
 
 #menu li:hover ul.sub-menus {
   display: block;
-  max-height: 300px; /* Set the desired maximum height */
+  max-height: 300px;
 }
 
 #menu ul.sub-menus a:hover {
   background: #4b0f0f;
   color: #ffffff;
-   max-height: 300px; /* Set the desired maximum height */
+   max-height: 300px;
   width: auto;
 }
 

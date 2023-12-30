@@ -1,8 +1,6 @@
 from django import forms
-from django.shortcuts import render
 from .models import ThreeDModel, Category, UserProfile
-from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,UserChangeForm
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 
 class StyledAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -36,7 +34,6 @@ class ChangePasswordForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Přidáme třídy pro Bootstrap styling
         for field_name in self.fields:
             self.fields[field_name].widget.attrs['class'] = 'form-control'
 

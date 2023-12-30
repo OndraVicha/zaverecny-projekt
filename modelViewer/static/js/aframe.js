@@ -3,7 +3,7 @@
             speed: { default: 1 }
         },
         tick: function (time, timeDelta) {
-            // Rotate the entity around the Y-axis
+
             this.el.object3D.rotation.y += this.data.speed * (timeDelta / 1000);
         }
     });

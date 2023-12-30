@@ -5,7 +5,7 @@
 
 {% block filter %}
     <form method="get" action="{% url 'model_list' %}">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center zamlzeni">
             <div class="text_white d-flex flex-wrap justify-content-center">
                 <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
                     <label for="model_name">Vyhledat model podle jména:
@@ -87,7 +87,7 @@
                     </h5>
 
                     <div class="model-details border border-success bg-secondary box">
-                        <strong>{{ model.title }}</strong> od {{ model.user.username }}<br>
+                        <strong>{{ model.title }}</strong> od <a class="text-success" href="{% url 'user_detail' model.user.username %}"><strong>{{ model.user.username }}</strong></a><br>
                         Popis: {{ model.description }}<br>
                         Nahráno: {{ model.upload_date }}<br>
                         Kategorie:

@@ -6,7 +6,7 @@
 }
 .center{
      margin: auto;
-  width: 60%;background-color: rgba(206, 60, 252, 0.3);
+  width: 60%;
   padding: 10px;
     border-radius: 2em;
 }
@@ -18,4 +18,9 @@
 }
 .form-group{
     color:white;
+}
+
+.zamlzeni{
+    backdrop-filter: blur(55px);
+    border-radius: 30px;
 }

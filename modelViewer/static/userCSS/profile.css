@@ -30,5 +30,5 @@
     margin: 10px;
     transition: background-color 0.3s ease;
     border-radius: 10px;
-    flex: 1 0 calc(50% - 20px); /* 2 columns with margin included */
+    flex: 1 0 calc(50% - 20px);
 }
