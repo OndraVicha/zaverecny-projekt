@@ -17,10 +17,34 @@
   padding: 10px;
 }
 .form-group{
-    color:white;
+    color:transparent;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+}
+
+.select {
+    width: 90%;
+    box-sizing: border-box;
+    height: 28px; /* Přizpůsobte podle potřeby */
+}
+
+.option {
+     display: inline-block;
+    width: 25%; /* Umožní umístit 4 možnosti vedle sebe, můžete upravit podle potřeby */
+    box-sizing: border-box;
+    align-items: center;
+    text-align: center;
+    padding: 5px; /* Přizpůsobte podle potřeby */
 }
 
 .zamlzeni{
     backdrop-filter: blur(55px);
     border-radius: 30px;
+}
+
+.odsazeni{
+    margin-bottom: 2.2em;
 }

@@ -18,35 +18,42 @@
                       <div style="margin: 30px" class="block-container container">
                         <div class="block">
                             <div class="form-group">
-                                <label for="{{ form.title.id_for_label }}">Název:</label>
-                                {{ form.title }}
+                                <label for="id_title">Název:</label>
+                                <input type="text" class="bio" name="title" maxlength="255" required id="id_title">
                             </div>
                             <div class="form-group">
-                                <label for="{{ form.description.id_for_label }}">Popis:</label>
-                                {{ form.description }}
-                            </div>
-                        </div>
-                        <div class="block">
-                            <div class="form-group">
-                                <label for="{{ form.file.id_for_label }}">Soubor:</label>
-                                {{ form.file }}
-                                <small class="form-text text-muted">{{ form.file.help_text }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="{{ form.textures.id_for_label }}">Textury:</label>
-                                <input type="file" name="textures" id="id_textures">
-                                <small class="form-text text-muted">{{ form.textures.help_text }}</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="{{ form.image.id_for_label }}">Fotka:</label>
-                                {{ form.image }}
+                                <label for="id_description">Popis:</label>
+                                <textarea name="description" class="bio" cols="34" rows="5" id="id_description"></textarea>
                             </div>
                             <div class="form-group justify-content-center">
                                 <label>Categories:</label>
-                                <div class="form-field">{{ form.categories }}</div>
+                                <div class="form-field">
+                                    <select name="categories" class="select" required id="id_categories" multiple>
+                                      <option class="option" value="1">Krajina</option>
+                                      <option class="option" value="2">Hory</option>
+                                      <option class="option" value="3">Město</option>
+                                      <option class="option" value="5">Jiné</option>
+                                    </select>
+                                  </div>
+                                <small class="form-text text-muted">Pro vybrání více kategorií podrže CTRL a vyberte.</small>
                             </div>
                         </div>
-
+                        <div class="block ">
+                            <div class="form-group odsazeni">
+                                <label for="id_file">Soubor:</label>
+                                <input type="file" name="file" required id="id_file">
+                                <small class="form-text text-muted">Jen soubory s příponou .glb nebo .gltf</small>
+                            </div>
+                            <div class="form-group odsazeni">
+                                <label for="id_textures">Textury:</label>
+                                <input type="file" name="textures" id="id_textures">
+                                <small class="form-text text-muted"></small>
+                            </div>
+                            <div class="form-group odsazeni">
+                                <label for="id_image">Fotka:</label>
+                                <input type="file" name="image" accept="image/*" id="id_image">
+                            </div>
+                        </div>
                     </div>
                     <button style="margin-bottom: 15px" type="submit" class="btn btn-success upload">Nahrát</button>
                   </form>

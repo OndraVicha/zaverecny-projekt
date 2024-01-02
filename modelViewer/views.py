@@ -26,7 +26,7 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('/')
+            return redirect('/modelViewer/profile')
         else:
             return render(request, 'user/signup.html', {'form': form})
     else:
