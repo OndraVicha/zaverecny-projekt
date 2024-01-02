@@ -32,3 +32,7 @@
     border-radius: 10px;
     flex: 1 0 calc(50% - 20px);
 }
+
+.margin{
+    margin-bottom: 20vh;!important;
+}

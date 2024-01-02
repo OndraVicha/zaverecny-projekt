@@ -10,7 +10,6 @@
 .header-content {
     text-align: center;
 }
-
 h1.centered-text {
     margin-bottom: 10px; / Přidejte mezery podle potřeby */
 }
@@ -68,7 +67,7 @@ h2 {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 105vh;
+    height: 130vh;
     left: 20%;
 }
 
