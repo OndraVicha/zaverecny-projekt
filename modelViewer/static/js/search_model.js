@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function changeBackgroundColor(element) {
-    element.style.backgroundColor = "#2d2c2c";
-    element.style.boxShadow = "0px 0px 30px red";
+    element.style.backgroundColor = "rgb(89,0,147)";
+    element.style.boxShadow = "0px 0px 30px blue";
 }
 
 function restoreBackgroundColor(element) {

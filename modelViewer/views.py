@@ -253,7 +253,29 @@ def user_detail(request, username):
     # Můžete také získat modely uživatele nebo další informace, pokud je to potřeba
     models = ThreeDModel.objects.filter(user=user)
 
-    return render(request, 'user/view_user.html', {'user': user, 'models': models})
+    categories = Category.objects.all()
+
+    # Získání hodnot z formuláře
+    category_id = request.GET.get('category')
+    upload_date = request.GET.get('upload_date')
+    model_name = request.GET.get('model_name')
+    sort_by = request.GET.get('sort_by')
+    # Filtrujeme podle kategorie
+    if category_id:
+        models = models.filter(categories__id=category_id)
+    # Filtrujeme podle data uploadu
+    if upload_date:
+        models = models.filter(upload_date=upload_date)
+    # Filtrujeme podle jména modelu (necitlivě na diakritiku)
+    if model_name:
+        models = models.filter(Q(title__icontains=model_name))
+    # Třídíme podle nejnovějších nebo nejstarších
+    if sort_by == 'newest':
+        models = models.order_by('-upload_date')
+    elif sort_by == 'oldest':
+        models = models.order_by('upload_date')
+
+    return render(request, 'user/view_user.html', {'user': user,'models': models,'categories': categories,})
 
 def index(request):
     top_models = ThreeDModel.objects.all().order_by('-rating')[:3]

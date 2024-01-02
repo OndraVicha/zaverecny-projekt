@@ -23,64 +23,102 @@
     </style>
     <div class="container">
         <div class="row">
+            <form method="get" action="{% url 'user_detail' user.username %}">
+            <div class="row justify-content-center zamlzeni">
+                <div class="text_white d-flex flex-wrap justify-content-center">
+                    <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
+                        <label for="model_name">Vyhledat model podle jména:
+                            <input type="text" name="model_name">
+                        </label>
+                    </div>
+                    <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
+                        <label for="upload_date">Filtrovat podle data nahrání modelu:
+                            <input type="date" name="upload_date">
+                        </label>
+                    </div>
+                    <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
+                        <label for="category">Filrovat podle kategorie:
+                            <select name="category">
+                                <option value="" selected>Všechny kategorie</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
+                        <label for="sort_by">Seřadit podle:
+                            <select name="sort_by">
+                                <option value="" selected>None</option>
+                                <option value="newest">Nejnovější</option>
+                                <option value="oldest">Nejstarší</option>
+                            </select>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-info delete-btn mt-2 w-100">
+                        <a class="text_white text-decoration-none">Aplikovat filtry</a>
+                    </button>
+                </div>
+            </div>
+        </form>
         {% if models %}
-        {% for model in models %}
-            <div style="height:55vh" class="col-md-4 mb-4 page-details">
-                    <div class="w3-card-3 border border-danger bg-secondary box" style="height: 100%;">
-                        <div class="image-container">
-                            <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
-                        </div>
-                        <button class="btn btn-info delete-btn mt-2 w-100">
-                            <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Model</a>
-                        </button>
-                        <h2 class="text-center">{{ model.title }}</h2>
-                        <h5 class="card-title">Hodnocení:
-                            <span class="fa fa-star {% if model.average_rating > 0 %} checked {% endif %}"></span>
-                            <span class="fa fa-star {% if model.average_rating > 1 %} checked {% endif %}"></span>
-                            <span class="fa fa-star {% if model.average_rating > 2 %} checked {% endif %}"></span>
-                            <span class="fa fa-star {% if model.average_rating > 3 %} checked {% endif %}" ></span>
-                            <span class="fa fa-star {% if model.average_rating > 4 %} checked {% endif %}"></span>
-                            {{ model.average_rating }}
-                        </h5>
-                        <div class="model-details border border-success bg-secondary box">
-                            <strong>{{ model.title }}</strong> od {{ model.user.username }}<br>
-                            Popis: {{ model.description }}<br>
-                            Nahráno: {{ model.upload_date }}<br>
-                            Kategorie:
-                            {% for category in model.categories.all %}
-                            {{ category.name }}
-                            {% endfor %}<br>
-                            {% if user.is_authenticated %}
-                                {% if model.user == user %}
-                                {% else %}
-                                 <ul class="btn btn-light list-inline rating-list">
-                                  <li onclick="rate(5, {{ model.id }})">
-                                      <i class="fa fa-star {% if model.user_rating > 4 %} checked {% endif %}" title="Rate 5"></i></li>
-                                  <li onclick="rate(4, {{ model.id }})">
-                                      <i class="fa fa-star {% if model.user_rating > 3 %} checked {% endif %}" title="Rate 4"></i></li>
-                                  <li onclick="rate(3, {{ model.id }})">
-                                      <i class="fa fa-star {% if model.user_rating > 2 %} checked {% endif %}" title="Rate 3"></i></li>
-                                  <li onclick="rate(2, {{ model.id }})">
-                                      <i class="fa fa-star {% if model.user_rating > 1 %} checked {% endif %}" title="Rate 2"></i></li>
-                                  <li onclick="rate(1, {{ model.id }})">
-                                      <i class="fa fa-star {% if model.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i></li>
-                                </ul>
+            {% for model in models %}
+                <div style="height:55vh" class="col-md-4 mb-4 page-details">
+                        <div class="w3-card-3 border border-danger bg-secondary box" >
+                            <div class="image-container">
+                                <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
+                            </div>
+                            <button class="btn btn-info delete-btn mt-2 w-100">
+                                <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Model</a>
+                            </button>
+                            <h2 class="text-center">{{ model.title }}</h2>
+                            <h5 class="card-title">Hodnocení:
+                                <span class="fa fa-star {% if model.average_rating > 0 %} checked {% endif %}"></span>
+                                <span class="fa fa-star {% if model.average_rating > 1 %} checked {% endif %}"></span>
+                                <span class="fa fa-star {% if model.average_rating > 2 %} checked {% endif %}"></span>
+                                <span class="fa fa-star {% if model.average_rating > 3 %} checked {% endif %}" ></span>
+                                <span class="fa fa-star {% if model.average_rating > 4 %} checked {% endif %}"></span>
+                                {{ model.average_rating }}
+                            </h5>
+                            <div class="model-details border border-success bg-secondary box">
+                                <strong>{{ model.title }}</strong> od {{ model.user.username }}<br>
+                                Popis: {{ model.description }}<br>
+                                Nahráno: {{ model.upload_date }}<br>
+                                Kategorie:
+                                {% for category in model.categories.all %}
+                                {{ category.name }}
+                                {% endfor %}<br>
+                                {% if user.is_authenticated %}
+                                    {% if model.user == user %}
+                                    {% else %}
+                                     <ul class="btn btn-light list-inline rating-list">
+                                      <li onclick="rate(5, {{ model.id }})">
+                                          <i class="fa fa-star {% if model.user_rating > 4 %} checked {% endif %}" title="Rate 5"></i></li>
+                                      <li onclick="rate(4, {{ model.id }})">
+                                          <i class="fa fa-star {% if model.user_rating > 3 %} checked {% endif %}" title="Rate 4"></i></li>
+                                      <li onclick="rate(3, {{ model.id }})">
+                                          <i class="fa fa-star {% if model.user_rating > 2 %} checked {% endif %}" title="Rate 3"></i></li>
+                                      <li onclick="rate(2, {{ model.id }})">
+                                          <i class="fa fa-star {% if model.user_rating > 1 %} checked {% endif %}" title="Rate 2"></i></li>
+                                      <li onclick="rate(1, {{ model.id }})">
+                                          <i class="fa fa-star {% if model.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i></li>
+                                    </ul>
 
-                                <br>
+                                    <br>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                            <div class="mt-2">
-                                <button class="btn btn-success delete-btn float-left">
-                                    <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Mode</a>
-                                </button>
-                                <button class="btn btn-primary delete-btn float-right">
-                                    <a class="text_white text-decoration-none" href="{{ model.file.url }}" target="_blank">Stáhnout Model</a>
-                                </button>
+                                <div class="mt-2">
+                                    <button class="btn btn-success delete-btn float-left">
+                                        <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Mode</a>
+                                    </button>
+                                    <button class="btn btn-primary delete-btn float-right">
+                                        <a class="text_white text-decoration-none" href="{{ model.file.url }}" target="_blank">Stáhnout Model</a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-        {% endfor %}
+            {% endfor %}
         {% else %}
              <hr>
             <div style="height:55vh" class="container">

@@ -30,6 +30,7 @@ Hlavní cíl je fungující webovská aplikace
 ### - JAVASCRIPT
 ### - CSS
 ### - PYTHON
+### - DJANGO
 
 ## Zdroje
 
