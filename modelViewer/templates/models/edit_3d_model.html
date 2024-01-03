@@ -3,13 +3,61 @@
 {% block h1 %}<h1 class="h1">Upravit 3D Model</h1>{% endblock %}
 
 {% block content %}
-<div class="center text_white">
-    <div class="row mx-0 justify-content-center">
-            <div style="width: 50%">
+<style>
+.block-container {
+    display: flex;
+    justify-content: space-between;
+}
+.block {
+    width: 48%;
+}
+</style>
+<div style="margin-bottom: 20vh" class="container">
+    <div class="row mx-0 justify-content-center ">
+            <div style="width: 70%;border:2px solid #f7e2fc;border-radius: 20px" class="zamlzeni">
                   <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Uložit změny</button>
+                      <div style="margin: 30px" class="block-container container">
+                        <div class="block">
+                            <div class="form-group">
+                                <label for="id_title">Název:</label>
+                                <input type="text" class="bio" name="title" value="{{ instance.title }}" maxlength="255" required id="id_title">
+                            </div>
+                            <div class="form-group">
+                                <label for="id_description">Popis:</label>
+                                <textarea name="description" class="bio" cols="34" rows="5" id="id_description">{{ instance.description }}</textarea>
+                            </div>
+                            <div class="form-group justify-content-center">
+                                <label for="id_categories">Kategorie:</label>
+                                <div class="form-field">
+                                    <select name="categories" class="select" required id="id_categories" multiple>
+                                      <option class="option" value="1">Krajina</option>
+                                      <option class="option" value="2">Hory</option>
+                                      <option class="option" value="3">Město</option>
+                                      <option class="option" value="5">Jiné</option>
+                                    </select>
+                                  </div>
+                                <small class="form-text text-muted">Pro vybrání více kategorií podrže CTRL a vyberte.</small>
+                            </div>
+                        </div>
+                        <div class="block ">
+                            <div class="form-group odsazeni">
+                                <label for="id_file">Soubor:</label><a href="{{ instance.file }}"> {{ instance.file}}</a>
+                                <input type="file" name="file" required id="id_file">
+                                <small class="form-text text-muted">Jen soubory s příponou .glb nebo .gltf</small>
+                            </div>
+                            <div class="form-group odsazeni">
+                                <label for="id_textures">Textury:</label><a href="{{ instance.textures }}"> {{ instance.textures }}</a>
+                                <input type="file" name="textures" id="id_textures">
+                                <small class="form-text text-muted"></small>
+                            </div>
+                            <div class="form-group odsazeni">
+                                <label for="id_image">Fotka:</label><a href="{{ instance.image }}"> {{ instance.image}}</a><input type="checkbox" name="image-clear" id="image-clear_id"><label for="image-clear_id">Clear</label>
+                                <input type="file" name="image" accept="image/*" id="id_image">
+                            </div>
+                        </div>
+                    </div>
+                    <button style="margin-bottom: 15px" type="submit" class="btn btn-success upload">Uložit změny</button>
                   </form>
             </div>
     </div>

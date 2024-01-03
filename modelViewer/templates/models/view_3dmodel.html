@@ -15,14 +15,6 @@
     .rating-list li:hover ~ li {
       color: orange;
     }
-
-    .rating-list {
-      display: inline-block;
-      list-style: none;
-    }
-    .checked {
-        color: orange;
-    }
 </style>
     <div class="container ">
         <div class="center zamlzeni">
@@ -30,25 +22,11 @@
                 <a-assets>
                   <a-asset-item id="model" src="{{ model.file.url }}"></a-asset-item>
                 </a-assets>
-
-                <!-- Add Ambient Light -->
                 <a-light type="ambient" position="1 1 1" intensity="1"></a-light>
-
-                <a-entity
-                        gltf-model="#model"
-                        max-dimensions
-                        position="0 0 0"
-                        rotation="0 0 0"
-                />
-                <a-camera
-                  id="camera"
-                  position="5 1.5 5"
-                  rotation="0 0 0"
-                  wasd-controls
-                >
+                <a-entity gltf-model="#model" max-dimensions position="0 0 0" rotation="0 0 0"/>
+                <a-camera id="camera" position="5 1.5 5" rotation="0 0 0" wasd-controls>
                   <a-cursor></a-cursor>
                 </a-camera>
-
                <script>
                    AFRAME.registerComponent('max-dimensions', {
                       init: function () {

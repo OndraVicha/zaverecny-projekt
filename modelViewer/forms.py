@@ -26,6 +26,7 @@ class ThreeDModelForm(forms.ModelForm):
     widgets = {
         'title': forms.TextInput(attrs={'class': 'form-control'}),
         'file': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        'textures': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         'description': forms.Textarea(attrs={'class': 'form-control'}),
         'categories': forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'}),
     }

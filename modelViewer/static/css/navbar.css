@@ -73,8 +73,9 @@
 
 #menu li a:not(.no-hover):hover {
   color: #ffffff;
-  background: rgba(129, 13, 13, 0.8);
+  background: rgba(39, 0, 63, 0.8);
   font-size: 115%;
+  text-shadow: 1px 0 10px #d6eeff;
   transition: font-size 0.5s;
 }
 
@@ -129,7 +130,7 @@
 }
 
 #menu ul.sub-menus a:hover {
-  background: #4b0f0f;
+  background: rgb(39, 0, 63);
   color: #ffffff;
    max-height: 300px;
   width: auto;

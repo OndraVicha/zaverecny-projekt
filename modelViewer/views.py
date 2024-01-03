@@ -55,7 +55,6 @@ def signin(request):
 def profile(request):
     user_uploaded_models = ThreeDModel.objects.filter(user=request.user)
     categories = Category.objects.all()
-
     # Získání hodnot z formuláře
     category_id = request.GET.get('category')
     upload_date = request.GET.get('upload_date')
