@@ -9,6 +9,10 @@
     min-width: 370px;
 
 }
+.border-details{
+    position: relative;
+    min-width: 400px;
+}
 .image-container img {
     object-fit: cover;
     width: 300px;

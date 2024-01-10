@@ -7,7 +7,7 @@
 {% block add %}
     <div class="container mb-2 mt-2">
         <div class="float-left">
-            <a href="/modelViewer/upload_3d_model" class="btn btn-success">Nahrát Model</a>
+            <a href="/modelViewer/upload_3d_model" class="btn btn-success">Nahrát model</a>
         </div>
         <div class="float-right">
             <a href="/modelViewer/signout" class="btn btn-danger">Odhlásit se</a>
@@ -93,10 +93,10 @@
                                     <img src="{{ model.image.url }}" alt="{{ model.title }}" class="img-fluid">
                                 </div>
                                 <button class="btn btn-info delete-btn mt-2 w-100">
-                                    <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Model</a>
+                                    <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit model</a>
                                 </button>
                                 <h2 class="text-center">{{ model.title }}</h2>
-                                <h6 class="card-title">Průměrné Hodnocení:
+                                <h6 class="card-title">Průměrné hodnocení:
                                     <span class="fa fa-star {% if model.average_rating > 0 %} checked {% endif %}"></span>
                                     <span class="fa fa-star {% if model.average_rating > 1 %} checked {% endif %}"></span>
                                     <span class="fa fa-star {% if model.average_rating > 2 %} checked {% endif %}"></span>
@@ -114,10 +114,10 @@
                                     Nahráno: {{ model.upload_date }}<br>
                                     <div class="mt-2">
                                         <button class="btn btn-danger delete-btn float-left">
-                                            <a class="text_white text-decoration-none" href="{% url 'delete_model' model.id %}">Odstranit Model</a>
+                                            <a class="text_white text-decoration-none" href="{% url 'delete_model' model.id %}">Odstranit</a>
                                         </button>
                                         <button class="btn btn-primary delete-btn float-right">
-                                            <a class="text_white text-decoration-none" href="{% url 'edit_3d_model' model.id %}">Upravit Model</a>
+                                            <a class="text_white text-decoration-none" href="{% url 'edit_3d_model' model.id %}">Upravit</a>
                                         </button>
                                     </div>
                                 </div>

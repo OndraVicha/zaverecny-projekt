@@ -15,15 +15,40 @@
     .rating-list li:hover ~ li {
       color: orange;
     }
+
+    .rating-list {
+      display: inline-block;
+      list-style: none;
+    }
+    .checked {
+        color: orange;
+    }
 </style>
     <div class="container ">
         <div class="center zamlzeni">
+            <script>
+              AFRAME.registerComponent('modify-materials', {
+                init: function () {
+                  // Wait for model to load.
+                  this.el.addEventListener('model-loaded', () => {
+                    // Grab the mesh / scene.
+                    const obj = this.el.getObject3D('mesh');
+                    // Go over the submeshes and modify materials we want.
+                    obj.traverse(node => {
+                      if (node.name.indexOf('ship') !== -1) {
+                        node.material.color.set('red');
+                      }
+                    });
+                  });
+                }
+              });
+            </script>
             <a-scene class="aframebox" embedded>
                 <a-assets>
                   <a-asset-item id="model" src="{{ model.file.url }}"></a-asset-item>
                 </a-assets>
                 <a-light type="ambient" position="1 1 1" intensity="1"></a-light>
-                <a-entity gltf-model="#model" max-dimensions position="0 0 0" rotation="0 0 0"/>
+                <a-entity gltf-model="#model" modify-materials max-dimensions position="0 0 0" rotation="0 0 0"/>
                 <a-camera id="camera" position="5 1.5 5" rotation="0 0 0" wasd-controls>
                   <a-cursor></a-cursor>
                 </a-camera>
@@ -35,7 +60,7 @@
 
                         this.el.addEventListener('model-loaded', function () {
                           // Získání aktuálních rozměrů modelu
-                          var modelDimensions = this.getObject3D('mesh').geometry.boundingBox.getSize();
+                          var modelDimensions = this.getObject3D('model').geometry.boundingBox.getSize();
 
                           // Nastavení maximálních rozměrů modelu na základě aktuálních rozměrů
                           var scaleFactor = Math.min(

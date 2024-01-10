@@ -1,0 +1,613 @@
+% ŠABLONA PRO PSANÍ ZÁVĚREČNÉ STUDIJNÍ PRÁCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Autor: Jakub Dokulil (kubadokulil99@gmail.com)
+% Tato šablona byla vytvořena tak, aby pomocí ní mohli v systému LaTeX soutěžící sázet své práce a zároveň odpovídala požadavkům na formátování vyplývajícím z wordové šablony umístěné na webu soc.cz.
+%
+\documentclass[12pt, a4paper,
+%oneside,      %% -- odkomentujte, pokud chcete svou práci mít pouze jednostrannou, mezera pro hřbet pak automaticky bude pouze na levé straně
+twoside,        %% -- pro oboustranné práce, mezera pro hřbet následně střídá strany.
+openright
+]{report}
+
+%% Nutné balíčky a nastavení
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Proměnné
+\newcommand\obor{INFORMAČNÍ TECHNOLOGIE} %% -- napiš číslo a název tvého oboru
+\newcommand\kodOboru{18-20-M/01} %% -- napiš číslo a název tvého oboru
+\newcommand\zamereni{se zaměřením na počítačové sítě a programování} %% -- napiš číslo a název tvého oboru
+\newcommand\skola{Střední škola průmyslová a umělecká, Opava} %% vyplň název školy
+\newcommand\trida{IT4} %% vyplň jméno svého konzultanta
+\newcommand\jmenoAutora{Ondřej Vícha}  %% vyplň své jméno
+\newcommand\skolniRok{2023/24} %% vyplň rok
+\newcommand\datumOdevzdani{1. 1. 2024} %% vyplň rok
+\newcommand\nazevPrace{Webová aplikace na zobrazení 3D modelů pomocí Aframe} %% vyplň název své práce
+
+\title{\nazevPrace} %% -- Název tvé práce
+\author{\jmenoAutora} %% -- tvé jméno
+\date{\datumOdevzdani} %% -- rok, kdy píšeš SOČku
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=1.5cm]{geometry} %% nastaví okraje, left -- vnitřní okraj, right -- vnější okraj
+
+\usepackage[czech]{babel} %% balík babel pro sazbu v češtině
+\usepackage[utf8]{inputenc} %% balíky pro kódování textu
+\usepackage[T1]{fontenc}
+\usepackage{cmap} %% balíček zajišťující, že vytvořené PDF bude prohledávatelné a kopírovatelné
+
+\usepackage{graphicx} %% balík pro vkládání obrázků
+
+\usepackage{subcaption} %% balíček pro vkládání podobrázků
+
+\usepackage{hyperref} %% balíček, který v PDF vytváří odkazy
+
+\linespread{1.25} %% řádkování
+\setlength{\parskip}{0.5em} %% odsazení mezi odstavci
+
+
+\usepackage[pagestyles]{titlesec} %% balíček pro úpravu stylu kapitol a sekcí
+\titleformat{\chapter}[block]{\scshape\bfseries\LARGE}{\thechapter}{10pt}{\vspace{0pt}}[\vspace{-22pt}]
+\titleformat{\section}[block]{\scshape\bfseries\Large}{\thesection}{10pt}{\vspace{0pt}}
+\titleformat{\subsection}[block]{\bfseries\large}{\thesubsection}{10pt}{\vspace{0pt}}
+
+
+\usepackage{tocloft} % Balíček umožní přizpůsobit vzhled tabulky obsahu
+\setlength{\cftbeforechapskip}{0pt}  % Menší rozestup pro kapitoly
+\setlength{\cftbeforesecskip}{0pt}   % Menší rozestup pro sekce
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.025pt}
+
+\usepackage{booktabs}
+
+\usepackage{url}
+
+%% Balíčky co se můžou hodit :) 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{pdfpages} %% Balíček umožňující vkládat stránky z PDF souborů, 
+
+\usepackage{upgreek} %% Balíček pro sazbu stojatých řeckých písmen, třeba u jednotky mikrometr. Například stojaté mí: \upmu, stojaté pí: \uppi
+
+\usepackage{amsmath}    %% Balíčky amsmath a amsfonts 
+\usepackage{amsfonts}   %% pro sazbu matematických symbolů
+\usepackage{esint}     %% pro sazbu různých integrálů (např \oiint)
+\usepackage{mathrsfs}
+\usepackage{helvet} % Helvet font
+\usepackage{mathptmx} % Times New Roman
+\usepackage{Oswald} % Oswald font
+
+
+%% makra pro sazbu matematiky
+\newcommand{\dif}{\mathrm{d}} %% makro pro sazbu diferenciálu, místo toho
+%% abych musel psát '\mathrm{d}' mi stačí napsat '\dif' což je mnohem 
+%% kratší a mohu si tak usnadnit práci
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+
+\renewcommand{\lstlistingname}{Kód}% Listing -> Algorithm
+\renewcommand{\lstlistlistingname}{Seznam programových kódů}% List of Listings -> List of Algorithms
+
+%% Definice 
+\lstdefinelanguage{JavaScript}{
+	morekeywords=[1]{break, continue, delete, else, for, function, if, in,
+		new, return, this, typeof, var, void, while, with},
+	% Literals, primitive types, and reference types.
+	morekeywords=[2]{false, null, true, boolean, number, undefined,
+		Array, Boolean, Date, Math, Number, String, Object},
+	% Built-ins.
+	morekeywords=[3]{eval, parseInt, parseFloat, escape, unescape},
+	sensitive,
+	morecomment=[s]{/*}{*/},
+	morecomment=[l]//,
+	morecomment=[s]{/**}{*/}, % JavaDoc style comments
+	morestring=[b]',
+	morestring=[b]"
+}[keywords, comments, strings]
+
+
+\lstdefinelanguage[ECMAScript2015]{JavaScript}[]{JavaScript}{
+	morekeywords=[1]{await, async, case, catch, class, const, default, do,
+		enum, export, extends, finally, from, implements, import, instanceof,
+		let, static, super, switch, throw, try},
+	morestring=[b]` % Interpolation strings.
+}
+
+\lstalias[]{ES6}[ECMAScript2015]{JavaScript}
+
+% Nastavení barev
+% Requires package: color.
+\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
+\definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
+
+% Nastavení pro Python
+\lstdefinestyle{Python}{
+	language=Python,
+	backgroundcolor=\color{white},
+	basicstyle=\ttfamily,
+	breakatwhitespace=false,
+	breaklines=false,
+	captionpos=b,
+	columns=fullflexible,
+	commentstyle=\color{mediumgray}\upshape,
+	emph={},
+	emphstyle=\color{crimson},
+	extendedchars=true,  % requires inputenc
+	fontadjust=true,
+	frame=single,
+	identifierstyle=\color{black},
+	keepspaces=true,
+	keywordstyle=\color{mediumblue},
+	keywordstyle={[2]\color{darkviolet}},
+	keywordstyle={[3]\color{royalblue}},
+	literate=%
+	{á}{{\'a}}1 {č}{{\v{c}}}1 {ď}{{\v{d}}}1 {é}{{\'e}}1 {ě}{{\v{e}}}1
+	{í}{{\'i}}1 {ň}{{\v{n}}}1 {ó}{{\'o}}1 {ř}{{\v{r}}}1 {š}{{\v{s}}}1
+	{ť}{{\v{t}}}1 {ú}{{\'u}}1 {ů}{{\r{u}}}1 {ý}{{\'y}}1 {ž}{{\v{z}}}1,		
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{black},
+	rulecolor=\color{black},
+	showlines=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stringstyle=\color{forestgreen},
+	tabsize=2,
+	title=\lstname,
+	upquote=true  % requires textcomp	
+}
+
+
+\lstdefinestyle{JSES6Base}{
+	backgroundcolor=\color{white},
+	basicstyle=\ttfamily,
+	breakatwhitespace=false,
+	breaklines=false,
+	captionpos=b,
+	columns=fullflexible,
+	commentstyle=\color{mediumgray}\upshape,
+	emph={},
+	emphstyle=\color{crimson},
+	extendedchars=true,  % requires inputenc
+	fontadjust=true,
+	frame=single,
+	identifierstyle=\color{black},
+	keepspaces=true,
+	keywordstyle=\color{mediumblue},
+	keywordstyle={[2]\color{darkviolet}},
+	keywordstyle={[3]\color{royalblue}},
+ literate=%
+{á}{{\'a}}1 {č}{{\v{c}}}1 {ď}{{\v{d}}}1 {é}{{\'e}}1 {ě}{{\v{e}}}1
+{í}{{\'i}}1 {ň}{{\v{n}}}1 {ó}{{\'o}}1 {ř}{{\v{r}}}1 {š}{{\v{s}}}1
+{ť}{{\v{t}}}1 {ú}{{\'u}}1 {ů}{{\r{u}}}1 {ý}{{\'y}}1 {ž}{{\v{z}}}1,		
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{black},
+	rulecolor=\color{black},
+	showlines=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stringstyle=\color{forestgreen},
+	tabsize=2,
+	title=\lstname,
+	upquote=true  % requires textcomp
+}
+
+\lstdefinestyle{JavaScript}{
+	language=JavaScript,
+	style=JSES6Base,
+}
+\lstdefinestyle{ES6}{
+	language=ES6,
+	style=JSES6Base
+}
+
+
+%% Bordel pro práci - můžeš smáznout :) 
+%%%%%%%%%%%%%%%%%%%
+
+\usepackage{lipsum} %% balíček který píše lipsum (nesmyslný text, který se používá pro kontrolu typografie)
+\usepackage{dirtree}
+\usepackage{enumitem}
+%% Začátek dokumentu
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	\pagestyle{empty}
+	\pagenumbering{Roman}
+	
+	\cleardoublepage
+
+%% Titulní stránka s informacemi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	{\fontfamily{phv}\selectfont
+		%% Logo školy
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.6\linewidth]{image/logo-skoly.png} 
+		\end{figure}
+		
+		
+		%% Hlavička práce a její název (viz proměnná \nazev prace)
+		%% \sffamily %%% bezpatkové písmo - sans serif
+		{\bfseries %%% písmo na stránce je tučně
+			\begin{center}
+				\vspace{0.025 \textheight}
+				\LARGE{ZÁVĚREČNÁ STUDIJNÍ PRÁCE}\\
+				\large{dokumentace}\\
+				\vspace{0.075 \textheight}
+				\LARGE {\nazevPrace}\\
+			\end{center}  
+		}%%%
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.2\linewidth]{image/logo-background.png} 
+		\end{figure}
+		
+		\vspace{0.02 \textheight}
+		\begin{table}[h!]
+			\begin{tabular}{ll}
+				\textbf{Autor:} & \jmenoAutora\\ 
+				\textbf{Obor:} & \kodOboru { } \obor\\
+				\textbf{} & \zamereni\\
+				\textbf{Třída:} & \trida\\
+				\textbf{Školní rok:} & \skolniRok\\
+			\end{tabular}
+			
+		\end{table}		
+	}
+	
+\newpage %% Zalomení dvojstránky
+	
+%% Stránka obsahující poděkování a prohlášení
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Poděkování - nepovinné
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\clearpage
+	\noindent{\large{\bfseries{Poděkování}\\}}
+	\noindent Chtěl bych poděkovat panu učiteli Mgr. Markovi Lučnému za užitečné rady při tvorbě projektu.
+	
+	\vspace*{0.7\textheight} %% Vertikální mezeru je možné upravit
+
+%% Prohlášení - povinné
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent{\large{\bfseries{Prohlášení}\\}}  %% uprav si koncovky podle toho na jaký rod se cítíš, vypadá to pak lépe :) 
+	\noindent{Prohlašuji, že jsem závěrečnou práci vypracoval samostatně a uvedl veškeré použité 
+		informační zdroje.\\}
+	\noindent{Souhlasím, aby tato studijní práce byla použita k výukovým a prezentačním účelům na Střední průmyslové a umělecké škole v Opavě, Praskova 399/8.}
+	\vfill
+	\noindent{V Opavě \datumOdevzdani\\}
+	\noindent
+	\begin{minipage}{\linewidth}
+		\hspace{9.5cm} 
+		\begin{tabular}{@{}p{6cm}@{}}
+			\dotfill \\
+			Podpis autora
+		\end{tabular}
+	\end{minipage}
+	
+	
+
+%% Stránka obsahující abstrakt (anotaci)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+%% Abstrakt v češtině
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent{\Large{\bfseries{Abstrakt}\\}}
+	\noindent Tento projekt se zaměřuje na vytvoření webové aplikace, která umožní snadné zobrazení a stahování 3D modelů. Základem tohoto projektu je databáze MySQL a framework Django který nabízí různé vestavěné šablony. Databáze MySQL slouží jako úložiště pro 3D modely a další související informace. Díky kombinaci těchto technologií je cílem vytvořit webovou aplikaci, která bude nejen vizuálně atraktivní, ale také jednoduše ovladatelná pro uživatele, kteří chtějí zobrazovat a stahovat 3D modely. \\
+	\vspace{18pt}
+	
+	\noindent{\large{\bfseries{Klíčová slova}}}
+	
+	\noindent Django, MySQL, 3D, webová stránka, modely, databáze.. \dots 
+	
+	\vspace{18pt}
+	
+	\clearpage %% Zalomení stránky
+	\tableofcontents
+%% Stránka s generovaným obsahem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	%% Vygeneruje tabulku s obsahem
+
+	\pagenumbering{arabic} %% Nastavení způsobu číslování stránek (alternativy roman | Roman)
+	\setcounter{page}{4} %% Nastavení počitadla stránek
+
+%% Stránka s úvodem - povinná část
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
+	\chapter*{Úvod}
+%Tento příkaz vytvoří novou kapitolu s názvem "Úvod" ve vašem dokumentu.
+%Hvězdička * u příkazu \chapter* znamená, že tato kapitola nebude mít číslo. Ve výsledném dokumentu se tedy objeví jako "Úvod" bez předcházejícího čísla kapitoly, které se obvykle zobrazuje u číslovaných kapitol.
+%Tento příkaz také znamená, že kapitola se automaticky neobjeví v obsahu, protože LaTeX standardně zahrnuje do obsahu pouze číslované kapitoly.
+	
+	\addcontentsline{toc}{chapter}{Úvod}
+%Tento příkaz ručně přidává záznam do obsahu.
+%První parametr toc označuje, že přidáváme záznam do Table of Contents (obsahu).
+%Druhý parametr chapter specifikuje úroveň záznamu. V tomto případě říkáme, že přidávaný záznam má být považován za kapitolu.
+%Třetí parametr Úvod je text, který se objeví v obsahu. V tomto případě bude v obsahu zobrazen název "Úvod".	
+Cílem bylo sestavení webové aplikace se zobrazením a stáhnutím 3D modelů co nejpřehledněji. Aplikace by měla obsahovat registraci a přihlášení uživatelů  pro nahrání 3D modelů i s možností hodnocení modelů a zobrazení jiných uživatelů. Uživatel by měl mít možnost upravit si vlastní profil o různé informace a taky přidat nebo upravit různé informace o vlastních modelech. Všechny model jsou přehledně na jedné stránce kde je možnost filtrace modelů. Celá webová stránka by měla být responzivní, aby fungovala na jiných zařízeních.
+
+Nepřihlášený uživatel bude mít možnost pouze registrace, přihlášení nebo zobrazení a stáhnutí modelů zatímco přihlášený uživatel bude moct kromě těchto funkčností také hodnotit modely ostatních a také nahrávat a upravovat své vlastní modely.
+
+V rámci projektové dokumentace se zaměřuji na postup tvorby konkrétní aplikace. Začínám analýzou databázového modelu v úvodní části. Následně se věnuji správě uživatelských účtů, implementaci formulářů pro přidání a editaci dat a vytváření pohledů pro prezentaci modelů a uživatelů. V závěrečné části se pak soustředím na design samostatné vizuální stránky a její přizpůsobení pro různá zařízení.
+
+%Tipy k psaní úvodu
+%Je povinný, nadpis neměňte, rozsah - max. 1 strana. 
+%Tato část práce obsahuje: 
+%* náhled do řešené problematiky, zdůvodnění volby problematiky, 
+%* předem definované cíle práce, 
+%* motivaci pro další čtení textu včetně stručného uvedení obsahu následujících kapitol 
+
+\let\cleardoublepage\clearpage
+
+\chapter{Teoretické a metodické základy}
+
+\section{Záměr}
+\label{sec:uvod}
+
+Webové aplikace pro zobrazení 3D modelů poskytují prostor pro interaktivní prezentaci třírozměrných objektů přes internet. Tyto aplikace mohou být využívány v různých odvětvích, včetně designu, vzdělávání, průmyslu, umění a mnoha dalších. Webové aplikace ve kterých je možné si zobrazit 3D modely je několik, ale většina z nich je placená a složitá. To je pár z mála faktorů proč jsem si tenhle projekt vybral udělat.
+
+\section{Architektura databázových aplikací}
+\label{sec:architektura}
+Framework Django nabízí 2 architektury. Architektura MVC a MVT. V tomto projektu využívám architekturu MVT protože v případě MVC musí programátoři napsat veškerý kód specifický pro ovládací prvky, zatímco v případě MVT se o část týkající se kontroléru stará samotný framework. 
+\begin{figure}[h]
+			\centering
+			\includegraphics[width=1\linewidth]{image/mvt.png} 
+			\caption{Logika MVT}
+			\label{fig:mvc}
+\end{figure}
+\newpage
+Model bude sloužit jako rozhraní pro vaše data. Je zodpovědný za údržbu dat. Je to logická struktura dat, která stojí za celou aplikací, a je reprezentována databází (zpravidla relační databází, jako je MySql, Postgres).
+
+Zobrazení je uživatelské rozhraní - to, co vidíte v prohlížeči při vykreslování webové stránky. Je reprezentováno soubory HTML/CSS/Javascript.
+
+Šablona se skládá ze statických částí požadovaného výstupu HTML a také z určité speciální syntaxe popisující, jak bude vložen dynamický obsah.
+\section[Počáteční zkušenosti]{Počáteční zkušenosti}
+Během třetího ročníku jsem se věnoval tvorbě databázových aplikací v rámci frameworku Django a manipulaci obsahu v databázi MySQL. Zaměřil jsem se na využití generických funkcí a implementaci uživatelského systému v souladu s nativními možnostmi, které Django poskytuje. Cílem bylo vytvořit funkční aplikaci s minimálním úpravami standardních prvků frameworku. Pro správu databáze jsem preferoval nástroj phpMyAdmin, který mi umožnil snadné provádění operací nad databází přes webové rozhraní. Tyto dovednosti vytvořily pevný základ pro mé další projekty v oblasti databázového vývoje.
+\section[Využité technologie]{Využité technologie}
+	\subsection[Django]{Django} 
+	Django je svobodný a open-source webový framework napsaný v programovacím jazyce Python. Byl vyvinut pro podporu rychlého a efektivního vývoje webových aplikací. Django poskytuje komplexní sadu nástrojů a funkcí, které usnadňují vývoj webových projektů.
+	\subsection[MySQL]{MySQL}  
+	MySQL je open-source relační databázový systém, který poskytuje efektivní a spolehlivé ukládání a správu dat. Jedná se o jeden z nejpopulárnějších databázových systémů, a to zejména ve světě webového vývoje. MySQL podporuje mnoho jazyků programování, a je běžně používán pro ukládání dat webových aplikací, obchodních systémů, a dalších typů softwaru.
+	\newpage
+	\subsection[Bootstrap 4.4.1]{Bootstrap 4.4.1} 
+	Bootstrap je open-source framework pro vývoj responsivních a mobilně přizpůsobivých webových stránek. Bootstrap poskytuje sadu nástrojů, stylů a komponent, které zjednodušují a urychlují proces vývoje webových aplikací. Bootstrap je napsán v jazyce HTML, CSS a JavaScript. Verze Bootstrap 4.4.1 je konkrétní verze tohoto frameworku. Každá verze Bootstrap obsahuje aktualizace, opravy chyb a nové funkce oproti předchozím verzím.
+	\subsection[Aframe.js]{Aframe.js}
+	A-Frame je open-source framework pro vytváření a vývoj virtuální reality (VR) a 3D scén na webu. Je postaven na jazyce JavaScript a běží v prohlížeči, což umožňuje vytvářet interaktivní a prostorové zážitky přímo ve webovém prostředí. A-Frame bylo vyvinuto společností Mozilla a je distribuováno pod licencí MIT.
+A-Frame je vhodný pro tvorbu různých typů projektů, včetně virtuálních prohlídek, interaktivních edukativních aplikací, her a dalších 3D prostorových zážitků na webu.
+	\chapter{Použité postupy při práci}
+	\section[Založení projektu]{Založení projektu}
+	Celý projekt byl dělán v Pycharmu. Prvním krokem bylo založení si Django projektu který má v sobě vestavěnou pouze SQLite databázi a proto bylo potřeba, po delším uvážení, změnit databázi na MySQL kvůli zabezpečení a funkčnosti. Následně stačilo vytvořit v projektu vlastní aplikaci a měl jsem základní kostru stránky a mohl jsem se pustit do vytváření modelů.
+	\section[Databázový model]{Databázový model}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.9\linewidth]{image/mvt-model.png} 
+			\caption{ER diagram mé webové aplikace vytvořený pomocí MySQL Workbench}
+		\end{figure}
+		\clearpage
+		\subsection[Vztah modelu s kategoriemi]{Vztah modelu s kategoriemi} Nejdůležitější je tabulka na nahrání a popis 3D modelů u kterého si i ve vztahu N:1 můžeme vybrat více kategorií pro jeden model díky tabulce která obsahuje cizí klíče a tím funguje jako spojovací tabulka mezi nahráním 3D modelu a přidáním kategorií.
+		\subsection[Vztah uživatele s profilem]{Vztah uživatele s profilem}
+		Součástí diagramu je také tabulka uživatele která zajišťuje registraci, přihlášení a pravomoc uživatele. Vztah N:1 zajišťuje aby uživatelé měli jen jeden profil který můžou libovolně upravovat.
+		\subsection[Vztah modelu a uživatele]{Vztah modelu a uživatele}
+		Jeden model může být propojen s více hodnocením ale každé hodnocení může být propojeno pouze s jedním modelem. Modely můžou být propojeny s jedním uživatelem, ale každý uživatel může být propojen pouze s jedním modelem. Jeden uživatel může mít mnoho hodnocení, ale každé hodnocení patří pouze jednomu uživateli. 
+	\newpage	
+	\section[Autentizace a autorizace]{Autentizace a autorizace}
+	
+Uživatelský systém, který řídí přihlašování a registraci uživatelů, je klíčovým prvkem každé aplikace, a je nezbytné zajistit, aby uživatelé měli přístup pouze k těm akcím, které neporušují integritu a chod aplikace. Pro řešení této problematiky jsem se rozhodl využít vestavěný model uživatele v rámci frameworku Django, konkrétně balíčku django-contrib-auth-models. Tento balíček poskytuje robustní implementaci uživatelského modelu nazvaného User, který slouží k reprezentaci uživatelů v systému.
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.518\linewidth]{image/login.png} 
+			\includegraphics[width=0.4\linewidth]{image/register.png} 
+			\caption{Formulář na přihlášení a registraci}
+		\end{figure}
+Při využití modelu User z balíčku django-contrib-auth-models získávám celou řadu funkcionalit, která usnadňuje správu uživatelů. Tento model obsahuje atributy a metody, které umožňují bezpečné ukládání hesel, ověřování přihlašovacích údajů a mnoho dalšího. Díky této integraci mohu snadno implementovat přihlašování a registraci s minimálním úsilím a s důrazem na bezpečnostní standardy.
+		
+Jedním z klíčových prvků je také řízení přístupových práv uživatelů. Django-contrib-auth-models nabízí robustní systém oprávnění, který umožňuje definovat, které části aplikace může uživatel přistupovat a jaké akce může provádět. To zajišťuje, že uživatelé mají pouze oprávnění, která jsou nezbytná pro správný chod aplikace, a minimalizuje riziko možných neoprávněných činností.
+		
+		\clearpage	
+	\section[Operace s uživatelským účtem]{Operace s uživatelským účtem}
+Uživateli jsou umožněny základní operace s jejich účtem.	
+\begin{itemize}[label=\(\bullet\)]
+  \item Přidání osobních informací
+  \item Přidání profilového obrázku který se zobrazí v seznamu uživatelů
+  \item Přidání emailu
+  \item Změna hesla
+\end{itemize}	
+Aby k těmto funkcím měl uživatel snadný přístup, vytvořil jsem v navigační liště bloky, které se zobrazí pouze pokud je uživatel přihlášený a odkazují na podstránky řešící dané funkce.
+\subsection[Úprava profilu]{Úprava profilu}
+\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.5\linewidth]{image/profile.png} 
+			\caption{Formulář úpravu profilu}
+		\end{figure}
+		
+Tento formulář slouží k shromažďování klíčových informací o uživateli, přičemž zahrnuje jeho osobní údaje, jako jsou jméno, příjmení, e-mailová adresa, preferovaná rodná zaměření, profilový obrázek a stručná biografie. Formulář není pouze prostředkem pro shromažďování informací, ale také představuje možnost zlepšení uživatelské interakce a začlenění jednotlivců na naší platformě. Kromě toho formulář obsahuje praktickou možnost změny hesla, což přispívá k bezpečnosti účtu uživatele. Odkaz na další formulář o změně hesla umožňuje uživatelům snadno a bezpečně aktualizovat svá přihlašovací údaje podle svých potřeb a preferencí.
+\subsection[Změna hesla]{Změna hesla}
+Uživatel by měl mít jednoduchý a snadný přístup k formuláři. Toto by mělo být realizováno prostřednictvím jasně označeného odkazu nebo tlačítka ve vhodné části uživatelského rozhraní.
+
+\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.5\linewidth]{image/change-password.png} 
+			\caption{Formulář na změnu hesla}
+		\end{figure}
+		Formulář pro změnu hesla je klíčovým prvkem pro uživatelskou bezpečnost a pohodlí. Při jeho implementaci je důležité dbát na bezpečnostní standardy a poskytnout uživatelům jasný a intuitivní proces změny hesla.
+		\newpage
+	\section[Přidání modelu]{Přidání modelu}
+	Uživatel bude mít možnost přidat do systému vlastní 3D model a obohatit jej o různé parametry a podrobnosti, které poskytnou uživatelům lepší představu o daném modelu. Tato možnost umožní uživatelům efektivněji procházet a vyhledávat mezi dostupnými 3D modely, protože budou schopni využít filtry a specifikovat požadované parametry při hledání.
+	
+	Databáze následně prezentuje tyto modely ostatním uživatelům, kteří mohou prohlížet, hodnotit a stahovat modely dle svých potřeb. Uživatelská interakce s modelem je klíčová, protože umožňuje tvůrcům získat zpětnou vazbu od komunity a vylepšit své modely na základě reálných potřeb uživatelů. Pro uživatele, kteří nahráli model, je k dispozici přehled vlastních modelů, což umožňuje snadný přístup k informacím, aktualizacím a případným budoucím úpravám. 
+	
+Důležitým a klíčovým prvkem v konfiguraci modelu jsou definované kategorie, které slouží k jeho zařazení do specifických typů. Tímto způsobem můžeme efektivně filtrovat a organizovat modely podle konkrétních charakteristik. V rámci této konfigurace jsou k dispozici několik základních kategorií, které umožňují přesnější a cílenější třídění.
+
+
+Významným parametrem je také přípona souboru s modelem, která je klíčová pro správnou integraci s Aframe. Pro optimální kompatibilitu a funkčnost je nutné, aby modely používaly přípony .glb nebo .gltf, neboť Aframe pracuje výhradně s těmito typy souborů. Tím je zajištěno plynulé a bezproblémové propojení modelu s danou platformou.
+
+Kromě technických specifikací je také důležité pamatovat na estetický a vizuální prvek prezentace projektu. Fotka, která slouží k prezentaci modelu, hraje klíčovou roli při zaujímání uživatelů. Tato fotografie je také zobrazena v náhledu modelu pro všechny uživatele, což přispívá k atraktivitě a přehlednosti prezentovaného obsahu.
+
+	
+	\newpage	
+	\subsection[Filtrace]{Filtrace}
+	
+	Vytvoření funkcí ve views.py poskytuje uživateli široké možnosti filtrování a řazení modelů v aplikaci. S pomocí těchto funkcí může uživatel přesně specifikovat požadovaná kritéria pro nalezení konkrétních modelů.
+	\begin{figure}[h]
+			\centering
+			\includegraphics[width=1\linewidth]{image/Filtrace.png} 
+			\caption{Filtrování}
+	\end{figure}
+\lstset { %
+    language=Python,
+    backgroundcolor=\color{black!5}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+}
+
+\begin{lstlisting}
+user_uploaded_models = ThreeDModel.objects.filter(user=request.user)
+    categories = Category.objects.all()
+    
+    category_id = request.GET.get('category')
+    upload_date = request.GET.get('upload_date')
+    model_name = request.GET.get('model_name')
+    sort_by = request.GET.get('sort_by')
+   
+    if category_id:
+        user_uploaded_models = user_uploaded_models.filter(categories__id=category_id)
+    
+    if upload_date:
+        user_uploaded_models = user_uploaded_models.filter(upload_date=upload_date)
+   
+    if model_name:
+        user_uploaded_models = user_uploaded_models.filter(Q(title__icontains=model_name))
+   
+    if sort_by == 'newest':
+        user_uploaded_models = user_uploaded_models.order_by('-upload_date')
+    elif sort_by == 'oldest':
+        user_uploaded_models = user_uploaded_models.order_by('upload_date')
+    return render(request, 'user/profile.html', {'user_uploaded_models':
+     user_uploaded_models,'categories': categories})
+\end{lstlisting}
+Tahle funkce v views.py zajistí filtraci v zobrazení vlastních modelů \dots
+
+
+
+Filtraci lze provádět podle různých parametrů, včetně jména modelu, data nahrání a kategorií. To umožňuje uživateli rychle a efektivně najít požadované modely v rozsáhlé databázi. Díky této funkcionalitě má uživatel možnost upravit zobrazení výsledků podle svých individuálních preferencí a potřeb.
+
+Kromě toho je uživatel schopen řadit modely podle data nahrání, a to buď od nejstarších po nejnovější, nebo naopak. Tato možnost řazení umožňuje uživateli organizovat výsledky ve způsobu, který nejlépe odpovídá jeho požadavkům a usnadňuje rychlé porovnání modelů.
+
+Celkově vzato, díky implementaci těchto funkcí ve views.py uživatel získává vysokou flexibilitu a přesnost při procházení a vyhledávání modelů v aplikaci. To zlepšuje uživatelskou zkušenost a umožňuje snadné a intuitivní používání aplikace pro správu a prohlížení modelů.
+		
+		\subsection[Editace]{Editace}
+		Uživateli je poskytnuta jedinečná příležitost upravit svůj nahraný model dle svých představ a potřeb. Pro usnadnění této úpravy mu je zpřístupněn interaktivní formulář, ve kterém má možnost měnit a přizpůsobovat různé části modelu podle svých specifických požadavků.
+
+\begin{figure}[h]
+			\centering
+			\includegraphics[width=1\linewidth]{image/edit.png} 
+			\caption{Formulář editace}
+		\end{figure}
+		
+Tento formulář zobrazuje uživateli obsah, který měl původně nahraný v různých částech modelu, takže má jasný přehled o tom, co již bylo vytvořeno. Každá část, kterou uživatel rozhodne upravit, je snadno dostupná pro editaci. Může měnit text, parametry a další klíčové prvky podle svého uvážení.
+
+
+Tato interaktivní možnost úpravy umožňuje uživateli vylepšit a personalizovat svůj model, aby co nejlépe odpovídal jeho potřebám a preferencím. Tímto způsobem má uživatel plnou kontrolu nad tím, jakým směrem se vyvíjí jeho vlastní model, a může ho dále zdokonalovat podle svých aktuálních požadavků.
+\subsection[Zobrazení na stránce]{Zobrazení na stránce}
+Preview modelu je způsobem prezentace, který využívá karty k zobrazení klíčových informací o každém modelu. Každá karta obsahuje vizuální obrázek, název a průměrné hodnocení daného modelu, což umožňuje uživatelům rychle získat přehled o dostupných modelech. Při najetí myší na konkrétní kartu se automaticky zobrazí podrobnější informace, což zahrnuje údaje jako jméno uživatele, který model nahrál, popis samotného modelu a datum, kdy byl model nahrán do systému.
+
+\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.3\linewidth]{image/model-view.png} 
+			\caption{Zobrazení modelů}
+		\end{figure}
+		
+Tato funkce nabízí uživatelům příležitost získat hlubší vhled do každého modelu, a to vše na jednom uživatelském rozhraní. Kromě toho je implementována funkce, která umožňuje hodnocení modelu 1-5 hvězdičkami, pokud uživatel, který hodnotí, není tím samým tvůrcem modelu. Tato bezpečnostní opatření zajistí, že hodnocení jsou poskytována pouze uživateli, u kterých není střet zájmů a mohou poskytnout objektivní zpětnou vazbu.
+\newpage
+\chapter[Zobrazení modelu]{Zobrazení modelu}
+\section[Aframe]{Aframe}
+Zobrazení modelů bylo uděláno pomocí Aframe, tahle jednoduchá možnost nabízí vytvořit zobrazení modelů z obyčejného souboru HTML, aniž by bylo nutné cokoli instalovat. Jediná důležitá věc je přidat do svojí stránky nebo aplikace script s odkazem na knihovnu Aframe a pak už můžeme upravovat a přidávat věci podle vlastního uvážení.
+\begin{lstlisting}
+<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+\end{lstlisting}
+\section[Scripty]{Scripty}
+\subsection[Základní zobrazení]{Základní zobrazení}
+Základní kód na zobrazení modelu, který zatím řeší pouze jednoduché textury i s scriptem který zmenší velikost modelu tak aby nebyl příliš veliký v zobrazení:
+\begin{lstlisting}
+<a-scene class="aframebox" embedded>
+      <a-assets>
+          <a-asset-item id="model" src="{{ model.file.url }}"></a-asset-item>
+      </a-assets>
+      <a-light type="ambient" position="1 1 1" intensity="1"></a-light>
+      <a-entity gltf-model="#model" modify-materials 
+      	max-dimensions position="0 0 0" rotation="0 0 0"/>
+      <a-camera id="camera" position="5 1.5 5" rotation="0 0 0" wasd-controls>
+      	<a-cursor></a-cursor>
+      </a-camera>
+      <script>          </script>
+</a-scene>
+                  
+\end{lstlisting}
+Tenhle kód zajistí pozici, kameru a základní funkci zobrazení konkrétního modelu, další funkce kterými chceme zlepšit interaktivitu modelu píšeme do <script>   <script>\dots
+\newpage
+\subsection[Script pro zmenšení]{Script pro zmenšení}
+\begin{lstlisting}
+AFRAME.registerComponent('max-dimensions', {
+   	 init: function () {
+        	var maxDimensions = { x: 1, y: 1, z: 1 };
+        	this.el.addEventListener('model-loaded', function () {
+        		var modelDimensions = this.getObject3D
+        		('model').geometry.boundingBox.getSize();
+        		var scaleFactor = Math.min(
+        			maxDimensions.x / modelDimensions.x,
+        			maxDimensions.y / modelDimensions.y,
+       				maxDimensions.z / modelDimensions.z
+        		);
+        		this.setAttribute('scale', scaleFactor
+        		 + ' ' + scaleFactor + ' ' + scaleFactor);
+        	});
+   	  }
+  });
+\end{lstlisting}
+
+\subsection[Vizualizace]{Vizualizace}
+	\chapter*{Závěr}
+	
+	Věřím, že jsem ti spolu se šablonou poskytl několik tipů, jak napsat práci. Ať už jde o úplné začátky s \LaTeX{}em. Či ukázku toho, co vše s ním zvládneš. Pokud bys měl k šabloně libovolné dotazy, rouhodně se na mě obrať. \LaTeX tvé práci dodá určitou krásu, tak doufám, že ti dodá sebevědomí a uspěješ při souteži. A i kdyby ne vzpomeň si, kolik ses toho musel naučit a hned uvidíš o jaký kus ses posunul.
+	
+	%% literatura
+	\begin{thebibliography}{99}
+		\bibitem{sablonaSOC} DOKULIL Jakub. \textit{Šablona pro psaní SOČ v programu \LaTeX} [Online]. Brno, 2020 [cit. 2020-08-24]. Dostupné z: \url{https://github.com/Kubiczek36/SOC_sablona}
+		\bibitem{LaTeXprirucka}OETIKER, Tobias, Hubert PARTL, Irene HYNA, Elisabeth SCHEGL, Michal KOČER a Pavel SÝKORA. \textit{Ne příliš stručný úvod do systému LaTeX2e} [online]. 1998 [cit. 2020-08-24]. Dostupné z: \url{https://www.jaroska.cz/elearning/informatika/typografie/lshort2e-cz.pdf}
+		\bibitem{wikibooksLaTeX}\textit{Wikibooks: LaTeX} [online]. San Francisco (CA): Wikimedia Foundation, 2001- [cit. 2020-08-24]. Dostupné z: \url{https://en.wikibooks.org/wiki/LaTeX}
+		\bibitem{stackExchange} \textit{TeX - LaTeX Stack Exchange} [online]. Stack Exchange, 2020 [cit. 2020-09-01]. Dostupné z: \url{https://tex.stackexchange.com}
+		\bibitem{sspuLogo} \textit{Střední škola průmyslová a umělecká Opava} [online]. [cit. 2023-11-11]. Dostupné z: \url{https://www.sspu-opava.cz}
+		\bibitem{citacePRO}\textit{Citace PRO} [online]. Citace.com, 2020 [cit. 2020-08-31]. Dostupné z: \url{https://www.citacepro.com}
+		\bibitem{Born2019} BORN, Max a Emil WOLF. \textit{Principles of optics: electromagnetic theory of propagation, interference and diffraction of light}. 7th (expanded) edition. Reprinted wirth corrections 2002. 15th printing 2019. Cambridge: Cambridge University Press, 2019. ISBN 978-0-521-64222-4.
+	\end{thebibliography}
+	
+	%% obrázky 
+	\listoffigures
+	
+	%% tabulky
+	\listoftables
+	
+	\appendix %% začínají přílohy
+	
+	\titleformat{\chapter}[block]{\scshape\bfseries\LARGE}{Příloha \thechapter}{10pt}{\vspace{0pt}}[\vspace{-22pt}] %% nastavení nadpisu u příloh
+	
+	
+	\chapter{%Příloha A 
+		Spot diagramy a další }
+	
+	
+\end{document}

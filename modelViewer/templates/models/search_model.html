@@ -30,7 +30,7 @@
                 <div class="box" onmouseover="changeBackgroundColor(this)" onmouseout="restoreBackgroundColor(this)">
                     <label for="sort_by">Seřadit podle:
                         <select name="sort_by">
-                            <option value="" selected>None</option>
+                            <option value="" selected>Žádné</option>
                             <option value="newest">Nejnovější</option>
                             <option value="oldest">Nejstarší</option>
                         </select>
@@ -115,10 +115,10 @@
                         {% endif %}
                         <div class="mt-2">
                             <button class="btn btn-success delete-btn float-left">
-                                <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit Mode</a>
+                                <a class="text_white text-decoration-none" target="_blank" href="{% url 'model' model.id %}">Zobrazit </a>
                             </button>
                             <button class="btn btn-primary delete-btn float-right">
-                                <a class="text_white text-decoration-none" href="{{ model.file.url }}" target="_blank">Stáhnout Model</a>
+                                <a class="text_white text-decoration-none" href="{{ model.file.url }}" target="_blank">Stáhnout </a>
                             </button>
                         </div>
                     </div>
