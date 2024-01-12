@@ -7,7 +7,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from .forms import ThreeDModelForm,StyledAuthenticationForm,ChangePasswordForm,UserProfileForm
 from .models import ThreeDModel,Category,Rating, UserProfile
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Avg
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -277,10 +277,6 @@ def user_detail(request, username):
     return render(request, 'user/view_user.html', {'user': user,'models': models,'categories': categories,})
 
 def index(request):
-    top_models = ThreeDModel.objects.all().order_by('-rating')[:3]
+    top_models = ThreeDModel.objects.annotate(avg_rating=Avg('rating__rating')).order_by('-avg_rating')[:3]
 
-    context = {
-        'top_models': top_models,
-    }
-
-    return render(request, 'base.html', context)
+    return render(request, 'base.html', {'top_models': top_models})
