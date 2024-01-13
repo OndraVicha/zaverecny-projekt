@@ -4,8 +4,8 @@
 % Tato šablona byla vytvořena tak, aby pomocí ní mohli v systému LaTeX soutěžící sázet své práce a zároveň odpovídala požadavkům na formátování vyplývajícím z wordové šablony umístěné na webu soc.cz.
 %
 \documentclass[12pt, a4paper,
-%oneside,      %% -- odkomentujte, pokud chcete svou práci mít pouze jednostrannou, mezera pro hřbet pak automaticky bude pouze na levé straně
-twoside,        %% -- pro oboustranné práce, mezera pro hřbet následně střídá strany.
+oneside,      %% -- odkomentujte, pokud chcete svou práci mít pouze jednostrannou, mezera pro hřbet pak automaticky bude pouze na levé straně
+%twoside,        %% -- pro oboustranné práce, mezera pro hřbet následně střídá strany.
 openright
 ]{report}
 
@@ -27,7 +27,7 @@ openright
 \author{\jmenoAutora} %% -- tvé jméno
 \date{\datumOdevzdani} %% -- rok, kdy píšeš SOČku
 
-\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=1.5cm]{geometry} %% nastaví okraje, left -- vnitřní okraj, right -- vnější okraj
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry} %% nastaví okraje, left -- vnitřní okraj, right -- vnější okraj
 
 \usepackage[czech]{babel} %% balík babel pro sazbu v češtině
 \usepackage[utf8]{inputenc} %% balíky pro kódování textu
@@ -311,7 +311,7 @@ openright
 %% Abstrakt v češtině
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent{\Large{\bfseries{Abstrakt}\\}}
-	\noindent Tento projekt se zaměřuje na vytvoření webové aplikace, která umožní snadné zobrazení a stahování 3D modelů. Základem tohoto projektu je databáze MySQL a framework Django který nabízí různé vestavěné šablony. Databáze MySQL slouží jako úložiště pro 3D modely a další související informace. Díky kombinaci těchto technologií je cílem vytvořit webovou aplikaci, která bude nejen vizuálně atraktivní, ale také jednoduše ovladatelná pro uživatele, kteří chtějí zobrazovat a stahovat 3D modely. \\
+	\noindent Tento projekt je zaměřen na vytvoření webové aplikace umožňující snadné zobrazení a stahování 3D modelů. Základem pro tento projekt je databáze MySQL a framework Django, který nabízí různé vestavěné šablony. Databáze MySQL slouží jako úložiště pro 3D modely a další související informace. Cílem je vytvořit webovou aplikaci, která nejen vizuálně působí atraktivně, ale také je snadno ovladatelná pro uživatele, kteří chtějí zobrazovat a stahovat 3D modely. \\
 	\vspace{18pt}
 	
 	\noindent{\large{\bfseries{Klíčová slova}}}
@@ -369,7 +369,7 @@ V rámci projektové dokumentace se zaměřuji na postup tvorby konkrétní apli
 \section{Záměr}
 \label{sec:uvod}
 
-Webové aplikace pro zobrazení 3D modelů poskytují prostor pro interaktivní prezentaci třírozměrných objektů přes internet. Tyto aplikace mohou být využívány v různých odvětvích, včetně designu, vzdělávání, průmyslu, umění a mnoha dalších. Webové aplikace ve kterých je možné si zobrazit 3D modely je několik, ale většina z nich je placená a složitá. To je pár z mála faktorů proč jsem si tenhle projekt vybral udělat.
+Webové aplikace pro zobrazení 3D modelů poskytují prostor pro interaktivní prezentaci třírozměrných objektů přes internet. Tyto aplikace mohou být využívány v různých odvětvích, včetně designu, vzdělávání, průmyslu, umění a mnoha dalších. Existuje několik webových aplikací, ve kterých je možné si zobrazit 3D modely, ale většina z nich je placená a složitá. To jsou některé z důvodů, proč jsem si vybral právě tento projekt.
 
 \section{Architektura databázových aplikací}
 \label{sec:architektura}
@@ -401,7 +401,7 @@ Během třetího ročníku jsem se věnoval tvorbě databázových aplikací v r
 A-Frame je vhodný pro tvorbu různých typů projektů, včetně virtuálních prohlídek, interaktivních edukativních aplikací, her a dalších 3D prostorových zážitků na webu.
 	\chapter{Použité postupy při práci}
 	\section[Založení projektu]{Založení projektu}
-	Celý projekt byl dělán v Pycharmu. Prvním krokem bylo založení si Django projektu který má v sobě vestavěnou pouze SQLite databázi a proto bylo potřeba, po delším uvážení, změnit databázi na MySQL kvůli zabezpečení a funkčnosti. Následně stačilo vytvořit v projektu vlastní aplikaci a měl jsem základní kostru stránky a mohl jsem se pustit do vytváření modelů.
+	Celý projekt byl vytvářen v PyCharmu. Prvním krokem bylo založení Django projektu, který původně obsahoval vestavěnou databázi SQLite. Po pečlivém zvážení jsem se rozhodl změnit databázi na MySQL z důvodů zabezpečení a rozšířené funkcionality. Následně jsem v projektu vytvořil vlastní aplikaci a měl jsem tak základní kostru stránky. Poté jsem se mohl pustit do vytváření modelů.
 	\section[Databázový model]{Databázový model}
 		\begin{figure}[h]
 			\centering
@@ -417,7 +417,7 @@ A-Frame je vhodný pro tvorbu různých typů projektů, včetně virtuálních 
 	\newpage	
 	\section[Autentizace a autorizace]{Autentizace a autorizace}
 	
-Uživatelský systém, který řídí přihlašování a registraci uživatelů, je klíčovým prvkem každé aplikace, a je nezbytné zajistit, aby uživatelé měli přístup pouze k těm akcím, které neporušují integritu a chod aplikace. Pro řešení této problematiky jsem se rozhodl využít vestavěný model uživatele v rámci frameworku Django, konkrétně balíčku django-contrib-auth-models. Tento balíček poskytuje robustní implementaci uživatelského modelu nazvaného User, který slouží k reprezentaci uživatelů v systému.
+Uživatelský systém, který řídí přihlašování a registraci uživatelů, je klíčovým prvkem každé aplikace. Je nezbytné zajistit, aby uživatelé měli přístup pouze k těm akcím, které neporušují integritu a chod aplikace. Pro řešení této problematiky jsem se rozhodl využít vestavěný model uživatele v rámci frameworku Django, konkrétně balíčku django-contrib-auth-models. Tento balíček poskytuje robustní implementaci uživatelského modelu nazvaného User, který slouží k reprezentaci uživatelů v systému.
 		
 		\begin{figure}[h]
 			\centering
@@ -427,7 +427,7 @@ Uživatelský systém, který řídí přihlašování a registraci uživatelů,
 		\end{figure}
 Při využití modelu User z balíčku django-contrib-auth-models získávám celou řadu funkcionalit, která usnadňuje správu uživatelů. Tento model obsahuje atributy a metody, které umožňují bezpečné ukládání hesel, ověřování přihlašovacích údajů a mnoho dalšího. Díky této integraci mohu snadno implementovat přihlašování a registraci s minimálním úsilím a s důrazem na bezpečnostní standardy.
 		
-Jedním z klíčových prvků je také řízení přístupových práv uživatelů. Django-contrib-auth-models nabízí robustní systém oprávnění, který umožňuje definovat, které části aplikace může uživatel přistupovat a jaké akce může provádět. To zajišťuje, že uživatelé mají pouze oprávnění, která jsou nezbytná pro správný chod aplikace, a minimalizuje riziko možných neoprávněných činností.
+Jedním z klíčových prvků je řízení přístupových práv uživatelů. Django-contrib-auth-models nabízí robustní systém oprávnění, který umožňuje definovat, ke kterým částem aplikace může uživatel přistupovat a jaké akce může provádět. To zajišťuje, že uživatelé mají pouze oprávnění nezbytná pro správný chod aplikace a minimalizuje riziko možných neoprávněných činností.
 		
 		\clearpage	
 	\section[Operace s uživatelským účtem]{Operace s uživatelským účtem}
@@ -446,7 +446,7 @@ Aby k těmto funkcím měl uživatel snadný přístup, vytvořil jsem v naviga�
 			\caption{Formulář úpravu profilu}
 		\end{figure}
 		
-Tento formulář slouží k shromažďování klíčových informací o uživateli, přičemž zahrnuje jeho osobní údaje, jako jsou jméno, příjmení, e-mailová adresa, preferovaná rodná zaměření, profilový obrázek a stručná biografie. Formulář není pouze prostředkem pro shromažďování informací, ale také představuje možnost zlepšení uživatelské interakce a začlenění jednotlivců na naší platformě. Kromě toho formulář obsahuje praktickou možnost změny hesla, což přispívá k bezpečnosti účtu uživatele. Odkaz na další formulář o změně hesla umožňuje uživatelům snadno a bezpečně aktualizovat svá přihlašovací údaje podle svých potřeb a preferencí.
+Tento formulář slouží k shromažďování klíčových informací o uživateli, zahrnující jeho osobní údaje, jako jsou jméno, příjmení, e-mailová adresa, preferovaná oblast zaměření, profilový obrázek a stručná biografie. Formulář není pouze prostředkem pro shromažďování informací, ale také představuje možnost zlepšení uživatelské interakce a začlenění jednotlivců do naší platformy. Kromě toho obsahuje praktickou možnost změny hesla, což přispívá k bezpečnosti účtu uživatele. Odkaz na další formulář pro změnu hesla umožňuje uživatelům snadno a bezpečně aktualizovat své přihlašovací údaje podle svých potřeb a preferencí.
 \subsection[Změna hesla]{Změna hesla}
 Uživatel by měl mít jednoduchý a snadný přístup k formuláři. Toto by mělo být realizováno prostřednictvím jasně označeného odkazu nebo tlačítka ve vhodné části uživatelského rozhraní.
 
@@ -462,12 +462,12 @@ Uživatel by měl mít jednoduchý a snadný přístup k formuláři. Toto by m�
 	
 	Databáze následně prezentuje tyto modely ostatním uživatelům, kteří mohou prohlížet, hodnotit a stahovat modely dle svých potřeb. Uživatelská interakce s modelem je klíčová, protože umožňuje tvůrcům získat zpětnou vazbu od komunity a vylepšit své modely na základě reálných potřeb uživatelů. Pro uživatele, kteří nahráli model, je k dispozici přehled vlastních modelů, což umožňuje snadný přístup k informacím, aktualizacím a případným budoucím úpravám. 
 	
-Důležitým a klíčovým prvkem v konfiguraci modelu jsou definované kategorie, které slouží k jeho zařazení do specifických typů. Tímto způsobem můžeme efektivně filtrovat a organizovat modely podle konkrétních charakteristik. V rámci této konfigurace jsou k dispozici několik základních kategorií, které umožňují přesnější a cílenější třídění.
+Důležitým a klíčovým prvkem v konfiguraci modelu jsou definované kategorie, které slouží k jeho zařazení do specifických typů. Tímto způsobem můžeme efektivně filtrovat a organizovat modely podle konkrétních charakteristik. V rámci této konfigurace jsou dostupné základní kategorie umožňující přesnější a cílenější třídění.
 
 
 Významným parametrem je také přípona souboru s modelem, která je klíčová pro správnou integraci s Aframe. Pro optimální kompatibilitu a funkčnost je nutné, aby modely používaly přípony .glb nebo .gltf, neboť Aframe pracuje výhradně s těmito typy souborů. Tím je zajištěno plynulé a bezproblémové propojení modelu s danou platformou.
 
-Kromě technických specifikací je také důležité pamatovat na estetický a vizuální prvek prezentace projektu. Fotka, která slouží k prezentaci modelu, hraje klíčovou roli při zaujímání uživatelů. Tato fotografie je také zobrazena v náhledu modelu pro všechny uživatele, což přispívá k atraktivitě a přehlednosti prezentovaného obsahu.
+Kromě technických specifikací je důležité pamatovat i na estetický a vizuální prvek prezentace modelu. Fotografie, která slouží k prezentaci modelu, hraje klíčovou roli při zaujímání uživatelů. Tato fotografie je rovněž zobrazena v náhledu modelu pro všechny uživatele, což přispívá k atraktivitě a přehlednosti prezentovaného obsahu.
 
 	
 	\newpage	
@@ -516,12 +516,12 @@ Tahle funkce v views.py zajistí filtraci v zobrazení vlastních modelů \dots
 
 Filtraci lze provádět podle různých parametrů, včetně jména modelu, data nahrání a kategorií. To umožňuje uživateli rychle a efektivně najít požadované modely v rozsáhlé databázi. Díky této funkcionalitě má uživatel možnost upravit zobrazení výsledků podle svých individuálních preferencí a potřeb.
 
-Kromě toho je uživatel schopen řadit modely podle data nahrání, a to buď od nejstarších po nejnovější, nebo naopak. Tato možnost řazení umožňuje uživateli organizovat výsledky ve způsobu, který nejlépe odpovídá jeho požadavkům a usnadňuje rychlé porovnání modelů.
+Kromě toho je uživatel schopen řadit modely podle data nahrání, a to buď od nejstarších po nejnovější, nebo naopak. Tato možnost řazení umožňuje uživateli organizovat výsledky tak, jak nejlépe odpovídá jeho požadavkům a usnadňuje rychlé porovnání modelů.
 
-Celkově vzato, díky implementaci těchto funkcí ve views.py uživatel získává vysokou flexibilitu a přesnost při procházení a vyhledávání modelů v aplikaci. To zlepšuje uživatelskou zkušenost a umožňuje snadné a intuitivní používání aplikace pro správu a prohlížení modelů.
+Celkově vzato, díky implementaci těchto funkcí ve views.py získává uživatel vysokou flexibilitu a přesnost při procházení a vyhledávání modelů v aplikaci. To zlepšuje uživatelskou zkušenost a umožňuje snadné a intuitivní používání aplikace pro správu a prohlížení modelů.
 		
 		\subsection[Editace]{Editace}
-		Uživateli je poskytnuta jedinečná příležitost upravit svůj nahraný model dle svých představ a potřeb. Pro usnadnění této úpravy mu je zpřístupněn interaktivní formulář, ve kterém má možnost měnit a přizpůsobovat různé části modelu podle svých specifických požadavků.
+		Uživatelovi je poskytnuta možnost upravit svůj nahraný model podle vlastních představ a potřeb. K tomu slouží interaktivní formulář, který umožňuje měnit a přizpůsobovat různé části modelu podle specifických požadavků uživatele.
 
 \begin{figure}[h]
 			\centering
@@ -534,7 +534,7 @@ Tento formulář zobrazuje uživateli obsah, který měl původně nahraný v r�
 
 Tato interaktivní možnost úpravy umožňuje uživateli vylepšit a personalizovat svůj model, aby co nejlépe odpovídal jeho potřebám a preferencím. Tímto způsobem má uživatel plnou kontrolu nad tím, jakým směrem se vyvíjí jeho vlastní model, a může ho dále zdokonalovat podle svých aktuálních požadavků.
 \subsection[Zobrazení na stránce]{Zobrazení na stránce}
-Preview modelu je způsobem prezentace, který využívá karty k zobrazení klíčových informací o každém modelu. Každá karta obsahuje vizuální obrázek, název a průměrné hodnocení daného modelu, což umožňuje uživatelům rychle získat přehled o dostupných modelech. Při najetí myší na konkrétní kartu se automaticky zobrazí podrobnější informace, což zahrnuje údaje jako jméno uživatele, který model nahrál, popis samotného modelu a datum, kdy byl model nahrán do systému.
+Představení modelu je způsobem prezentace, který využívá karty k zobrazení klíčových informací o každém modelu. Každá karta obsahuje vizuální obrázek, název a průměrné hodnocení daného modelu, což umožňuje uživatelům rychle získat přehled o dostupných modelech. Při najetí myší na konkrétní kartu se automaticky zobrazí podrobnější informace, včetně údajů jako jméno uživatele, který model nahrál, popis samotného modelu a datum, kdy byl model nahrán do systému.
 
 \begin{figure}[h]
 			\centering
@@ -542,11 +542,11 @@ Preview modelu je způsobem prezentace, který využívá karty k zobrazení kl�
 			\caption{Zobrazení modelů}
 		\end{figure}
 		
-Tato funkce nabízí uživatelům příležitost získat hlubší vhled do každého modelu, a to vše na jednom uživatelském rozhraní. Kromě toho je implementována funkce, která umožňuje hodnocení modelu 1-5 hvězdičkami, pokud uživatel, který hodnotí, není tím samým tvůrcem modelu. Tato bezpečnostní opatření zajistí, že hodnocení jsou poskytována pouze uživateli, u kterých není střet zájmů a mohou poskytnout objektivní zpětnou vazbu.
+Tato funkce poskytuje uživatelům příležitost získat hlubší vhled do každého modelu, a to vše na jednom uživatelském rozhraní. Kromě toho je implementována funkce, která umožňuje hodnocení modelu od 1 do 5 hvězdiček, pokud uživatel, který hodnotí, není tvůrcem daného modelu. Tato bezpečnostní opatření zajistí, že hodnocení poskytují pouze uživatelé, u nichž není střet zájmů a kteří mohou poskytnout objektivní zpětnou vazbu.
 \newpage
 \chapter[Zobrazení modelu]{Zobrazení modelu}
 \section[Aframe]{Aframe}
-Zobrazení modelů bylo uděláno pomocí Aframe, tahle jednoduchá možnost nabízí vytvořit zobrazení modelů z obyčejného souboru HTML, aniž by bylo nutné cokoli instalovat. Jediná důležitá věc je přidat do svojí stránky nebo aplikace script s odkazem na knihovnu Aframe a pak už můžeme upravovat a přidávat věci podle vlastního uvážení.
+Zobrazení modelů bylo implementováno pomocí A-Frame. Tato jednoduchá možnost umožňuje vytvořit zobrazení modelů pouze s použitím běžného HTML souboru, bez nutnosti instalace dalších nástrojů. Jedinou důležitou věcí je přidat do své stránky nebo aplikace skript s odkazem na knihovnu A-Frame, a poté můžeme upravovat a přidávat prvky dle vlastního uvážení.
 \begin{lstlisting}
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 \end{lstlisting}
@@ -601,9 +601,26 @@ Další scripty které můj projekt má je otáčení okolo modelu pohybem do st
 		Na stránce konkrétního modelu je návod jak se dá v modelu pohybovat s kamerou pomocí klávesnice, nalezneme tam také možnost hodnocení modelu a možnost stáhnout si model.
 \chapter{Výsledky řešení}
 \section[Splněné a nesplněné cíle]{Splněné a nesplněné cíle}
-Věřím, že jsem ti spolu se šablonou poskytl několik tipů, jak napsat práci. Ať už jde o úplné začátky s \LaTeX{}em. Či ukázku toho, co vše s ním zvládneš. Pokud bys měl k šabloně libovolné dotazy, rouhodně se na mě obrať. \LaTeX tvé práci dodá určitou krásu, tak doufám, že ti dodá sebevědomí a uspěješ při souteži. A i kdyby ne vzpomeň si, kolik ses toho musel naučit a hned uvidíš o jaký kus ses posunul.
+Cíle projektu:
+\begin{itemize}[label=\(\bullet\)]
+  \item Vytvoření funkční webové aplikace s podporou importu a exportu 3D modelů.
+  \item  Navrhnout a vytvořit základní design stránky pro přehledné zobrazení 3D modelů.
+  \item Získat relevantní informace a poznatky pro úspěšnou implementaci importu a exportu 3D modelů
+  \item  Vylepšit design webové stránky pro lepší uživatelský zážitek.
+   \item   Implementovat funkční přihlašování pro uživatele.
+    \item   Zajištění importu modelů včetně jejich textur.
+    \item   Zdockerovat webovou aplikaci.
+\end{itemize}
+Cílem bylo vytvořit funkční aplikaci a při jejím vytváření a vývoji pochopit řadu principů a technologií. Během vytváření a vývoje mé aplikace jsem měl za cíl nejen dosáhnout funkčnosti, ale také pochopit a implementovat řadu principů a technologií. Ačkoliv se mi podařilo dosáhnout většiny stanovených cílů a aplikace v základu funguje, narazil jsem na výzvy při zobrazení pokročilých vlastních textur. I když aplikace dosahuje požadované funkčnosti, věřím, že existuje prostor pro vylepšení v efektivitě a čitelnosti kódu.
+
+Cílem do budoucna je nadále rozvíjet tuto aplikaci. Mám představu o možných vylepšeních a nových funkcionalitách, které by mohly přinést přidanou hodnotu uživatelům. Plánuji pracovat na odstranění nedostatků ve zobrazení pokročilých vlastních textur a současně zdokonalovat celkový kód aplikace. Pro ty, kteří by si chtěli aplikaci vyzkoušet, je k dispozici otevřený zdrojový kód na mém GitHub repositáři.
 	\chapter*{Závěr}
-	Věřím, že jsem ti spolu se šablonou poskytl několik tipů, jak napsat práci. Ať už jde o úplné začátky s \LaTeX{}em. Či ukázku toho, co vše s ním zvládneš. Pokud bys měl k šabloně libovolné dotazy, rouhodně se na mě obrať. \LaTeX tvé práci dodá určitou krásu, tak doufám, že ti dodá sebevědomí a uspěješ při souteži. A i kdyby ne vzpomeň si, kolik ses toho musel naučit a hned uvidíš o jaký kus ses posunul.
+	
+	Cílem projektu bylo vytvoření webové aplikace na zobrazení 3D modelů s uživatelskými účty. Aplikace umožňuje uživatelům vytvoření, hodnocení, nahrání a stažení modelů. Aplikace je postavená na frameworku Django. Front-end je řešen pomocí klasického Html, JavaScriptu, CSS a Bootstrap 4.4.1. Na pozadí aplikace běží databázový systém MySQL. 
+	
+	Podle mě jsem základní cíl projektu splnil, až na nějaké menší nedostatky. V průběhu práce jsem si zopakoval práci s Djangem, kde jsem se přiučil novým komplexnějším věcem, a databází MySQL. Dále jsem porozuměl, aspoň na úrovni abych to mohl v praxi využít, frameworku Aframe.js přes který zobrazuji 3D modely. Do budoucna bych chtěl aplikaci určitě zDockerovat a také přidat hezčí design a responzivnost celé aplikace. Taky bych chtěl aplikaci zbavit pár drobných chyb které dělají horší uživatelský zážitek.
+	
+	Aplikace je zálohovaná na GitHub adrese https://github.com/OndraVicha/zaverecny-projekt.
 	\renewcommand{\bibname}{Seznam použitých informačních zdrojů}
 	%% literatura
 	\begin{thebibliography}{99}
